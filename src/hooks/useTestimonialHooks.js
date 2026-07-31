@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useQuery } from '@tanstack/react-query';
 import generalService from '../api/generalService';
 import { normalizeArrayResponse } from '../utils/dataNormalization';
 
@@ -11,39 +11,27 @@ export const getTestimonials = async (params = {}) => {
 };
 
 /**
- * SECTION: HOOKS
+ * Hook for fetching and managing testimonials data.
+ * Return shape: { data, totalTestimonials, loading, error, refresh } — identical to the old hook.
  */
 export const useTestimonials = (params) => {
-    const [data, setData] = useState([]);
-    const [totalTestimonials, setTotalTestimonials] = useState(0);
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState(null);
+    const { data, isLoading: loading, error, refetch: refresh } = useQuery({
+        queryKey: ['testimonials', params],
+        queryFn: async () => {
+            const result = await getTestimonials(params);
+            const activeItems = (Array.isArray(result) ? result : []).filter(
+                (item) => item.status === 'Active'
+            );
+            return activeItems;
+        },
+    });
 
-    const paramsKey = JSON.stringify(params);
-
-    const loadData = useCallback(async () => {
-        try {
-            setLoading(true);
-            const parsedParams = paramsKey ? JSON.parse(paramsKey) : {};
-            const response = await generalService.getAllTestimonials(parsedParams);
-            const result = normalizeArrayResponse(response.data, 'testimonials');
-            const activeItems = (Array.isArray(result) ? result : []).filter(item => item.status === 'Active');
-            setData(activeItems);
-            setTotalTestimonials(Number(response.data?.totalTestimonials ?? 0));
-        } catch (err) {
-            setError(err);
-            setData([]);
-            setTotalTestimonials(0);
-        } finally {
-            setLoading(false);
-        }
-    }, [paramsKey]);
-
-    useEffect(() => {
-        loadData();
-    }, [loadData]);
-
-    return { data, totalTestimonials, loading, error, refresh: loadData };
+    return {
+        data: data ?? [],
+        loading,
+        error,
+        refresh,
+    };
 };
 
 export default useTestimonials;

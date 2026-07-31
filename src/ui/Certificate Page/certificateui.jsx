@@ -8,7 +8,7 @@ const ITEMS_PER_PAGE = 6;
 
 export default function CertificateUI() {
   const { data: certificateItems, loading, error } = useCertificates({ limit: 100, page: 1 });
-  const [setSelectedImage] = useState(null);
+  const [, setSelectedImage] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
   const [currentItems, setCurrentItems] = useState([]);
 
@@ -22,17 +22,26 @@ export default function CertificateUI() {
         </div>
       )}
       <div className=" mx-[1%] sm:mx-[6%]">
-        <CertificateGrid
-          items={currentItems}
-          onItemClick={setSelectedImage}
-        />
-        <Pagination
-          items={certificateItems}
-          itemsPerPage={ITEMS_PER_PAGE}
-          currentPage={currentPage}
-          onPageChange={setCurrentPage}
-          onDataUpdate={setCurrentItems}
-        />
+        {!loading && !error && certificateItems.length === 0 ? (
+          <div className="flex flex-col items-center justify-center py-20 text-gray-500">
+            <h3 className="text-2xl font-semibold mb-2">No Certificates Found</h3>
+            <p>Check back later for new updates.</p>
+          </div>
+        ) : (
+          <>
+            <CertificateGrid
+              items={currentItems}
+              onItemClick={setSelectedImage}
+            />
+            <Pagination
+              items={certificateItems}
+              itemsPerPage={ITEMS_PER_PAGE}
+              currentPage={currentPage}
+              onPageChange={setCurrentPage}
+              onDataUpdate={setCurrentItems}
+            />
+          </>
+        )}
       </div>
     </div>
   );

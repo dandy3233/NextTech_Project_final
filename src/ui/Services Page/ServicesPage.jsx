@@ -40,21 +40,30 @@ export default function ServicesPage() {
           </h2>
         </div>
 
-        {/* Services Grid - Now uses currentServices from state */}
-        <div className="grid grid-cols-1 xs:grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:px-3 gap-5 xs:gap-6 sm:gap-7 md:gap-8 lg:gap-4 lg:gap-y-9 xl:gap-y-12 xl:gap-6 ">
-          {currentServices.map((service) => (
-            <ServiceCard key={service.id || service._id} service={service} />
-          ))}
-        </div>
-        <div className="mt-10 xs:mt-12 sm:mt-14 md:mt-16 lg:mt-20">
-          <Pagination
-            items={services}
-            itemsPerPage={ITEMS_PER_PAGE}
-            currentPage={currentPage}
-            onPageChange={handlePageChange}
-            onDataUpdate={setCurrentServices}
-          />
-        </div>
+        {/* Services Grid */}
+        {!loading && !error && services.length === 0 ? (
+          <div className="flex flex-col items-center justify-center py-20 text-gray-500">
+            <h3 className="text-2xl font-semibold mb-2">No Services Found</h3>
+            <p>Check back later for new updates.</p>
+          </div>
+        ) : (
+          <>
+            <div className="grid grid-cols-1 xs:grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:px-3 gap-5 xs:gap-6 sm:gap-7 md:gap-8 lg:gap-4 lg:gap-y-9 xl:gap-y-12 xl:gap-6">
+              {currentServices.map((service) => (
+                <ServiceCard key={service.id || service._id} service={service} />
+              ))}
+            </div>
+            <div className="mt-10 xs:mt-12 sm:mt-14 md:mt-16 lg:mt-20">
+              <Pagination
+                items={services}
+                itemsPerPage={ITEMS_PER_PAGE}
+                currentPage={currentPage}
+                onPageChange={handlePageChange}
+                onDataUpdate={setCurrentServices}
+              />
+            </div>
+          </>
+        )}
       </div>
     </section>
   );

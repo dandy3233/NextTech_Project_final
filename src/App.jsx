@@ -34,7 +34,7 @@ function App() {
         // Initialize FingerprintJS
         const fpPromise = FingerprintJS.load();
         const fp = await fpPromise;
-        
+
         // Get the visitor identifier
         const result = await fp.get();
         const visitorId = result.visitorId;

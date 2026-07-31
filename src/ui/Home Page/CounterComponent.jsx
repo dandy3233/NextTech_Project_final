@@ -75,8 +75,9 @@ const CounterComponent = () => {
               return <StatCard key={stat._id} item={mappedStat} />;
             })
           ) : !error && (
-            <div className="col-span-full text-center text-gray-400 py-10">
-              No counter data found in the backend.
+            <div className="col-span-full flex flex-col items-center justify-center py-20 text-gray-500">
+              <h3 className="text-2xl font-semibold mb-2">No Counters Found</h3>
+              <p>Check back later for new updates.</p>
             </div>
           )}
         </div>

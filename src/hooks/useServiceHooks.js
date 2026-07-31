@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useQuery } from '@tanstack/react-query';
 import generalService from '../api/generalService';
 import { normalizeArrayResponse, fixObjectMedia } from '../utils/dataNormalization';
 
@@ -11,7 +11,7 @@ export const getServices = async (params = {}) => {
     // Map MongoDB's _id to id so components can always use item.id
     const mapped = items.map(item => ({ ...item, id: item._id }));
     // Filter to only show published (active) services
-    return mapped.filter(item => item.status === "active");
+    return mapped.filter(item => item.status === 'active');
 };
 
 export const getServiceById = async (id) => {
@@ -24,66 +24,29 @@ export const getServiceById = async (id) => {
 
 /**
  * Hook for fetching and managing services data.
+ * Return shape: { data, loading, error, refresh } — identical to the old hook.
  */
 export const useServices = (params) => {
-    const [data, setData] = useState([]);
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState(null);
+    const { data = [], isLoading: loading, error, refetch: refresh } = useQuery({
+        queryKey: ['services', params],
+        queryFn: () => getServices(params),
+    });
 
-    // Stringify params to avoid infinite re-render when object literal is passed
-    const paramsKey = JSON.stringify(params);
-
-    const loadData = useCallback(async () => {
-        try {
-            setLoading(true);
-            const parsedParams = paramsKey ? JSON.parse(paramsKey) : {};
-            const result = await getServices(parsedParams);
-            setData(Array.isArray(result) ? result : []);
-            setError(null);
-        } catch (err) {
-            setError(err);
-            setData([]);
-        } finally {
-            setLoading(false);
-        }
-    }, [paramsKey]);
-
-    useEffect(() => {
-        loadData();
-    }, [loadData]);
-
-    return { data, loading, error, refresh: loadData };
+    return { data, loading, error, refresh };
 };
 
 /**
  * Hook for fetching and managing single service data.
+ * Return shape: { data, loading, error, refresh } — identical to the old hook.
  */
 export const useService = (id) => {
-    const [data, setData] = useState(null);
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState(null);
+    const { data = null, isLoading: loading, error, refetch: refresh } = useQuery({
+        queryKey: ['service', id],
+        queryFn: () => getServiceById(id),
+        enabled: !!id && id !== 'undefined',
+    });
 
-    const loadData = useCallback(async () => {
-        if (!id || id === 'undefined') {
-            setLoading(false);  // Guard exit: stop loading, don't fetch
-            return;
-        }
-        try {
-            setLoading(true);
-            const result = await getServiceById(id);
-            setData(result);
-        } catch (err) {
-            setError(err);
-        } finally {
-            setLoading(false);
-        }
-    }, [id]);
-
-    useEffect(() => {
-        loadData();
-    }, [loadData]);
-
-    return { data, loading, error, refresh: loadData };
+    return { data, loading, error, refresh };
 };
 
 export default useServices;

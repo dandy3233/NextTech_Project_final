@@ -1,12 +1,8 @@
-import { useNavigate } from "react-router-dom";
-import { Home, ServerCrash } from "lucide-react";
+import { ServerCrash, RefreshCw } from "lucide-react";
 import { Link } from "react-router-dom";
 import Button from "../ui/Button";
-import { HiChevronDoubleLeft } from "react-icons/hi";
 
 export default function ServerError() {
-    const navigate = useNavigate();
-
     return (
         <div className="min-h-screen bg-gray-50 flex flex-col items-center justify-center px-4 py-12">
             <div className="max-w-md w-full text-center space-y-8">
@@ -33,23 +29,15 @@ export default function ServerError() {
                     </p>
                 </div>
 
-                {/* Action Buttons */}
-                <div className="flex flex-col sm:flex-row gap-4 justify-center pt-6">
+                {/* Go Home Button */}
+                <div className="flex justify-center pt-6">
                     <Button
                         as={Link}
                         to="/"
                         variant="primary"
                         size="lg"
-                        icon={Home}>
-                        Go to Home
-                    </Button>
-
-                    <Button
-                        onClick={() => navigate(-1)}
-                        variant="primary"
-                        size="lg"
-                        iconAfter={HiChevronDoubleLeft}>
-                        Go Back
+                        icon={RefreshCw}>
+                        Try Again
                     </Button>
                 </div>
             </div>
@@ -61,3 +49,4 @@ export default function ServerError() {
         </div>
     );
 }
+

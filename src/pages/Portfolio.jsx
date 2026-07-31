@@ -1,10 +1,12 @@
-// import UnderMentinance from "../ui/UnderMentinance";
-import Portfolio  from "../ui/Portfolio Page/PortfolioSection";
+import Portfolio from "../ui/Portfolio Page/PortfolioSection";
 
 function PortfolioPage() {
-  return <div>
-     <Portfolio/>
-</div>;;
+  return (
+    <div>
+      <Portfolio />
+    </div>
+  );
 }
 
 export default PortfolioPage;
+

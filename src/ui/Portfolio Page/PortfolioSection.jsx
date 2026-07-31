@@ -144,9 +144,16 @@ export default function PortfolioSection() {
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-5 mb-14 md:mb-24">
-        {currentItems.map((item, index) => (
-          <PortfolioCard key={item._id || index} item={item} />
-        ))}
+        {!loading && !error && currentItems.length === 0 ? (
+          <div className="col-span-full flex flex-col items-center justify-center py-20 text-gray-500">
+            <h3 className="text-2xl font-semibold mb-2">No Portfolio Projects Found</h3>
+            <p>Check back later for new updates.</p>
+          </div>
+        ) : (
+          currentItems.map((item, index) => (
+            <PortfolioCard key={item._id || index} item={item} />
+          ))
+        )}
       </div>
 
       <div className="flex justify-center items-center">

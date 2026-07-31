@@ -1,50 +1,34 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useQuery } from '@tanstack/react-query';
 import generalService from '../api/generalService';
 import { normalizeArrayResponse } from '../utils/dataNormalization';
 
 /**
- * SECTION: HOOKS
+ * Hook for fetching and managing partners data.
+ * Return shape: { data, totalPartners, loading, error, refresh } — identical to the old hook.
  */
 export const usePartners = (params) => {
-    const [data, setData] = useState([]);
-    const [totalPartners, setTotalPartners] = useState(0);
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState(null);
-
-    // Use stringified params as dependency to avoid infinite loops with object literals
-    const paramsKey = JSON.stringify(params);
-
-    const loadData = useCallback(async () => {
-        try {
-            setLoading(true);
-            const parsedParams = paramsKey ? JSON.parse(paramsKey) : {};
-            const response = await generalService.getAllPartners(parsedParams);
-            
-
+    const { data, isLoading: loading, error, refetch: refresh } = useQuery({
+        queryKey: ['partners', params],
+        queryFn: async () => {
+            const response = await generalService.getAllPartners(params);
             const result = normalizeArrayResponse(response.data, 'partners');
-            const activePartners = (Array.isArray(result) ? result : []).filter(item => item.status === 'Active');
-            setData(activePartners);
-            
-            
-            const total = response.data?.totalPartners ?? 0;
-            
-            setTotalPartners(Number(total));
-            setError(null);
-        } catch (err) {
-            console.error('Error fetching partners:', err);
-            setError(err);
-            setData([]);
-            setTotalPartners(0);
-        } finally {
-            setLoading(false);
-        }
-    }, [paramsKey]);
+            const activePartners = (Array.isArray(result) ? result : []).filter(
+                (item) => item.status === 'Active'
+            );
+            return {
+                items: activePartners,
+                total: Number(response.data?.totalPartners ?? 0),
+            };
+        },
+    });
 
-    useEffect(() => {
-        loadData();
-    }, [loadData]);
-
-    return { data, totalPartners, loading, error, refresh: loadData };
+    return {
+        data: data?.items ?? [],
+        totalPartners: data?.total ?? 0,
+        loading,
+        error,
+        refresh,
+    };
 };
 
 export default usePartners;

@@ -1,36 +1,17 @@
-import { useState, useEffect } from "react";
-import { useParams, Link } from "react-router-dom";
-import { IoIosArrowRoundForward } from "react-icons/io";
-import { MdKeyboardArrowRight } from "react-icons/md";
+import { useParams } from "react-router-dom";
 import Faq from "../Faq Page/Faq";
 import { useService, useServices } from "../../hooks/useServiceHooks";
-import Button from "../Button.jsx";
 import NotFoundMessage from "../NotFoundMessage";
 import LoadingSpinner from "../LoadingSpinner";
+import ServiceHeroImage from "./ServiceHeroImage";
+import ServiceContentBody from "./ServiceContentBody";
+import ServiceImageSlider from "./ServiceImageSlider";
+import ServiceSidebar from "./ServiceSidebar";
 
 export default function ServiceDetail() {
   const { id } = useParams();
   const { data: service, loading, error } = useService(id);
   const { data: services = [] } = useServices();
-
-  // --- Logic for Slider and Responsive Dots ---
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const [itemsPerView, setItemsPerView] = useState(2);
-
-  useEffect(() => {
-    const updateView = () => {
-      // Below md (768px), show 1 image (slider mode). Above, show 2 images (grid mode).
-      if (window.innerWidth >= 768) {
-        setItemsPerView(2);
-      } else {
-        setItemsPerView(1);
-      }
-    };
-
-    updateView();
-    window.addEventListener("resize", updateView);
-    return () => window.removeEventListener("resize", updateView);
-  }, []);
 
   if (loading) {
     return <LoadingSpinner text="Loading Service Details..." />;
@@ -40,185 +21,21 @@ export default function ServiceDetail() {
     return <NotFoundMessage itemType="Service" backPath="/Service" />;
   }
 
-  const totalMembers = (service.images || []).length;
-  const totalSlides = Math.ceil(totalMembers / itemsPerView);
-
-
-
-  // Gap as percentage for translation calculation (Tailwind gap-x-4 = 1rem)
-  const gapRem = 1; // 1rem gap
-  const gapPercent = (gapRem / window.innerWidth) * 100;
-
   return (
     <section className="py-12 xs:py-16 md:py-20 lg:py-24 bg-white">
       <div className="font-sans mx-auto px-5 xs:px-6 sm:px-10 md:px-14 lg:px-14 xl:px-20 2xl:px-24">
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-10 lg:gap-2 xl:gap-0">
 
           {/* ================= LEFT CONTENT (Main) ================= */}
-          <div className="lg:col-span-2 space-y-8 md:space-y-10 ml-0 lg:ml-8 xl:ml-8 ">
-
-            {/* Hero Image */}
-            <div className="w-full h-56 xs:h-72 sm:h-80 md:h-[28rem] lg:h-[25rem] xl:h-[32rem] 2xl:h-[33rem] rounded-lg overflow-hidden">
-              <img
-                src={service.imageCover}
-                alt={service.title}
-                className="w-full h-full object-cover transition-transform duration-700"
-              />
-            </div>
-
-            <h3 className="text-xl sm:text-xl md:text-2xl lg:text-2xl xl:text-2xl 2xl:text-3xl font-bold text-gray-900 line-clamp-1 group-hover:text-primary transition-colors duration-300">
-              {service.title}
-            </h3>
-
-            {/* Text Content */}
-            <div className="space-y-6 text-gray-600 leading-relaxed text-base md:text-lg lg:text-base xl:text-lg ">
-              {service.description && (
-                <p className="first-letter:text-gray-900">
-                  {service.description}
-                </p>
-              )}
-
-              {/* Sub Section One */}
-              {(service.subTitleOne || service.subdescriptionOne) && (
-                <div className="mt-8 space-y-3">
-                  {service.subTitleOne && (
-                    <h4 className="text-xl font-bold text-gray-900">{service.subTitleOne}</h4>
-                  )}
-                  {service.subdescriptionOne && (
-                    <p>{service.subdescriptionOne}</p>
-                  )}
-                </div>
-              )}
-
-              {/* Sub Section Two */}
-              {(service.subTitleTwo || service.subdescriptionTwo) && (
-                <div className="mt-8 space-y-3">
-                  {service.subTitleTwo && (
-                    <h4 className="text-xl font-bold text-gray-900">{service.subTitleTwo}</h4>
-                  )}
-                  {service.subdescriptionTwo && (
-                    <p>{service.subdescriptionTwo}</p>
-                  )}
-                </div>
-              )}
-            </div>
-            {/* Updated Gallery Slider Container */}
-            <div className="relative overflow-hidden">
-              <div
-                className="flex transition-transform duration-700 ease-in-out gap-x-4 md:gap-x-4 lg:gap-x-5  xl:gap-x-5"
-                style={{
-                  transform: `translateX(-${currentIndex * (100 + gapPercent * itemsPerView)
-                    }%)`,
-                }}
-              >
-                {(service.images || []).map((img, index) => (
-                  <div
-                    key={index}
-                    className="flex-none"
-                    style={{
-                      width: `calc(${100 / itemsPerView}% - 1rem)`, // subtract gap
-                    }}
-                  >
-                    <img
-                      src={img}
-                      alt="Service detail"
-                      className="w-full h-64  lg:h-60 xl:h-80 object-cover md:rounded-xl"
-                    />
-                  </div>
-                ))}
-              </div>
-
-
-            </div>
-            {/* Dots show if we have more slides than 1 */}
-            {totalSlides > 1 && (
-              <div className="flex justify-center gap-3 mt-10">
-                {Array.from({ length: totalSlides }).map((_, idx) => (
-                  <button
-                    key={idx}
-                    onClick={() => setCurrentIndex(idx)}
-                    className={`
-                          w-2.5 xs:w-3 h-2.5 xs:h-3 rounded-full 
-                          transition-all duration-300
-                          ${currentIndex === idx
-                        ? "bg-gray-600 scale-125 shadow-md"
-                        : "bg-gray-300 hover:bg-gray-400 hover:scale-110"
-                      }
-                        `}
-                    aria-label={`Slide ${idx + 1}`}
-                  />
-                ))}
-              </div>
-            )}
-
-            {/* Second Text Block */}
-            {service.headLine && (
-              <div className="space-y-6 text-gray-600 leading-relaxed text-base md:text-lg lg:text-base xl:text-lg ">
-                <p>{service.headLine}</p>
-              </div>
-            )}
+          <div className="lg:col-span-2 space-y-8 md:space-y-10 ml-0 lg:ml-8 xl:ml-8">
+            <ServiceHeroImage src={service.imageCover} title={service.title} />
+            <ServiceContentBody service={service} />
+            <ServiceImageSlider images={service.images} headLine={service.headLine} />
           </div>
 
           {/* ================= RIGHT SIDEBAR ================= */}
-          <aside className="space-y-11 lg:top-10 py-20 md:py-0 h-fit flex flex-col mb-28 md:mb-0 ml-0 lg:ml-10 xl:ml-14">
-            <div className="bg-white py-8 rounded-lg p-6 sm:p-6 lg:p-5 xl:p-6 flex flex-col border border-gray-600 border-opacity-20 ">
-              <h3 className="font-sans text-2xl lg:text-xl xl:text-3xl 2xl:text-4xl font-semibold text-gray-900 mb-6 lg:mb-4 xl:mb-6">
-                Services List
-              </h3>
-              <div className="flex flex-col space-y-3 lg:space-y-3 h-[26rem] lg:h-[20rem] xl:h-[26rem] overflow-y-auto pr-2 custom-scrollbar">
-                {services.map((item) => (
-                  <Link
-                    key={item.id}
-                    to={`/service/${item.id}`}
-                    className={`rounded-lg px-6 py-4 lg:py-2 xl:py-4 2xl:py-5 flex items-center justify-between border border-gray-600 border-opacity-20 transition-all duration-300 group ${id === item.id
-                      ? "bg-[#101010] border-transparent"
-                      : "bg-white hover:bg-[#101010]"
-                      }`}
-                  >
-                    <span className={`text-base lg:text-base xl:text-lg 2xl:text-lg line-clamp-1  transition-colors ${id === item.id ? "text-white" : "text-gray-800 group-hover:text-white"
-                      }`}>
-                      {item.title}
-                    </span>
-                    <IoIosArrowRoundForward className={`text-2xl transition-all duration-300 group-hover:translate-x-1 ${id === item.id ? "text-white" : "text-gray-800 group-hover:text-white"
-                      }`} />
-                  </Link>
-                ))}
-              </div>
-            </div>
+          <ServiceSidebar services={services} activeId={id} />
 
-            {/* Need Help Form */}
-            <div className="bg-white rounded-lg p-6 lg:p-5 xl:p-6 border border-gray-100 shadow-sm ring-1 ring-gray-900/5">
-              <h3 className="text-2xl lg:text-xl xl:text-4xl font-bold text-gray-900 mb-8 lg:mb-4 xl:mb-8">
-                Need help?
-              </h3>
-              <form className="space-y-4 lg:space-y-3 xl:space-y-4 2xl:space-y-4">
-                <input
-                  type="text"
-                  placeholder="Enter Name"
-                  className="w-full px-5 py-4 lg:py-3 xl:py-4   border border-gray-200 rounded-xl text-base leading-none focus:ring-2 focus:ring-primary outline-none transition"
-                />
-
-                <input
-                  type="email"
-                  placeholder="Enter Email"
-                  className="w-full px-5 py-4 lg:py-3 xl:py-4  border border-gray-200 rounded-xl text-base leading-none focus:ring-2 focus:ring-primary outline-none transition"
-                />
-
-                <textarea
-                  placeholder="How can we help?"
-                  className="w-full px-5 py-4 lg:py-3 xl:py-4 2xl:py-5 min-h-[7.5rem] lg:min-h-[6.25rem] xl:min-h-[7.5rem] 2xl:min-h-[8.75rem] border border-gray-200 rounded-xl text-base focus:ring-2 focus:ring-primary outline-none transition resize-none"
-                />
-
-                <div className="pt-4 lg:pt-3 xl:pt-8 2xl:pt-10 flex justify-center">
-                  <Button as={Link} to="" variant="primary" size="lg" iconAfter={MdKeyboardArrowRight}>
-                    SEND MESSAGE
-                  </Button>
-                </div>
-              </form>
-
-
-            </div>
-          </aside>
         </div>
       </div>
       <div className="md:mt-10">

@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useQuery } from '@tanstack/react-query';
 import generalService from '../api/generalService';
 import { normalizeArrayResponse, fixObjectMedia } from '../utils/dataNormalization';
 
@@ -13,72 +13,66 @@ export const getPortfolio = async (params = {}) => {
 export const getPortfolioById = async (id) => {
     const response = await generalService.getSinglePortfolio(id);
     const item = response.data?.data?.portfolio || response.data?.portfolio;
-    return item ? fixObjectMedia(item) : null;
+    if (!item) return null;
+
+    const normalized = fixObjectMedia(item);
+
+    // Ensure `requirement` is always an array of individual strings
+    if (typeof normalized.requirement === 'string') {
+        // Split by ", " (comma + space) to avoid breaking numbers like 1,200+
+        normalized.requirement = normalized.requirement
+            .split(', ')
+            .map((s) => s.trim())
+            .filter(Boolean);
+    } else if (Array.isArray(normalized.requirement)) {
+        // Array with a single comma-joined string (e.g. ["req1, req2, req3"])
+        if (
+            normalized.requirement.length === 1 &&
+            typeof normalized.requirement[0] === 'string' &&
+            normalized.requirement[0].includes(', ')
+        ) {
+            normalized.requirement = normalized.requirement[0]
+                .split(', ')
+                .map((s) => s.trim())
+                .filter(Boolean);
+        }
+    } else {
+        normalized.requirement = [];
+    }
+
+    return normalized;
 };
 
+
 /**
- * SECTION: HOOKS
+ * Hook for fetching and managing portfolio list data.
+ * Return shape: { data, loading, error, refresh } — identical to the old hook.
  */
 export const usePortfolio = (params) => {
-    const [data, setData] = useState([]);
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState(null);
+    const { data = [], isLoading: loading, error, refetch: refresh } = useQuery({
+        queryKey: ['portfolio', params],
+        queryFn: () => getPortfolio(params),
+        select: (result) =>
+            (Array.isArray(result) ? result : []).filter(
+                (item) => item.status === 'Active'
+            ),
+    });
 
-    const paramsKey = JSON.stringify(params);
-
-    const loadData = useCallback(async () => {
-        try {
-            setLoading(true);
-            const parsedParams = paramsKey ? JSON.parse(paramsKey) : {};
-            const result = await getPortfolio(parsedParams);
-            const arrayResult = Array.isArray(result) ? result : [];
-            const activePortfolios = arrayResult.filter(item => item.status === "Active");
-            setData(activePortfolios);
-        } catch (err) {
-            setError(err);
-            setData([]);
-        } finally {
-            setLoading(false);
-        }
-    }, [paramsKey]);
-
-    useEffect(() => {
-        loadData();
-    }, [loadData]);
-
-    return { data, loading, error, refresh: loadData };
+    return { data, loading, error, refresh };
 };
 
 /**
  * Hook for fetching and managing single portfolio data.
+ * Return shape: { data, loading, error, refresh } — identical to the old hook.
  */
 export const usePortfolioDetail = (id) => {
-    const [data, setData] = useState(null);
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState(null);
+    const { data = null, isLoading: loading, error, refetch: refresh } = useQuery({
+        queryKey: ['portfolio', id],
+        queryFn: () => getPortfolioById(id),
+        enabled: !!id && id !== 'undefined',
+    });
 
-    const loadData = useCallback(async () => {
-        if (!id || id === 'undefined') {
-            setLoading(false);
-            return;
-        }
-        try {
-            setLoading(true);
-            const result = await getPortfolioById(id);
-            setData(result);
-            setError(null);
-        } catch (err) {
-            setError(err);
-        } finally {
-            setLoading(false);
-        }
-    }, [id]);
-
-    useEffect(() => {
-        loadData();
-    }, [loadData]);
-
-    return { data, loading, error, refresh: loadData };
+    return { data, loading, error, refresh };
 };
 
 export default usePortfolio;

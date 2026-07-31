@@ -42,36 +42,43 @@ export default function Faq() {
 
           {/* Right Side - Accordion */}
           <div className="space-y-4 ">
-            {faqData.map((item, index) => (
-              <div
-                key={item._id || index}
-                className="bg-white overflow-hidden  transition-all duration-300"
-              >
-                <button
-                  onClick={() => toggleAccordion(index)}
-                  className={`w-full px-6 py-5 lg:py-3  xl:px-6 xl:py-5 flex items-center border rounded-md justify-between text-left transition-all duration-300 ${openIndex === index
-                    ? "bg-gray-900 text-white "
-                    : "text-gray-900 border-gray-400   hover:bg-gray-100"
-                    }`}
-                  aria-expanded={openIndex === index}
-                >
-                  <span className="text-xl lg:text-base xl:text-xl p-1  font-semibold pr-4">
-                    {item.question}
-                  </span>
-                  {openIndex === index ? (
-                    <IoChevronUp className="text-2xl lg:text-xl xl:text-2xl flex-shrink-0" />
-                  ) : (
-                    <IoChevronDown className="text-2xl lg:text-xl xl:text-2xl flex-shrink-0 text-gray-600" />
-                  )}
-                </button>
-
-                {openIndex === index && (
-                  <div className="px-6 py-8 lg:py-4 lg:px-3 xl:px-6 xl:py-8 bg-white text-gray-600 text-lg lg:text-sm xl:text-lg leading-relaxed border-t border-gray-100">
-                    {item.answer}
-                  </div>
-                )}
+            {!loading && !error && faqData.length === 0 ? (
+              <div className="flex flex-col items-center justify-center py-10 text-gray-500">
+                <h3 className="text-xl font-semibold mb-2">No FAQs Found</h3>
+                <p>Check back later for new updates.</p>
               </div>
-            ))}
+            ) : (
+              faqData.map((item, index) => (
+                <div
+                  key={item._id || index}
+                  className="bg-white overflow-hidden  transition-all duration-300"
+                >
+                  <button
+                    onClick={() => toggleAccordion(index)}
+                    className={`w-full px-6 py-5 lg:py-3  xl:px-6 xl:py-5 flex items-center border rounded-md justify-between text-left transition-all duration-300 ${openIndex === index
+                      ? "bg-gray-900 text-white "
+                      : "text-gray-900 border-gray-400   hover:bg-gray-100"
+                      }`}
+                    aria-expanded={openIndex === index}
+                  >
+                    <span className="text-xl lg:text-base xl:text-xl p-1  font-semibold pr-4">
+                      {item.question}
+                    </span>
+                    {openIndex === index ? (
+                      <IoChevronUp className="text-2xl lg:text-xl xl:text-2xl flex-shrink-0" />
+                    ) : (
+                      <IoChevronDown className="text-2xl lg:text-xl xl:text-2xl flex-shrink-0 text-gray-600" />
+                    )}
+                  </button>
+
+                  {openIndex === index && (
+                    <div className="px-6 py-8 lg:py-4 lg:px-3 xl:px-6 xl:py-8 bg-white text-gray-600 text-lg lg:text-sm xl:text-lg leading-relaxed border-t border-gray-100">
+                      {item.answer}
+                    </div>
+                  )}
+                </div>
+              ))
+            )}
           </div>
         </div>
       </div>

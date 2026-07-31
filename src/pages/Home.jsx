@@ -7,23 +7,22 @@ import WhatWeOffer from "../ui/Home Page/WhatWeOffer";
 import Testimonials from "../ui/Home Page/Testimonials";
 import FooterCard from "../ui/Home Page/FooterCard";
 
-
-
 function Home() {
   return (
     <>
       <div>
-        <MainCoponents/>
-        <CounterComponent/>
-        <AboutUs/>
-        <WhatWeOffer/>
-        <Clients/>
-        <RecentProjects/>
-        <Testimonials/>
-        <FooterCard/>
+        <MainCoponents />
+        <CounterComponent />
+        <AboutUs />
+        <WhatWeOffer />
+        <Clients />
+        <RecentProjects />
+        <Testimonials />
+        <FooterCard />
       </div>
     </>
   );
 }
 
 export default Home;
+

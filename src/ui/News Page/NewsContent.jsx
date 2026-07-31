@@ -4,7 +4,7 @@ import {
     MdOutlineCalendarToday,
     MdOutlineFolderOpen,
 } from "react-icons/md";
-import { formatDate } from "../../utils/dataNormalization";
+import { formatLongDate } from "../../utils/dataNormalization";
 
 function BlogContent({ post }) {
     if (!post) return null;
@@ -26,7 +26,7 @@ function BlogContent({ post }) {
                 </div>
                 <div className="flex items-center font-bold">
                     <MdOutlineCalendarToday className="mr-2 text-sky-500" size={22} />
-                    <span>{formatDate(post.happenedOn)}</span>
+                    <span>{formatLongDate(post.happenedOn)}</span>
                 </div>
                 <div className="flex items-center font-bold">
                     <MdOutlineFolderOpen className="mr-2 text-sky-500" size={22} />

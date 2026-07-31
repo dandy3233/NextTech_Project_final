@@ -75,32 +75,34 @@ const Testimonials = () => {
               <LoadingSpinner text="Loading Testimonials..." />
             </div>
           ) : safeItems.length === 0 && !loading && !error ? (
-            <div className="flex items-center justify-center py-20 text-gray-400">
-              No testimonials found.
+            <div className="flex flex-col items-center justify-center py-20 text-gray-500">
+              <h3 className="text-2xl font-semibold mb-2">No Testimonials Found</h3>
+              <p>Check back later for new updates.</p>
             </div>
           ) : !error ? (
             <div className={`grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-20 sm:gap-5 w-full transition-opacity duration-300 ${loading ? 'opacity-50' : 'opacity-100'}`}>
               {currentItems.map((item, index) => (
                 <div
                   key={item._id || index}
-                  className="bg-white p-8 md:p-10 rounded-[20px] shadow-[0px_20px_50px_rgba(176,190,210,0.3)] flex flex-col h-full border border-gray-50/50"
+                  className="group bg-white hover:bg-[#F5F8FE] p-8 md:p-10 rounded-[20px]  flex flex-col h-full border border-gray-50/50 transition-colors duration-300"
                 >
                   {/* Profile Header */}
                   <div className="flex items-center gap-4 mb-6">
-                    <div className="relative w-[80px] h-[80px] flex-shrink-0">
+                    <div className="relative w-[75px] h-[75px] flex-shrink-0">
                       {/* Blue Crescent */}
                       <div
-                        className="absolute rounded-full bg-[#00AEEF]"
+                        className="absolute rounded-full bg-[#00AEEF] group-hover:bg-[#1D2765] transition-colors duration-300"
                         style={{
-                          width: "84px",
-                          height: "84px",
+                          width: "79px",
+                          height: "79px",
                           top: "1px",
                           left: "3px",
+                          zIndex: 0,
                         }}
                       />
 
                       {/* Profile */}
-                      <div className="absolute inset-0 rounded-full overflow-hidden border-[3px] border-white bg-white">
+                      <div className="absolute inset-0  rounded-full overflow-hidden border-[3px] border-white group-hover:border-[#F5F8FE] bg-white group-hover:bg-[#F5F8FE] transition-colors duration-300">
                         <img
                           src={item.image}
                           alt={item.name}
@@ -109,10 +111,10 @@ const Testimonials = () => {
                       </div>
                     </div>
                     <div>
-                      <h4 className="font-bold text-[#1A2B49] text-xl">
+                      <h4 className="font-bold text-[#1A2B49] group-hover:text-[#0AA7C4] text-xl transition-colors duration-300">
                         {item.name}
                       </h4>
-                      <p className="text-[#00AEEF] text-sm font-semibold">
+                      <p className="text-[#00AEEF] group-hover:text-[#1D2765] text-sm font-semibold transition-colors duration-300">
                         {item.specality}
                       </p>
                     </div>
@@ -135,43 +137,43 @@ const Testimonials = () => {
                       </svg>
                     ))}
                   </div> */}
-                {/* Stars Section */}
-                <div className="flex gap-1 mt-auto">
-                  {[...Array(5)].map((_, i) => {
-                    const rating = Number(item.rate);
+                  {/* Stars Section */}
+                  <div className="flex gap-1 mt-auto">
+                    {[...Array(5)].map((_, i) => {
+                      const rating = Number(item.rate);
 
-                    // Calculate star fill percentage
-                    const fill = Math.min(Math.max(rating - i, 0), 1) * 100;
+                      // Calculate star fill percentage
+                      const fill = Math.min(Math.max(rating - i, 0), 1) * 100;
 
-                    const gradientId = `star-${item._id}-${i}`;
+                      const gradientId = `star-${item._id}-${i}`;
 
-                    return (
-                      <svg
-                        key={i}
-                        className="w-4 h-4"
-                        viewBox="0 0 20 20"
-                      >
-                        <defs>
-                          <linearGradient id={gradientId}>
-                            <stop
-                              offset={`${fill}%`}
-                              stopColor="#FFA800"
-                            />
-                            <stop
-                              offset={`${fill}%`}
-                              stopColor="#E5E7EB"
-                            />
-                          </linearGradient>
-                        </defs>
+                      return (
+                        <svg
+                          key={i}
+                          className="w-4 h-4"
+                          viewBox="0 0 20 20"
+                        >
+                          <defs>
+                            <linearGradient id={gradientId}>
+                              <stop
+                                offset={`${fill}%`}
+                                stopColor="#FFA800"
+                              />
+                              <stop
+                                offset={`${fill}%`}
+                                stopColor="#E5E7EB"
+                              />
+                            </linearGradient>
+                          </defs>
 
-                        <path
-                          fill={`url(#${gradientId})`}
-                          d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"
-                        />
-                      </svg>
-                    );
-                  })}
-                </div>    
+                          <path
+                            fill={`url(#${gradientId})`}
+                            d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"
+                          />
+                        </svg>
+                      );
+                    })}
+                  </div>
                 </div>
               ))}
             </div>

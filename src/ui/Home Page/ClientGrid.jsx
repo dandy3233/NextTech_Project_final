@@ -42,7 +42,7 @@ const Clients = () => {
   const { subtitle, title, blogTitle } = clientsData;
   const PAGE_LIMIT = 10;
   // Fetch all active partners at once so the auto-carousel doesn't constantly hit the backend
-  const { data: allLogos, totalPartners, loading, error } = usePartners({ limit: 100, page: 1 });
+  const { data: allLogos, loading, error } = usePartners({ limit: 100, page: 1 });
 
   const safeLogos = Array.isArray(allLogos) ? allLogos : [];
   const totalPages = safeLogos.length > 0 ? Math.ceil(safeLogos.length / PAGE_LIMIT) : 1;
@@ -60,16 +60,6 @@ const Clients = () => {
       return () => clearInterval(interval);
     }
   }, [isPaused, totalPages]);
-
-  // Debug log to help identify why it might not be displaying
-  console.log("ClientGrid Data:", {
-    logosCount: logos?.length,
-    totalPartners,
-    totalPages,
-    currentPage,
-    loading,
-    error: error?.message
-  });
 
   useEffect(() => {
     if (!loading && !hasInitialLoaded) {
@@ -114,8 +104,9 @@ const Clients = () => {
           onMouseLeave={() => setIsPaused(false)}
         >
           {(!logos || logos.length === 0) && !error ? (
-            <div className="text-center text-gray-400 py-10">
-              No partners found in the backend.
+            <div className="flex flex-col items-center justify-center py-20 text-gray-500">
+              <h3 className="text-2xl font-semibold mb-2">No Partners Found</h3>
+              <p>Check back later for new updates.</p>
             </div>
           ) : !error ? (
             <>

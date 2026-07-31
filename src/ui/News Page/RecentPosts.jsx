@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
 import { MdOutlineCalendarToday } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
-import { formatDate } from "../../utils/dataNormalization";
+import { formatLongDate } from "../../utils/dataNormalization";
 
 function RecentPosts({ posts }) {
     const navigate = useNavigate();
@@ -37,7 +37,7 @@ function RecentPosts({ posts }) {
                             </h4>
                             <div className="flex items-center text-sm font-medium text-[#00A3C4]">
                                 <MdOutlineCalendarToday className="mr-2" size={16} />
-                                <span>{formatDate(post.happenedOn)}</span>
+                                <span>{formatLongDate(post.happenedOn)}</span>
                             </div>
                         </div>
                     </div>

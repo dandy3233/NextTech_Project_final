@@ -1,6 +1,7 @@
-import { useState, useMemo, useEffect } from "react";
-import generalService from "../api/generalService";
-import { normalizeArrayResponse } from "../utils/dataNormalization";
+import { useQuery } from '@tanstack/react-query';
+import { useState, useMemo } from 'react';
+import generalService from '../api/generalService';
+import { normalizeArrayResponse } from '../utils/dataNormalization';
 
 /**
  * SECTION: API FETCHERS
@@ -25,82 +26,50 @@ export const getSingleNews = async (id) => {
 
 /**
  * useSingleNews hook for fetching a single post by ID.
+ * Return shape: { post, loading, error } — identical to the old hook.
  */
 export function useSingleNews(id) {
-    const [post, setPost] = useState(null);
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState(null);
-
-    useEffect(() => {
-        if (!id) return;
-        const fetchPost = async () => {
-            try {
-                setLoading(true);
-                const result = await getSingleNews(id);
-                setPost(result);
-                setError(null);
-            } catch (err) {
-                console.error("Error fetching single news:", err);
-                setError(err);
-            } finally {
-                setLoading(false);
-            }
-        };
-        fetchPost();
-    }, [id]);
+    const { data: post = null, isLoading: loading, error } = useQuery({
+        queryKey: ['news', id],
+        queryFn: () => getSingleNews(id),
+        enabled: !!id,
+    });
 
     return { post, loading, error };
 }
 
 /**
  * useBlog hook to handle news fetching, searching, and filtering.
+ * All derived values (filteredPosts, categories, tags, recentPosts) are
+ * computed with useMemo — same logic as before, just sourced from React Query.
  */
 function useBlog() {
-    const [searchQuery, setSearchQuery] = useState("");
-    const [posts, setPosts] = useState([]);
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState(null);
+    const [searchQuery, setSearchQuery] = useState('');
 
-    useEffect(() => {
-        const fetchPosts = async () => {
-            try {
-                setLoading(true);
-                // Use the centralized getNews helper which handles basic normalization and media fixing
-                const result = await getNews({ limit: 100, page: 1 });
-
-                // Filter to only show published posts
-                const publishedPosts = result.filter(post => post.status === "published");
-
-                setPosts(publishedPosts);
-                setError(null);
-            } catch (err) {
-                console.error("Error fetching news:", err);
-                setError(err);
-                setPosts([]); // Ensure posts is an array even on error
-            } finally {
-                setLoading(false);
-            }
-        };
-        fetchPosts();
-    }, []);
+    const { data: rawPosts = [], isLoading: loading, error } = useQuery({
+        queryKey: ['news'],
+        queryFn: () => getNews({ limit: 100, page: 1 }),
+        select: (result) =>
+            (Array.isArray(result) ? result : []).filter(
+                (post) => post.status === 'published'
+            ),
+    });
 
     // Filter posts by search query (title, tags, or category)
     const filteredPosts = useMemo(() => {
-        const safePosts = Array.isArray(posts) ? posts : [];
-        if (!searchQuery) return safePosts;
+        if (!searchQuery) return rawPosts;
         const lowerQuery = searchQuery.toLowerCase();
-        return safePosts.filter(
+        return rawPosts.filter(
             (post) =>
                 (post.title && post.title.toLowerCase().includes(lowerQuery)) ||
                 (post.tags && post.tags.some((tag) => tag.toLowerCase().includes(lowerQuery))) ||
                 (post.catagory && post.catagory.toLowerCase().includes(lowerQuery))
         );
-    }, [searchQuery, posts]);
+    }, [searchQuery, rawPosts]);
 
     // Derive categories with counts from ALL posts
     const categories = useMemo(() => {
-        const safePosts = Array.isArray(posts) ? posts : [];
-        const categoryCounts = safePosts.reduce((acc, post) => {
+        const categoryCounts = rawPosts.reduce((acc, post) => {
             const cat = post.catagory;
             if (cat) {
                 acc[cat] = (acc[cat] || 0) + 1;
@@ -112,30 +81,28 @@ function useBlog() {
             name,
             count,
         }));
-    }, [posts]);
+    }, [rawPosts]);
 
     // Derive unique tags from ALL posts
     const tags = useMemo(() => {
-        const safePosts = Array.isArray(posts) ? posts : [];
-        const allTags = safePosts.reduce((acc, post) => {
+        const allTags = rawPosts.reduce((acc, post) => {
             if (post.tags) {
                 post.tags.forEach((tag) => acc.add(tag));
             }
             return acc;
         }, new Set());
         return Array.from(allTags).sort();
-    }, [posts]);
+    }, [rawPosts]);
 
     // Get recent posts (sorted by date, take top 5)
     const recentPosts = useMemo(() => {
-        const safePosts = Array.isArray(posts) ? posts : [];
-        return [...safePosts]
+        return [...rawPosts]
             .sort((a, b) => new Date(b.createdDate || 0) - new Date(a.createdDate || 0))
             .slice(0, 5);
-    }, [posts]);
+    }, [rawPosts]);
 
     return {
-        posts: Array.isArray(posts) ? posts : [],
+        posts: rawPosts,
         filteredPosts,
         categories,
         tags,
@@ -143,7 +110,7 @@ function useBlog() {
         searchQuery,
         setSearchQuery,
         loading,
-        error
+        error,
     };
 }
 

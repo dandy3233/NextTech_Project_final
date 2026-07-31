@@ -11,7 +11,12 @@ function BlogList({ posts }) {
 
     const postsPerPage = 6;
 
-    if (!posts || posts.length === 0) return null;
+    if (!posts || posts.length === 0) return (
+        <div className="flex flex-col items-center justify-center py-20 text-gray-500">
+            <h3 className="text-2xl font-semibold mb-2">No News Found</h3>
+            <p>Check back later for new updates.</p>
+        </div>
+    );
 
     return (
         <div className="flex flex-col gap-20">

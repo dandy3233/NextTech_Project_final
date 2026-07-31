@@ -1,9 +1,11 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useQuery } from '@tanstack/react-query';
 import generalService from '../api/generalService';
 import { normalizeArrayResponse } from '../utils/dataNormalization';
 
 /**
  * SECTION: API FETCHERS
+ * These are kept as standalone async functions so they can be reused
+ * outside of React (e.g. prefetching, tests).
  */
 export const getGallery = async (params = {}) => {
     const response = await generalService.getAllGallery(params);
@@ -12,35 +14,19 @@ export const getGallery = async (params = {}) => {
 
 /**
  * Hook for fetching and managing gallery data.
+ * Return shape: { data, loading, error, refresh } — identical to the old hook.
  */
 export const useGallery = (params) => {
-    const [data, setData] = useState([]);
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState(null);
+    const { data = [], isLoading: loading, error, refetch: refresh } = useQuery({
+        queryKey: ['gallery', params],
+        queryFn: () => getGallery(params),
+        select: (result) =>
+            (Array.isArray(result) ? result : []).filter(
+                (item) => item.status === 'Active'
+            ),
+    });
 
-    const paramsKey = JSON.stringify(params);
-
-    const loadData = useCallback(async () => {
-        try {
-            setLoading(true);
-            const parsedParams = paramsKey ? JSON.parse(paramsKey) : {};
-            const result = await getGallery(parsedParams);
-            const activeGallery = (Array.isArray(result) ? result : []).filter(item => item.status === "Active");
-            setData(activeGallery);
-            setError(null);
-        } catch (err) {
-            setError(err);
-            setData([]);
-        } finally {
-            setLoading(false);
-        }
-    }, [paramsKey]);
-
-    useEffect(() => {
-        loadData();
-    }, [loadData]);
-
-    return { data, loading, error, refresh: loadData };
+    return { data, loading, error, refresh };
 };
 
 export default useGallery;
