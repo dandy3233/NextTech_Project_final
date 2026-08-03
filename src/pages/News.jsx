@@ -2,7 +2,7 @@ import BlogList from "../ui/News Page/NewsList";
 import useBlog from "../hooks/useNewsPage";
 
 function Blogs() {
-  const { filteredPosts, loading, error } = useBlog();
+  const { posts, loading, error } = useBlog();
 
   if (loading) return <div className="flex justify-center py-20 font-bold text-primary">Loading news...</div>;
 
@@ -14,7 +14,7 @@ function Blogs() {
         </div>
       )}
       <main className="mx-auto px-4 py-12 sm:px-6 lg:px-8">
-        <BlogList posts={filteredPosts} />
+        <BlogList posts={posts} />
       </main>
     </div>
   );

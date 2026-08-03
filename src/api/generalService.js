@@ -4,6 +4,7 @@ const generalService = {
     // News
     getAllNews: (params) => axiosInstance.get('/AllNews', { params }),
     getSingleNews: (id) => axiosInstance.get(`/news/${id}`),
+    searchNews: (params) => axiosInstance.get('/news/search', { params }),
 
     // FAQ
     getAllFAQs: (params) => axiosInstance.get('/getAllFAQs', { params }),

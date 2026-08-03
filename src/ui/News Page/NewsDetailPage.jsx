@@ -10,7 +10,7 @@ import LoadingSpinner from "../LoadingSpinner";
 
 function BlogDetail() {
   const { id } = useParams();
-  const { posts, categories, tags, recentPosts, searchQuery, setSearchQuery, loading } = useBlog();
+  const { posts, categories, tags, recentPosts, loading } = useBlog();
 
   if (loading) {
     return <LoadingSpinner text="Loading News Details..." />;
@@ -33,7 +33,7 @@ function BlogDetail() {
 
           {/* Sidebar */}
           <aside className="w-full space-y-12 lg:w-[30%]">
-            <BlogSearch value={searchQuery} onChange={setSearchQuery} />
+            <BlogSearch />
             <BlogCategories categories={categories} />
             <RecentPosts posts={recentPosts} />
             <BlogTags tags={tags} />

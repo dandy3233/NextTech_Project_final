@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
-import { useState, useMemo } from 'react';
+import { useMemo } from 'react';
 import generalService from '../api/generalService';
 import { normalizeArrayResponse } from '../utils/dataNormalization';
 
@@ -39,13 +39,28 @@ export function useSingleNews(id) {
 }
 
 /**
+ * useNewsSearch hook for searching news posts by title.
+ */
+export function useNewsSearch(searchTerm) {
+    return useQuery({
+        queryKey: ['newsSearch', searchTerm],
+        queryFn: async () => {
+            const response = await generalService.searchNews({ title: searchTerm, status: 'published' });
+            const result = response.data;
+            let items = result?.news || result?.data?.news || result?.data || result;
+            if (!Array.isArray(items)) items = items ? [items] : [];
+            return normalizeArrayResponse(items, 'news');
+        },
+        enabled: !!searchTerm && searchTerm.length >= 3,
+    });
+}
+
+/**
  * useBlog hook to handle news fetching, searching, and filtering.
  * All derived values (filteredPosts, categories, tags, recentPosts) are
  * computed with useMemo — same logic as before, just sourced from React Query.
  */
 function useBlog() {
-    const [searchQuery, setSearchQuery] = useState('');
-
     const { data: rawPosts = [], isLoading: loading, error } = useQuery({
         queryKey: ['news'],
         queryFn: () => getNews({ limit: 100, page: 1 }),
@@ -55,17 +70,7 @@ function useBlog() {
             ),
     });
 
-    // Filter posts by search query (title, tags, or category)
-    const filteredPosts = useMemo(() => {
-        if (!searchQuery) return rawPosts;
-        const lowerQuery = searchQuery.toLowerCase();
-        return rawPosts.filter(
-            (post) =>
-                (post.title && post.title.toLowerCase().includes(lowerQuery)) ||
-                (post.tags && post.tags.some((tag) => tag.toLowerCase().includes(lowerQuery))) ||
-                (post.catagory && post.catagory.toLowerCase().includes(lowerQuery))
-        );
-    }, [searchQuery, rawPosts]);
+
 
     // Derive categories with counts from ALL posts
     const categories = useMemo(() => {
@@ -103,12 +108,9 @@ function useBlog() {
 
     return {
         posts: rawPosts,
-        filteredPosts,
         categories,
         tags,
         recentPosts,
-        searchQuery,
-        setSearchQuery,
         loading,
         error,
     };
