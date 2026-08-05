@@ -1,4 +1,4 @@
-import { MdLocationOn,  MdEmail } from "react-icons/md";
+import { MdLocationOn, MdEmail } from "react-icons/md";
 import { FiPhone } from "react-icons/fi";
 import { FaFacebookF, FaLinkedinIn, FaTwitter, FaInstagram } from "react-icons/fa";
 
@@ -10,19 +10,19 @@ export const contactInfo = {
       id: 1,
       icon: MdLocationOn,
       title: "Location",
-      content: "Bole, Welo-Sefer, st 4090, Addis Ababa, Ethiopia",
+      content: "FOAM295 Compass Building, Al Shohada Road, Al Hamra Industrial Zone-FZ, Ras Al Khaimah, United Arab Emirates",
     },
     {
       id: 2,
       icon: FiPhone,
       title: "Call Now",
-      content: "+251 911 109851 / +251 911 109851",
+      content: "+971 55 824 1888",
     },
     {
       id: 3,
       icon: MdEmail,
       title: "Email Us",
-      content: "info@gaengineering.et",
+      content: "info@nexttech.com",
     },
   ],
   socials: [

@@ -43,6 +43,9 @@ const generalService = {
 
     // Visitor Tracking
     recordVisit: (data) => axiosInstance.post('/visitcountes', data),
+
+    // Contact
+    contactEmail: (data) => axiosInstance.post('/contactEmail', data),
 };
 
 export default generalService;

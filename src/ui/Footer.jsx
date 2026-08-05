@@ -1,16 +1,27 @@
 import { footerData } from '../data/FooterData';
-import { 
-  FaMapMarkerAlt, FaPhoneAlt, FaEnvelope, FaPaperPlane, 
-  FaFacebookF, FaTwitter, FaBehance, FaInstagram, FaGlobe 
+import {
+  FaMapMarkerAlt, FaPhoneAlt, FaEnvelope, FaPaperPlane,
+  FaFacebookF, FaTwitter, FaBehance, FaInstagram, FaGlobe
 } from 'react-icons/fa';
 import FooterModal from './Home Page/FooterModal';
-import { useState } from 'react';
-import { useLocation } from 'react-router-dom'; // Import useLocation
+import { useState, useMemo } from 'react';
+import { useLocation } from 'react-router-dom';
+import { useServices } from '../hooks/useServiceHooks';
 
 const Footer = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const location = useLocation(); // Initialize location
-  const { logo, description, socials, categories, quickLinks, newsletter } = footerData;
+  const location = useLocation();
+  const { logo, description, socials, quickLinks, newsletter } = footerData;
+
+  // Fetch real services from API
+  const { data: allServices } = useServices();
+
+  // Pick 5 random services (stable per render, recalculates when services load)
+  const randomServices = useMemo(() => {
+    if (!allServices || allServices.length === 0) return [];
+    const shuffled = [...allServices].sort(() => Math.random() - 0.5);
+    return shuffled.slice(0, 5);
+  }, [allServices]);
 
   // Check if current page is the Home page
   const isHomePage = location.pathname === '/';
@@ -24,14 +35,13 @@ const Footer = () => {
   };
 
   return (
-    <footer className={`bg-secondary text-gray-400 px-6 font-sans relative z-10 ${
-      isHomePage 
+    <footer className={`bg-secondary text-gray-400 px-6 font-sans relative z-10 ${isHomePage
         ? 'py-12 -mt-20 lg:pt-[20rem]' // Spacing for Home Page (with card overlap)
         : 'py-12 mt-0'                 // Spacing for all other pages (clean look)
-    }`}>
+      }`}>
       <div className="max-w-[1550px] mx-auto">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-8">
-          
+
           {/* Column 1: Info & Social Media */}
           <div className="flex flex-col space-y-8">
             <div className="bg-white p-2 inline-block rounded w-fit">
@@ -54,9 +64,9 @@ const Footer = () => {
 
               <div className="flex gap-5 pt-4">
                 {socials.map((social) => (
-                  <a 
-                    key={social.id} 
-                    href={social.link} 
+                  <a
+                    key={social.id}
+                    href={social.link}
                     className="text-tertiary hover:text-primary text-lg transition-all"
                   >
                     {iconMap[social.icon]}
@@ -70,9 +80,9 @@ const Footer = () => {
           <div className="lg:pl-10">
             <h4 className="text-white font-bold text-xl mb-8 uppercase tracking-tight">Our Service</h4>
             <ul className="space-y-5 text-[15px]">
-              {categories.map((item) => (
+              {randomServices.map((item) => (
                 <li key={item.id}>
-                  <a href={item.link} className="hover:text-primary transition-colors">{item.name}</a>
+                  <a href={`/service/${item.id}`} className="hover:text-primary transition-colors">{item.title}</a>
                 </li>
               ))}
             </ul>
@@ -94,8 +104,8 @@ const Footer = () => {
           <div className="space-y-6 relative">
             <h4 className="text-white font-bold text-xl uppercase tracking-tight">{newsletter.title}</h4>
             <p className="text-[15px] leading-relaxed text-tertiary">{newsletter.subtitle}</p>
-            
-            <button 
+
+            <button
               onClick={() => setIsModalOpen(true)}
               className="group flex items-center justify-between w-full bg-[#031b33] border border-sky-900/50 text-sky-400 py-2 pl-5 pr-2 rounded-xl hover:bg-sky-900 transition-all text-sm"
             >
@@ -105,9 +115,9 @@ const Footer = () => {
               </div>
             </button>
 
-            <FooterModal 
-              isOpen={isModalOpen} 
-              onClose={() => setIsModalOpen(false)} 
+            <FooterModal
+              isOpen={isModalOpen}
+              onClose={() => setIsModalOpen(false)}
             />
           </div>
         </div>

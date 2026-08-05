@@ -1,10 +1,10 @@
 export const footerData = {
   logo: "/NavBarImages/NextTechLogo.png",
   description: {
-    address: "Addis Ababa, Bole, Mexico",
-    country: "Ethiopia",
-    phone: "+2519999999",
-    email: "nexttech@gmail.com"
+    address: "FOAM295 Compass Building, Al Shohada Road, Al Hamra Industrial Zone-FZ, Ras Al Khaimah, United Arab Emirates",
+    country: "United Arab Emirates",
+    phone: "+971 55 824 1888",
+    email: "info@nextechgtfz.com"
   },
   socials: [
     { id: 1, icon: "FaFacebookF", link: "#" },

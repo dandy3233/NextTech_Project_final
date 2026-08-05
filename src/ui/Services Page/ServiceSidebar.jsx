@@ -1,14 +1,53 @@
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import { IoIosArrowRoundForward } from "react-icons/io";
 import { MdKeyboardArrowRight } from "react-icons/md";
 import Button from "../Button.jsx";
 import PropTypes from "prop-types";
+import { useContactForm } from "../../hooks/useContactHooks.js";
 
 /**
  * Right sidebar containing the services navigation list
  * and the "Need Help?" contact form.
  */
 export default function ServiceSidebar({ services = [], activeId }) {
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    message: ""
+  });
+  
+  const { submitContactForm, status, resetStatus } = useContactForm();
+  const [errors, setErrors] = useState({});
+
+  const validate = () => {
+    const newErrors = {};
+    if (!formData.email) newErrors.email = "Email is required";
+    if (!formData.message) newErrors.message = "Message is required";
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
+
+  const handleChange = (e) => {
+    if (status.error || status.success) resetStatus();
+    if (errors[e.target.name]) setErrors({ ...errors, [e.target.name]: false });
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (!validate()) return;
+    
+    const result = await submitContactForm({
+      name: formData.name,
+      email: formData.email,
+      message: formData.message,
+    });
+    
+    if (result.success) {
+      setFormData({ name: "", email: "", message: "" });
+    }
+  };
   return (
     <aside className="space-y-11 lg:top-10 py-20 md:py-0 h-fit flex flex-col mb-28 md:mb-0 ml-0 lg:ml-10 xl:ml-14">
       {/* Services List */}
@@ -53,24 +92,48 @@ export default function ServiceSidebar({ services = [], activeId }) {
         <h3 className="text-2xl lg:text-xl xl:text-4xl font-bold text-gray-900 mb-8 lg:mb-4 xl:mb-8">
           Need help?
         </h3>
-        <form className="space-y-4 lg:space-y-3 xl:space-y-4 2xl:space-y-4">
-          <input
-            type="text"
-            placeholder="Enter Name"
-            className="w-full px-5 py-4 lg:py-3 xl:py-4 border border-gray-200 rounded-xl text-base leading-none focus:ring-2 focus:ring-primary outline-none transition"
-          />
-          <input
-            type="email"
-            placeholder="Enter Email"
-            className="w-full px-5 py-4 lg:py-3 xl:py-4 border border-gray-200 rounded-xl text-base leading-none focus:ring-2 focus:ring-primary outline-none transition"
-          />
-          <textarea
-            placeholder="How can we help?"
-            className="w-full px-5 py-4 lg:py-3 xl:py-4 2xl:py-5 min-h-[7.5rem] lg:min-h-[6.25rem] xl:min-h-[7.5rem] 2xl:min-h-[8.75rem] border border-gray-200 rounded-xl text-base focus:ring-2 focus:ring-primary outline-none transition resize-none"
-          />
+        <form className="space-y-4 lg:space-y-3 xl:space-y-4 2xl:space-y-4" onSubmit={handleSubmit} noValidate>
+          <div>
+            <input
+              type="text"
+              name="name"
+              value={formData.name}
+              onChange={handleChange}
+              placeholder="Enter Name"
+              className="w-full px-5 py-4 lg:py-3 xl:py-4 border border-gray-200 rounded-xl text-base leading-none focus:ring-2 focus:ring-primary outline-none transition text-gray-900"
+            />
+          </div>
+          <div>
+            <input
+              type="email"
+              name="email"
+              value={formData.email}
+              onChange={handleChange}
+              placeholder="Enter Email *"
+              className={`w-full px-5 py-4 lg:py-3 xl:py-4 border rounded-xl text-base leading-none focus:ring-2 outline-none transition ${
+                errors.email ? 'border-red-500 focus:ring-red-500 text-red-500 placeholder-red-400' : 'border-gray-200 focus:ring-primary text-gray-900'
+              }`}
+            />
+            {errors.email && <p className="text-red-500 text-sm mt-1 ml-1">{errors.email}</p>}
+          </div>
+          <div>
+            <textarea
+              name="message"
+              value={formData.message}
+              onChange={handleChange}
+              placeholder="How can we help? *"
+              className={`w-full px-5 py-4 lg:py-3 xl:py-4 2xl:py-5 min-h-[7.5rem] lg:min-h-[6.25rem] xl:min-h-[7.5rem] 2xl:min-h-[8.75rem] border rounded-xl text-base focus:ring-2 outline-none transition resize-none ${
+                errors.message ? 'border-red-500 focus:ring-red-500 text-red-500 placeholder-red-400' : 'border-gray-200 focus:ring-primary text-gray-900'
+              }`}
+            />
+            {errors.message && <p className="text-red-500 text-sm mt-1 ml-1">{errors.message}</p>}
+          </div>
+          {status.error && <p className="text-red-500 text-sm">{status.error}</p>}
+          {status.success && <p className="text-green-600 text-sm">Message sent successfully!</p>}
+
           <div className="pt-4 lg:pt-3 xl:pt-8 2xl:pt-10 flex justify-center">
-            <Button as={Link} to="" variant="primary" size="lg" iconAfter={MdKeyboardArrowRight}>
-              SEND MESSAGE
+            <Button as="button" type="submit" onClick={handleSubmit} disabled={status.loading} variant="primary" size="lg" iconAfter={MdKeyboardArrowRight}>
+              {status.loading ? "SENDING..." : "SEND MESSAGE"}
             </Button>
           </div>
         </form>
