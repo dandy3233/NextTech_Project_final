@@ -27,18 +27,18 @@ export default function ServicesPage() {
           </div>
         )}
         {/* Header */}
-        <div className="text-center mb-10 xs:mb-12 sm:mb-14 md:mb-16 lg:mb-24 xl:mb-24">
-          <p className="text-primary font-semibold uppercase tracking-widest text-xs xs:text-sm sm:text-base md:text-lg mb-2 xs:mb-3">
-            What We Do
-          </p>
-          <h2 className="text-3xl xs:text-4xl sm:text-4xl md:text-5xl lg:text-4xl xl:text-6xl font-extrabold leading-tight">
-            <span className="gap-0.5 xs:gap-1 lg:gap-2 flex flex-col">
-              Services That Help
-              <br />
-              You Grow
-            </span>
-          </h2>
-        </div>
+<div className="text-center mb-10 xs:mb-12 sm:mb-14 md:mb-16 lg:mb-24 xl:mb-28">
+  <p className="text-primary font-normal uppercase text-xs xs:text-sm sm:text-base md:text-lg mb-2 xs:mb-3 lg:mb-3">
+    What We Do
+  </p>
+
+  <h2 className="text-3xl xs:text-4xl sm:text-4xl md:text-5xl lg:text-4xl xl:text-5xl font-bold">
+    <span className="flex flex-col gap-1 xs:gap-1 sm:gap-1 md:gap-1 lg:gap-2 xl:gap-5 ">
+      <span>Services That Help</span>
+      <span>You Grow</span>
+    </span>
+  </h2>
+</div>
 
         {/* Services Grid */}
         {!loading && !error && services.length === 0 ? (

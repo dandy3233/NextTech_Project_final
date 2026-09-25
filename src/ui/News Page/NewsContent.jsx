@@ -11,13 +11,13 @@ function BlogContent({ post }) {
 
     return (
         <article>
-            <div className="relative mb-8 w-full overflow-hidden rounded-xl aspect-[16/10]">
-                <img
-                    src={post.imageCover}
-                    alt={post.title}
-                    className="h-full w-full object-cover"
-                />
-            </div>
+            <div className="relative mb-8 w-full h-[14rem] md:h-[18rem] lg:h-[22rem] xl:h-[28.25rem] overflow-hidden rounded-xl">
+    <img
+        src={post.imageCover}
+        alt={post.title}
+        className="h-full w-full object-contain"
+    />
+</div>
 
             <div className="mb-10 flex flex-wrap items-center gap-8 text-[15px] 2xl:text-lg 2xl:gap-14 text-gray-500">
                 <div className="flex items-center font-bold">

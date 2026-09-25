@@ -29,92 +29,118 @@ const Navbar = () => {
   }, []);
 
   const navLinks = [
-    { name: 'Home',           href: '/' },
-    { name: 'About',          href: '/aboutus' },
-    { name: 'Service',        href: '/service' },
-    { name: 'Portfolio',      href: '/portfolio' },
-    { name: 'Gallery',        href: '/gallery' },
-    { name: 'Certificates',   href: '/certificates' },
-    { name: 'News',           href: '/news' },
+    { name: 'Home', href: '/' },
+    { name: 'About', href: '/aboutus' },
+    { name: 'Service', href: '/service' },
+    { name: 'Portfolio', href: '/portfolio' },
+    { name: 'Gallery', href: '/gallery' },
+    { name: 'Certificates', href: '/certificates' },
+    { name: 'News', href: '/news' },
+    { name: 'Contact', href: '/contacts' },
   ];
+
+  // Hide Contact only on the Home page
+  const visibleNavLinks = navLinks.filter(
+    (link) => !(isHomePage && link.name === 'Contact')
+  );
+
+  // Evaluates sticky condition consistently for both home scroll and subpages
+  const isNavbarSticky = isSticky || !isHomePage;
 
   return (
     <div className={`w-full z-50 transition-all duration-300 
-      ${(!isHomePage || isSticky) 
-          ? 'fixed top-0 left-0 pt-0 px-0' 
-          : 'relative pt-0 px-0 lg:pt-8 lg:px-12'
+      ${isNavbarSticky
+        ? 'fixed top-0 left-0 pt-0 px-0'
+        : 'relative pt-0 px-0 lg:pt-11 lg:px-12 xl:px-[6.75rem] '
       }`}>
 
       <nav className={`w-full transition-all duration-300 shadow-xl bg-white
-        ${(isSticky || !isHomePage)
+        ${isNavbarSticky
           ? 'lg:max-w-full lg:rounded-none'
-          : 'lg:max-w-[100rem] lg:mx-auto lg:rounded-[35px] overflow-hidden'
+          : 'lg:max-w-[100rem] lg:mx-auto lg:ml-2 lg:rounded-[20px] overflow-hidden'
         }`}>
 
-        {/* --- TOP BAR (Only visible on Home page) --- */}
+        {/* --- TOP BAR (Only visible on Home page when not sticky) --- */}
         {(!isSticky && isHomePage) && (
-          <div className="bg-secondary text-white py-4">
-             {/* Added Container for alignment */}
-            <div className="max-w-[100rem] mx-auto px-8 md:px-12 lg:flex justify-between items-center text-[16px] hidden">
-                <div className="lg:flex items-center gap-8">
-                <div className="flex items-center gap-3">
-                    <span className="font-light">location: Addis Ababa, bole, Ethiopia</span>
-                </div>
-                <div className="flex items-center gap-3 text-primary font-semibold pl-8 border-l border-gray-700">
-                    <a href="mailto:info@nexttech.com">info@nexttech.com</a>
-                </div>
-                </div>
+          <div className="bg-secondary text-white py-3 px-6 lg:px-0 w-full">
+            <div className="w-full hidden lg:flex justify-between items-center text-sm">
+              {/* Left Side: Location & Email */}
+              <div className="flex items-center gap-8 lg:ml-6">
+                <span className="font-light">Ras Al Khaimah,United Arab Emirates</span>
+                <a href="mailto:info@nexttech.com" className="text-primary font-medium hover:underline">
+                  info@nexttech.com
+                </a>
+              </div>
 
-                <div className="flex items-center gap-6 text-white ml-auto lg:ml-0">
-                <FaFacebookF className="cursor-pointer hover:text-primary text-lg" />
-                <FaInstagram className="cursor-pointer hover:text-primary text-lg" />
-                <FaTwitter className="cursor-pointer hover:text-primary text-lg" />
-                <FaGlobe className="cursor-pointer hover:text-primary text-lg" />
-                </div>
+              {/* Right Side: Social Media Icons */}
+              <div className="flex items-center gap-[1rem] text-white ml-auto mr-6">
+                <FaFacebookF className="cursor-pointer hover:text-primary transition-colors text-base" />
+                <FaInstagram className="cursor-pointer hover:text-primary transition-colors text-base" />
+                <FaTwitter className="cursor-pointer hover:text-primary transition-colors text-base" />
+                <FaGlobe className="cursor-pointer hover:text-primary transition-colors text-base" />
+              </div>
             </div>
           </div>
         )}
 
-       {/* --- MAIN NAVBAR --- */}
-        <div className={`transition-all duration-300 w-full`}>
-            {/* CRITICAL FIX: This container below ensures the logo and links 
-               stay in the "middle" even when the navbar background is full-width.
-            */}
-            <div className={`max-w-[100rem] mx-auto px-4 lg:px-10 flex justify-between items-center 
-                ${(isSticky || !isHomePage) ? 'lg:py-3 py-4' : 'lg:py-2 py-4'}`}>
-
-                {/* 1. Logo Container */}
-                <div className="flex items-center flex-1">
-                    <img src={NextTechLogo} alt="NextTech Logo" className="lg:h-20 lg:w-44 object-contain w-[200px] h-[55px]" />
-                </div>
-
-                {/* 2. Links Container (Centered) */}
-                <div className="hidden lg:flex flex-[2] justify-center items-center gap-10">
-                    {navLinks.map((link) => (
-                    <NavLink
-                        key={link.name}
-                        to={link.href}
-                        className={({ isActive }) =>
-                        `text-[16px] transition-colors hover:text-[#00acee] ${isActive ? 'text-primary' : 'text-[#0B162C]'}`
-                        }
-                    >
-                        {link.name}
-                    </NavLink>
-                    ))}
-                </div>
-
-                {/* 3. Right Side */}
-                <div className="flex flex-1 justify-end">
-                    <button onClick={() => setIsOpen(true)} className="lg:hidden p-3 text-secondary">
-                        <FaBars size={32} />
-                    </button>
-                </div>
+        {/* --- MAIN NAVBAR --- */}
+        <div className="transition-all duration-300 w-full">
+          <div
+            className={`max-w-[100rem] mx-auto flex justify-between items-center
+              transition-all duration-300 py-[1rem] lg:py-[0rem]
+              ${
+                isNavbarSticky
+                  ? 'px-[1rem] lg:px-[2rem] xl:px-[8rem] lg:pb-[0.75rem] '
+                  : 'px-[1rem] lg:px-[2rem]'
+              }
+            `}
+          >
+            {/* 1. Logo Container */}
+            <div className="flex items-center flex-1">
+              <img
+                src={NextTechLogo}
+                alt="NextTech Logo"
+                className={`object-contain w-[12.5rem] h-[3.4375rem] lg:h-[5rem] lg:w-[10rem] transition-all duration-300
+                  ${isNavbarSticky ? 'xl:w-[12rem]' : ''}
+                `}
+              />
             </div>
+
+            {/* 2. Links Container */}
+            <div
+              className={`hidden lg:flex flex-[2.2] justify-start items-center gap-[2.5rem] transition-all duration-300
+                ${isNavbarSticky ? 'lg:ml-[3rem]' : ''}
+              `}
+            >
+              {visibleNavLinks.map((link) => (
+                <NavLink
+                  key={link.name}
+                  to={link.href}
+                  className={({ isActive }) =>
+                    `text-[1rem] transition-colors hover:text-[#00acee] ${
+                      isActive ? 'text-primary' : 'text-[#0B162C]'
+                    }`
+                  }
+                >
+                  {link.name}
+                </NavLink>
+              ))}
+            </div>
+
+            {/* 3. Right Side */}
+            <div className="flex flex-1 justify-end">
+              <button
+                onClick={() => setIsOpen(true)}
+                className="lg:hidden p-[0.75rem] text-secondary"
+              >
+                <FaBars size={32} />
+              </button>
+            </div>
+          </div>
         </div>
       </nav>
 
       {/* --- MOBILE SIDEBAR --- */}
-      {/* ... (Mobile Sidebar remains exactly as your original) ... */}
       {isOpen && (
         <div className="fixed inset-0 bg-white z-[100] flex flex-col overflow-y-auto">
           <div className="px-2 py-4 flex justify-between items-center">
@@ -128,7 +154,7 @@ const Navbar = () => {
           </div>
 
           <div className="flex flex-col p-10 gap-8">
-            {navLinks.map((link) => (
+            {visibleNavLinks.map((link) => (
               <NavLink
                 key={link.name}
                 to={link.href}
@@ -163,9 +189,10 @@ const Navbar = () => {
               <p className="text-lg text-gray-700 font-medium">info@gaenginering.et</p>
             </div>
           </div>
+
           <div className="flex justify-center py-4">
             <Button as={Link} to="/contacts" variant="primary" size="xl">
-                Send Message
+              Send Message
             </Button>
           </div>
         </div>

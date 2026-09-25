@@ -8,7 +8,7 @@ export default function CertificateContent({ certificateName, certificateDescrip
           {certificateName}
         </h1>
         {/* Description */}
-        <div className="text-lg md:text-sm lg:text-lg 2xl:text-xl w-full text-gray-600  leading-relaxed mb-10 whitespace-pre-line">
+        <div className="text-lg md:text-sm lg:text-base 2xl:text-base w-full text-gray-600  leading-relaxed mb-10 whitespace-pre-line">
           {certificateDescription &&
             certificateDescription.split(/ {2,}/).map((text, i) => (
               <p key={i} className="mb-6">

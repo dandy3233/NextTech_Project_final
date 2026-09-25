@@ -17,16 +17,16 @@ export default function Faq() {
 
   return (
     <section className="py-12 xs:py-16 md:py-10 lg:py-24 xl:py-16 bg-white overflow-hidden">
-      <div className="font-sans mx-auto px-5 xs:px-6 sm:px-10 lg:px-20 xl:pl-32 xl:pr-24">
+      <div className="font-sans mx-auto px-5 xs:px-6 sm:px-10 lg:px-20 xl:pl-28 xl:pr-24">
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 xs:gap-14 lg:gap-10 xl:gap-20 items-start">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 xs:gap-14 lg:gap-0 xl:gap-0 items-start">
 
           {/* ================= LEFT SIDE: Header & Image ================= */}
           <div className="flex flex-col lg:sticky ">
-            <p className="text-base font-semibold text-primary  mb-3 xs:mb-4">
+            <p className="text-base font-semibold text-primary lg:ml-3  mb-3 xs:mb-4 lg:mb-6">
               Frequently Asked Questions
             </p>
-            <h2 className="text-4xl xs:text-4xl md:text-4xl lg:text-5xl xl:text-6xl text-gray-900 leading-[1.1] tracking-tight">
+            <h2 className="text-4xl xs:text-4xl lg:ml-3 md:text-4xl lg:text-5xl xl:text-6xl text-gray-900 leading-[1.1] tracking-tight">
               What People Want  to Know
             </h2>
 
@@ -41,7 +41,7 @@ export default function Faq() {
           </div>
 
           {/* Right Side - Accordion */}
-          <div className="space-y-4 ">
+          <div className="space-y-4 lg:px-4 ">
             {!loading && !error && faqData.length === 0 ? (
               <div className="flex flex-col items-center justify-center py-10 text-gray-500">
                 <h3 className="text-xl font-semibold mb-2">No FAQs Found</h3>
@@ -55,13 +55,13 @@ export default function Faq() {
                 >
                   <button
                     onClick={() => toggleAccordion(index)}
-                    className={`w-full px-6 py-5 lg:py-3  xl:px-6 xl:py-5 flex items-center border rounded-md justify-between text-left transition-all duration-300 ${openIndex === index
+                    className={`w-full px-6 py-5 lg:py-3  xl:px-6 xl:py-5  flex items-center border rounded-md justify-between text-left transition-all duration-300 ${openIndex === index
                       ? "bg-gray-900 text-white "
                       : "text-gray-900 border-gray-400   hover:bg-gray-100"
                       }`}
                     aria-expanded={openIndex === index}
                   >
-                    <span className="text-xl lg:text-base xl:text-xl p-1  font-semibold pr-4">
+                    <span className="text-xl lg:text-base xl:text-lg p-1  font-semibold pr-4">
                       {item.question}
                     </span>
                     {openIndex === index ? (
@@ -72,9 +72,11 @@ export default function Faq() {
                   </button>
 
                   {openIndex === index && (
-                    <div className="px-6 py-8 lg:py-4 lg:px-3 xl:px-6 xl:py-8 bg-white text-gray-600 text-lg lg:text-sm xl:text-lg leading-relaxed border-t border-gray-100">
-                      {item.answer}
-                    </div>
+                    
+<div className="px-6 py-8 lg:py-4 lg:px-3 xl:px-6 xl:py-9 bg-white text-gray-600 text-lg lg:text-sm xl:text-base leading-[1.5rem] lg:leading-[2rem] xl:leading-[2rem] border-t border-gray-100">
+  {item.answer}
+</div>
+
                   )}
                 </div>
               ))

@@ -15,7 +15,7 @@ export default function CertificateUI() {
   if (loading) return <LoadingSpinner text="Loading certificates..." />;
 
   return (
-    <div className="bg-gray-50/50  px-4 sm:px-6 lg:px-8 py-12 xs:py-14 sm:py-16 md:py-20 lg:py-24">
+    <div className="bg-gray-50/50  px-4 sm:px-6 lg:px-3 lg:ml-8 py-12 xs:py-14 sm:py-16 md:py-20 lg:py-28">
       {error && (
         <div className="text-center text-red-500 mb-8 bg-red-50 p-4 rounded-lg max-w-xl mx-auto font-semibold">
           {error?.response?.data?.message || error?.message || String(error)}

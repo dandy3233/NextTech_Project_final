@@ -21,11 +21,12 @@ export const footerData = {
     { id: 5, name: "Service 5", link: "#" }
   ],
   quickLinks: [
-    { id: 1, name: "Home", link: "#" },
-    { id: 2, name: "About Us", link: "#" },
-    { id: 3, name: "Service", link: "#" },
-    { id: 4, name: "Project", link: "#" },
-    { id: 5, name: "News", link: "#" }
+    { id: 1, name: "Home", link: "/" },
+    { id: 2, name: "About Us", link: "/aboutus" },
+    { id: 3, name: "Team Members", link: "/team" },
+    { id: 4, name: "Services", link: "/service" },
+    { id: 5, name: "Portfolio", link: "/portfolio" },
+    { id: 6, name: "News", link: "/news" }
   ],
   newsletter: {
     title: "Subscribe now",

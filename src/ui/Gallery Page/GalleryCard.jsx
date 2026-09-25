@@ -60,12 +60,12 @@ export default function GalleryCard({ src, alt = "Gallery image", onClick }) {
     group flex flex-col overflow-hidden rounded-xl 
     shadow-lg hover:shadow-2xl transition-all duration-500 
     cursor-pointer bg-gray-100 
-    w-full h-full
+    w-full h-full lg:ml-5
   "
       onClick={onClick}
     >
       {/* Image & Carousel Wrapper */}
-      <div className="relative w-full h-[260px] sm:h-[280px] xl:h-[320px] shrink-0">
+      <div className="relative w-full h-[260px] sm:h-[280px] xl:h-[300px] shrink-0">
         <img
           src={allImages[currentIndex]}
           alt={alt}

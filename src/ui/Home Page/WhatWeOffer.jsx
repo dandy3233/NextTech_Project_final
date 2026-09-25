@@ -14,6 +14,9 @@ export default function WhyWeOffer() {
   const [activeIndex, setActiveIndex] = useState(0);
   const [isMobile, setIsMobile] = useState(false);
   const totalSlides = workData.features.length;
+  const slidesPerView = 4;
+  const totalPages = Math.ceil(totalSlides / slidesPerView);
+  const currentPage = Math.floor(activeIndex / slidesPerView);
 
   useEffect(() => {
     const handleResize = () => setIsMobile(window.innerWidth < 1024);
@@ -29,7 +32,7 @@ export default function WhyWeOffer() {
   }
 
   return (
-    <section className="py-16 md:py-24 lg:py-[120px] bg-white overflow-hidden">
+    <section className="py-16 md:py-24 lg:px-14 lg:py-[120px] bg-white overflow-hidden">
       <style>
         {`
           .mobile-dots .swiper-pagination-bullet {
@@ -49,17 +52,24 @@ export default function WhyWeOffer() {
         `}
       </style>
 
-      <div className="max-w-[1690px] mx-auto px-6 lg:px-12">
-        <div className="flex flex-col lg:grid lg:grid-cols-2 gap-12 lg:gap-[100px] ">
+      <div className="max-w-[1690px] mx-auto px-6 lg:px-0">
+        <div className="flex flex-col lg:grid lg:grid-cols-2 gap-12 lg:gap-[180px] ">
 
           {/* LEFT CONTENT */}
-          <div className="space-y-6 lg:space-y-10">
-            <div className="space-y-4">
-              <span className="text-primary font-bold uppercase tracking-widest text-sm">
+          <div className="space-y-6 lg:space-y-10 lg:ml-20">
+            <div className="space-y-8">
+              <span className="text-primary font-bold uppercase tracking-widest text-base">
                 {workData.subtitle}
               </span>
-              <h2 className="text-3xl md:text-5xl lg:text-[58px] font-bold text-secondary leading-tight">
-                {workData.title}
+              <h2 className="text-[2.75rem] sm:text-3xl lg:text-[38px] xl:text-[38px] font-normal text-[#0B162C] leading-[1.18] tracking-tight">
+                {workData.title.includes('Passion') ? (
+                  <>
+                    <span className="block mb-3 sm:my-5 lg:mb-11">{workData.title.split('Passion')[0].trim()}</span>
+                    <span className="block">Passion{workData.title.split('Passion')[1]}</span>
+                  </>
+                ) : (
+                  workData.title
+                )}
               </h2>
               <p className="text-[#8F939B] text-base lg:text-[18px] leading-relaxed max-w-2xl">
                 {workData.description1}
@@ -72,7 +82,7 @@ export default function WhyWeOffer() {
               as={Link}
               to="/Service"
               variant="primary"
-              size="xl"
+              size="lg"
               iconAfter={HiChevronRight}>
               Read More
             </Button>
@@ -115,11 +125,11 @@ export default function WhyWeOffer() {
             ) : (
               /* DESKTOP VIEW: Vertical Individual Slider + Progress Line */
               <div className="flex items-center gap-8 w-full">
-                <div className="flex-1 h-[600px]">
+                <div className="flex-1 h-[510px]">
                   <Swiper
                     direction={"vertical"}
-                    slidesPerView={3}
-                    spaceBetween={20}
+                    slidesPerView={4}
+                    spaceBetween={18}
                     loop={true}
                     autoplay={{ delay: 3000 }}
                     onSlideChange={(swiper) => setActiveIndex(swiper.realIndex)}
@@ -127,7 +137,7 @@ export default function WhyWeOffer() {
                     className="h-full w-full"
                   >
                     {workData.features.map((feature, index) => (
-                      <SwiperSlide key={feature.id} className="py-2">
+                      <SwiperSlide key={feature.id}>
                         <FeatureCard
                           feature={feature}
                           isMobile={false}
@@ -139,9 +149,27 @@ export default function WhyWeOffer() {
                   </Swiper>
                 </div>
 
-                {/* THE PROGRESS LINE (DESKTOP ONLY) */}
-                <div className="flex flex-col items-center gap-4 h-[400px]">
-                  <span className="text-xs font-bold text-primary">0{activeIndex + 1}</span>
+                {/* THE PROGRESS LINE & NAV BUTTON (DESKTOP ONLY) */}
+                <div className="flex flex-col items-center lg:pt-10 gap-3 h-[480px]">
+                  {/* Dynamic Dots based on groups of 4 items */}
+                  <div className="flex flex-col gap-1.5 items-center my-1">
+                    {Array.from({ length: totalPages }).map((_, dotIdx) => (
+                      <span
+                        key={dotIdx}
+                        className={`rounded-full transition-all duration-300 ${dotIdx === currentPage
+                          ? "w-2.5 h-2.5 bg-primary shadow-sm"
+                          : "w-2 h-2 bg-gray-300"
+                          }`}
+                      />
+                    ))}
+                  </div>
+
+                  {/* Active Slide Number */}
+                  <span className="text-sm font-bold text-primary">
+                    {String(activeIndex + 1).padStart(2, '0')}
+                  </span>
+
+                  {/* Vertical Progress Bar */}
                   <div className="w-[4px] h-full bg-gray-100 relative rounded-full overflow-hidden">
                     <div
                       className="absolute top-0 left-0 w-full bg-primary transition-all duration-500 ease-out"
@@ -159,18 +187,22 @@ export default function WhyWeOffer() {
   );
 }
 
-function FeatureCard({ feature, isMobile, stagger = false, isActive = false }) {
+function FeatureCard({ feature, isMobile, stagger = false }) {
   const Icon = feature.icon;
   return (
     <div className={`
-      bg-white p-5 lg:p-10 shadow-[0_8px_30px_rgb(0,0,0,0.04)] border-l-[5px] border-primary flex items-center gap-6 transition-all duration-500
-      ${!isMobile && stagger ? 'lg:ml-12' : ''}
-      ${!isMobile && !isActive ? 'opacity-40 scale-95' : 'opacity-100 scale-100'}
+      bg-white py-5 px-6 lg:py-6 lg:px-8
+      shadow-[0_12px_35px_rgba(0,168,232,0.14)] 
+      border-l-[6px] border-primary 
+      rounded-r-md lg:w-[80%] 2xl:w-[78%]
+      flex items-center gap-5 
+      transition-all duration-300 ease-out
+      ${!isMobile && stagger ? 'lg:ml-40' : 'lg:ml-0'}
     `}>
-      <div className="text-primary text-2xl lg:text-[34px] flex-shrink-0">
+      <div className="text-primary text-2xl lg:text-[30px] flex-shrink-0">
         <Icon />
       </div>
-      <p className="text-secondary font-bold text-md lg:text-[20px]">
+      <p className="text-[#2B354F] w-full font-bold text-base lg:text-[18px] leading-snug">
         {feature.text}
       </p>
     </div>

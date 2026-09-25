@@ -10,7 +10,7 @@ function BlogCard({ post }) {
     return (
         <Link
             to={`/news/${post._id}`}
-            className="group flex flex-col overflow-hidden rounded-xl bg-white shadow-sm transition-transform w-full cursor-pointer"
+            className="group flex flex-col overflow-hidden rounded-xl  bg-white shadow-sm transition-transform w-full cursor-pointer"
         >
             <div className="relative overflow-hidden aspect-[16/10] w-full">
                 <img
@@ -20,7 +20,7 @@ function BlogCard({ post }) {
                 />
             </div>
 
-            <div className="flex w-full bg-white p-6 2xl:p-8">
+            <div className="flex w-full bg-white p-6 2xl:p-6">
                 <div className="flex w-full flex-col items-start">
                     {/* <div className="mb-4 flex flex-nowrap items-center gap-x-2 gap-y-2 text-xs 2xl:text-base"> */}
                     <div className="w-full mb-4 flex items-center justify-between text-xs 2xl:text-base">
@@ -41,8 +41,8 @@ function BlogCard({ post }) {
 
                     <span
                         className="
-                            mt-2
-                            text-sm xs:text-base sm:text-base md:text-lg 
+                            mt-2 lg:mt-2
+                            text-sm xs:text-base sm:text-base md:text-lg lg:text-base 2xl:text-base 
                             inline-flex items-center font-semibold gap-1.5 sm:gap-2 
                             text-[#00A3E0] transition-colors
                         "

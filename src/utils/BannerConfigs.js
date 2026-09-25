@@ -8,7 +8,8 @@ export const BANNER_CONFIGS = {
         backgroundImage: SHARED_BANNER_IMAGE,
         breadcrumbs: [{ label: "Home", path: "/" }, { label: "About Us" }],
     },
-    "/Service": {
+    "/service": {
+
         title: "Our Services",
         backgroundImage: SHARED_BANNER_IMAGE,
         breadcrumbs: [{ label: "Home", path: "/" }, { label: "Services" }],
@@ -34,9 +35,19 @@ export const BANNER_CONFIGS = {
         breadcrumbs: [{ label: "Home", path: "/" }, { label: "News" }],
     },
     "/contacts": {
-        title: "Contact Us",
+        title: "Contact ",
         backgroundImage: SHARED_BANNER_IMAGE,
         breadcrumbs: [{ label: "Home", path: "/" }, { label: "Contact Us" }],
+    },
+    "/team": {
+        title: "Team-Members",
+        backgroundImage: SHARED_BANNER_IMAGE,
+        breadcrumbs: [{ label: "Home", path: "/" }, { label: "Team" }],
+    },
+    "/team-members": {
+        title: "Team-Members",
+        backgroundImage: SHARED_BANNER_IMAGE,
+        breadcrumbs: [{ label: "Home", path: "/" }, { label: "Team" }],
     },
 };
 

@@ -1,4 +1,5 @@
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
+
 import { useEffect } from "react";
 // import axios from "axios";
 import generalService from "./api/generalService";
@@ -19,6 +20,7 @@ import News from "./pages/News";
 import PageNotFound from "./pages/PageNotFound";
 import ServerError from "./pages/ServerError";
 import Contact from "./pages/Contacts";
+import Team from "./pages/Team";
 
 
 
@@ -59,12 +61,15 @@ function App() {
           {/* <Route index element={<Navigate replace to="/" />} /> */}
           <Route path="/" element={<Home />} />
           <Route path="aboutus" element={<AboutUs />} />
+          <Route path="team" element={<Team />} />
+          <Route path="team-members" element={<Navigate replace to="/team" />} />
 
           <Route path="portfolio" element={<Portfolio />} />
           <Route path="/portfolio/:id" element={<PortfolioDetail />} />
 
-          <Route path="Service" element={<ServicesPage />} />
+          <Route path="service" element={<ServicesPage />} />
           <Route path="/service/:id" element={<ServiceDetails />} />
+
 
           <Route path="gallery" element={<Gallery />} />
           <Route path="certificates" element={<Certificates />} />

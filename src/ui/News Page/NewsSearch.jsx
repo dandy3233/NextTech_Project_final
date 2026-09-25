@@ -49,7 +49,7 @@ function BlogSearch() {
     };
 
     return (
-        <div className="bg-[#f4f7fa] py-12 px-6">
+        <div className="bg-[#f4f7fa] py-12 lg:py-12 px-6 lg:px-8">
             <div className="relative" ref={searchRef}>
                 <div className="relative flex items-center bg-white p-1 border border-gray-100 shadow-sm">
                     <input
@@ -59,8 +59,8 @@ function BlogSearch() {
                         onChange={(e) => setSearchValue(e.target.value)}
                         className="w-full bg-transparent px-4 py-3 text-sm focus:outline-none text-gray-600 placeholder-gray-400"
                     />
-                    <button className="flex h-12 w-12 shrink-0 items-center justify-center rounded bg-[#00A3C4] text-white transition-colors hover:bg-[#008ba3]">
-                        <MdSearch size={20} />
+                    <button className="flex h-11 w-12 lg:mr-1 shrink-0 items-center justify-center rounded bg-[#00A3E0] text-white transition-colors hover:bg-[#008ba3]">
+                        <MdSearch size={26} />
                     </button>
                 </div>
 

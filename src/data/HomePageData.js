@@ -14,13 +14,13 @@ export const statsData = [
   { id: 2, icon: FaChartLine,     value: "17 Years", label: "Experience", hasPlus: false },
   { id: 3, icon: FaBriefcase,     value: "205", label: "Projects", hasPlus: true },
   { id: 4, icon: FaAward,         value: "51", label: "Awards", hasPlus: true },
-  
+
 ];
 
 export const aboutData = {
   subtitle: "01 - ABOUT US",
   title: "Technology, Science, Artificial Intelligence with Passion",
-  description: "NextTech delivers smart engineering and technology solutions across transport systems, infrastructure, power, electromechanical works, IT, and AI-driven platforms.",
+  description: "NextTech delivers smart engineering and technology solutions across transport systems, infrastructure, power, electromechanical works, IT, and AI-driven platforms. ",
   subDescription: "We provide end-to-end services from supply and installation to commissioning and consultancy across sectors including healthcare, agriculture, EV systems, warehouses, cold rooms, machinery, telecommunications, and advanced industrial solutions.",
   
   features: [

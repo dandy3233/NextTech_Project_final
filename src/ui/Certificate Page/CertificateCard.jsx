@@ -12,13 +12,13 @@ export default function CertificateCard({ item }) {
   const goToDetail = () => {
     navigate(`/certificate/${item._id}`);
   };
-  const truncateWords = (text, wordLimit = 5) => {
-    if (!text) return "";
-    const words = text.split(" ");
-    return words.length > wordLimit
-      ? words.slice(0, wordLimit).join(" ") + "..."
-      : text;
-  };
+  // const truncateWords = (text, wordLimit = 5) => {
+  //   if (!text) return "";
+  //   const words = text.split(" ");
+  //   return words.length > wordLimit
+  //     ? words.slice(0, wordLimit).join(" ") + "..."
+  //     : text;
+  // };
 
   return (
     <div className="group ">
@@ -42,7 +42,7 @@ export default function CertificateCard({ item }) {
 
         {/* Subtle hover overlay */}
         {/* THUMBNAIL OVERLAY */}
-        <div className="absolute -top-6  sm:-top-2 lg:-top-4  2xl:-top-6 right-0  w-20 h-28 sm:w-12 sm:h-14 md:w-14 md:h-16 lg:w-16 lg:h-20 xl:min-h-24 xl:min-w-20 xl:max-h-32 2xl:min-h-32 2xl:min-w-24 xl:max-w-28   bg-black/30 rounded-bl-3xl p-0 shadow-lg ">
+        <div className="absolute -top-6  sm:-top-2 lg:-top-4  2xl:-top-6 right-0  w-20 h-28 sm:w-12 sm:h-14 md:w-14 md:h-16 lg:w-16 lg:h-20 xl:min-h-24 xl:min-w-24 xl:max-h-32 2xl:min-h-32 2xl:min-w-24 xl:max-w-24   bg-black/30 rounded-bl-3xl p-0 shadow-lg ">
           <img
             src="/CertificatePageImage/Certificate_Icon.png"
             alt="Certificate icon"
@@ -51,10 +51,12 @@ export default function CertificateCard({ item }) {
         </div>
       </div>
       <div className="pt-5 pb-5 sm:pb-1 ">
-        <h1 className="font-extrabold  
-      text-base sm:text-base md:text-lg lg:text-base xl:text-xl   2xl:text-2xl  text-[#151515] group-hover:text-[#00A3E0] pb-1">
+        <h1 className="font-extrabold lg:w-[18rem]  xl:w-[20rem] truncate
+      text-base sm:text-base md:text-lg lg:text-base xl:text-xl   2xl:text-2xl  text-[#151515] group-hover:text-[#04A9C1] pb-1">
           {title}  </h1>
-        <p className="font-normal text-sm sm:text-sm md:text-sm  lg:text-sm xl:text-base 2xl:text-xl text-[#666666]">{truncateWords(description, 5)}</p>
+       <p className="font-normal lg:w-[17rem] text-sm sm:text-sm md:text-sm lg:text-sm xl:text-base 2xl:text-xl text-[#666666] truncate">
+  {description}
+</p>
       </div>
     </div>
 

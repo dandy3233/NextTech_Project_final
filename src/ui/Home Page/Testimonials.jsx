@@ -49,15 +49,15 @@ const Testimonials = () => {
   const currentItems = safeItems.slice(offset, offset + itemsPerPage);
 
   return (
-    <section className="py-16 md:py-24 bg-white overflow-hidden">
+    <section className="py-16 md:py-[5.25rem] lg:px-32 bg-white overflow-hidden">
       <div className="max-w-[1640px] mx-auto px-4">
 
         {/* Header Section */}
-        <div className="text-center mb-16">
-          <span className="text-[#00AEEF] font-bold text-sm tracking-[0.2em] uppercase block mb-4">
+        <div className="text-center mb-20">
+          <span className="text-[#00AEEF] font-bold text-base lg:text-lg lg:ml-8  uppercase block mb-4 lg:mb-8">
             {subtitle}
           </span>
-          <h2 className="text-[32px] md:text-[44px] font-bold text-[#1A2B49] leading-tight">
+          <h2 className="text-[32px] md:text-[34px] lg:text-[37px]  font-normal text-[#1A2B49] leading-tight">
             {title}
           </h2>
         </div>
@@ -69,7 +69,7 @@ const Testimonials = () => {
         )}
 
         {/* Testimonials Container */}
-        <div className="flex justify-center min-h-[400px]" onMouseEnter={() => setIsPaused(true)} onMouseLeave={() => setIsPaused(false)}>
+        <div className="flex justify-center min-h-[290px] lg:pl-10" onMouseEnter={() => setIsPaused(true)} onMouseLeave={() => setIsPaused(false)}>
           {loading && !hasInitialLoaded ? (
             <div className="py-20 h-[300px]">
               <LoadingSpinner text="Loading Testimonials..." />
@@ -80,38 +80,36 @@ const Testimonials = () => {
               <p>Check back later for new updates.</p>
             </div>
           ) : !error ? (
-            <div className={`grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-20 sm:gap-5 w-full transition-opacity duration-300 ${loading ? 'opacity-50' : 'opacity-100'}`}>
+            <div className={`grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-20 sm:gap-5 lg:gap-8 w-full transition-opacity duration-300 ${loading ? 'opacity-50' : 'opacity-100'}`}>
               {currentItems.map((item, index) => (
                 <div
                   key={item._id || index}
-                  className="group bg-white hover:bg-[#F5F8FE] p-8 md:p-10 rounded-[20px]  flex flex-col h-full border border-gray-50/50 transition-colors duration-300"
+                  className="group bg-white hover:bg-[#F5F8FE] p-8 md:p-10 lg:p-10 rounded-[20px] flex flex-col h-full border border-gray-50/50 shadow-[0_1.25rem_3.75rem_rgba(176,190,210,0.22)] hover:shadow-[0_1.25rem_3.75rem_rgba(176,190,210,0.28)] transition-all duration-300"
                 >
                   {/* Profile Header */}
-                  <div className="flex items-center gap-4 mb-6">
-                    <div className="relative w-[75px] h-[75px] flex-shrink-0">
-                      {/* Blue Crescent */}
-                      <div
-                        className="absolute rounded-full bg-[#00AEEF] group-hover:bg-[#1D2765] transition-colors duration-300"
-                        style={{
-                          width: "79px",
-                          height: "79px",
-                          top: "1px",
-                          left: "3px",
-                          zIndex: 0,
-                        }}
-                      />
+                  <div className="flex items-center gap-4 lg:gap-2 mb-6 lg:mb-3">
+                    <div className="relative  w-[5.25rem] h-[5.25rem] flex-shrink-0">
+  {/* Blue Crescent */}
+  <div
+    className="absolute w-[4.25rem] h-[4.25rem] rounded-full bg-[#00AEEF] group-hover:bg-[#1D2765] transition-colors duration-300"
+    style={{
+    top: "0.125rem",
+    left: "0.4375rem",
+    zIndex: 0,
+  }}
+  />
 
-                      {/* Profile */}
-                      <div className="absolute inset-0  rounded-full overflow-hidden border-[3px] border-white group-hover:border-[#F5F8FE] bg-white group-hover:bg-[#F5F8FE] transition-colors duration-300">
-                        <img
-                          src={item.image}
-                          alt={item.name}
-                          className="w-full h-full object-cover"
-                        />
-                      </div>
-                    </div>
-                    <div>
-                      <h4 className="font-bold text-[#1A2B49] group-hover:text-[#0AA7C4] text-xl transition-colors duration-300">
+  {/* Profile */}
+  <div className="absolute top-0 left-0 w-[4.25rem] h-[4.25rem] rounded-full overflow-hidden border-[0.1875rem] border-white group-hover:border-[#F5F8FE] bg-white group-hover:bg-[#F5F8FE] transition-colors duration-300 z-[1]">
+    <img
+      src={item.image}
+      alt={item.name}
+      className="w-full h-full object-cover "
+    />
+  </div>
+</div>
+                    <div className="lg:mb-6">
+                      <h4 className="font-bold mb-1 text-[#1A2B49] group-hover:text-[#0AA7C4] text-xl transition-colors duration-300">
                         {item.name}
                       </h4>
                       <p className="text-[#00AEEF] group-hover:text-[#1D2765] text-sm font-semibold transition-colors duration-300">
@@ -180,9 +178,11 @@ const Testimonials = () => {
           ) : null}
         </div>
 
-        {/* Pagination Dots */}
+        
+      </div>
+      {/* Pagination Dots */}
         {totalPages > 1 && (
-          <div className="flex justify-center gap-2 mt-12">
+          <div className="flex justify-center gap-2 mt-14 lg:ml-12 lg:mt-24">
             {[...Array(totalPages)].map((_, index) => (
               <button
                 key={index}
@@ -193,7 +193,6 @@ const Testimonials = () => {
             ))}
           </div>
         )}
-      </div>
     </section>
   );
 };

@@ -7,15 +7,20 @@ import LoadingSpinner from "../LoadingSpinner";
 
 const LogoCard = ({ logo }) => (
   <div
-    className="w-full max-w-[170px] h-[59px] 
-               sm:max-w-[200px] sm:h-[85px] 
-               md:max-w-[220px] md:h-[95px] 
-               lg:max-w-[360px] lg:h-[80px] 
-               xl:w-[480px] xl:h-[80px] 
-               2xl:w-[300px] 2xl:h-[90px]
+    className="w-full max-w-[10.625rem] h-[3.6875rem]
+
+sm:max-w-[12.5rem] sm:h-[5.3125rem]
+
+md:max-w-[13.75rem] md:h-[5.9375rem]
+
+lg:max-w-[22.5rem] lg:h-[5rem]
+
+xl:w-[30rem] xl:h-[5rem]
+
+2xl:w-[18.75rem] 2xl:h-[5.625rem]
       
-      bg-white rounded-[8px] md:rounded-[15px]
-      shadow-[0px_15px_40px_rgba(176,190,210,0.25)] 
+      bg-white rounded-[0.5rem] md:rounded-[0.9375rem]
+     shadow-[0rem_0.9375rem_2.5rem_rgba(176,190,210,0.25)] 
       flex items-center justify-center 
       p-1 "
   >
@@ -40,7 +45,38 @@ const Clients = () => {
   const [isPaused, setIsPaused] = useState(false);
   const [hasInitialLoaded, setHasInitialLoaded] = useState(false);
   const { subtitle, title, blogTitle } = clientsData;
-  const PAGE_LIMIT = 10;
+  // const PAGE_LIMIT = 13;
+
+const [screenType, setScreenType] = useState("mobile");
+
+useEffect(() => {
+  const checkScreenSize = () => {
+    const width = window.innerWidth;
+
+    if (width >= 1024) {
+      setScreenType("desktop");
+    } else if (width >= 768) {
+      setScreenType("tablet");
+    } else {
+      setScreenType("mobile");
+    }
+  };
+
+  checkScreenSize();
+
+  window.addEventListener("resize", checkScreenSize);
+
+  return () => {
+    window.removeEventListener("resize", checkScreenSize);
+  };
+}, []);
+
+const PAGE_LIMIT =
+  screenType === "desktop"
+    ? 13
+    : screenType === "tablet"
+      ? 9
+      : 8;
   // Fetch all active partners at once so the auto-carousel doesn't constantly hit the backend
   const { data: allLogos, loading, error } = usePartners({ limit: 100, page: 1 });
 
@@ -79,16 +115,16 @@ const Clients = () => {
 
   return (
     <section id="partners-section" className="py-10 md:py-24 lg:py-32 bg-[#FCFDFF] overflow-hidden">
-      <div className=" mx-auto px-6">
+      <div className=" mx-auto px-1">
 
         {/* Header Section */}
-        <div className="text-center mb-12 md:mb-24">
-          <span className="text-[#00AEEF] font-bold text-xs md:text-lg tracking-[0.2em] uppercase block mb-3">
+        <div className="text-center mb-12 md:mb-16">
+          <span className="text-[#00AEEF] font-bold text-xs md:text-lg lg:ml-8 uppercase block mb-4">
             {subtitle}
           </span>
-          <h2 className="text-2xl md:text-5xl lg:text-[52px] font-bold text-[#1A2B49] leading-tight max-w-3xl mx-auto">
+          <h2 className="text-2xl md:text-5xl lg:text-[2.75rem] font-medium text-[#1A2B49] leading-tight lg:ml-16 mx-auto">
             {title} <br className="hidden md:block" />
-            <span className="font-semibold block mt-1">{blogTitle}</span>
+            <span className="font-medium block mt-1 lg:mt-8">{blogTitle}</span>
           </h2>
         </div>
 
@@ -111,31 +147,51 @@ const Clients = () => {
           ) : !error ? (
             <>
               {/* MOBILE VIEW */}
-              <div className={`grid grid-cols-2 md:grid-cols-3 gap-4 lg:hidden justify-items-center transition-all duration-700 ease-in-out ${loading ? 'opacity-0 translate-x-10' : 'opacity-100 translate-x-0'}`}>
+              {/* <div className={`grid grid-cols-2 md:grid-cols-3 gap-4 lg:hidden justify-items-center transition-all duration-700 ease-in-out ${loading ? 'opacity-0 translate-x-10' : 'opacity-100 translate-x-0'}`}>
                 {logos.map((logo, index) => (
                   <LogoCard key={logo._id || `mobile-${index}`} logo={logo} />
                 ))}
-              </div>
+              </div> */}
 
-              {/* DESKTOP VIEW: Exact 3-4-3 Staggered Layout */}
-              <div className={`hidden lg:flex flex-col items-center gap-8 lg:gap-10 transition-all duration-700 ease-in-out ${loading ? 'opacity-0 translate-x-10' : 'opacity-100 translate-x-0'}`}>
-                {/* Row 1 (3 logos) */}
+              {/* MOBILE VIEW - 8 logos per page, 4 rows × 2 columns */}
+                <div
+                  className={`grid grid-cols-2 gap-4 md:grid-cols-3 lg:hidden justify-items-center transition-all duration-700 ease-in-out ${
+                    loading
+                      ? "opacity-0 translate-x-10"
+                      : "opacity-100 translate-x-0"
+                  }`}
+                >
+                  {logos.map((logo, index) => (
+                    <LogoCard
+                      key={logo._id || `mobile-${index}`}
+                      logo={logo}
+                    />
+                  ))}
+                </div>
+
+
+              {/* TABLET VIEW - 9 logos per page, 3 rows × 3 columns */}
+              
+
+              {/* DESKTOP VIEW: Exact 4-5-4 Staggered Layout */}
+              <div className={`hidden lg:flex flex-col items-center lg:space-y-6 gap-8 lg:gap-10 transition-all duration-700 ease-in-out ${loading ? 'opacity-0 translate-x-10' : 'opacity-100 translate-x-0'}`}>
+                {/* Row 1 (4 logos) */}
                 <div className="flex justify-center gap-8 w-full">
-                  {logos.slice(0, 3).map((logo, index) => (
+                  {logos.slice(0, 4).map((logo, index) => (
                     <LogoCard key={logo._id || `row1-${index}`} logo={logo} />
                   ))}
                 </div>
 
                 {/* Row 2 (4 logos) */}
                 <div className="flex justify-center gap-8 w-full">
-                  {logos.slice(3, 7).map((logo, index) => (
+                  {logos.slice(3, 9).map((logo, index) => (
                     <LogoCard key={logo._id || `row2-${index}`} logo={logo} />
                   ))}
                 </div>
 
                 {/* Row 3 (3 logos) */}
                 <div className="flex justify-center gap-8 w-full">
-                  {logos.slice(7, 10).map((logo, index) => (
+                  {logos.slice(7, 13).map((logo, index) => (
                     <LogoCard key={logo._id || `row3-${index}`} logo={logo} />
                   ))}
                 </div>

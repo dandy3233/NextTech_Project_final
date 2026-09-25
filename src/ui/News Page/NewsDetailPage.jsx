@@ -23,16 +23,16 @@ function BlogDetail() {
   }
 
   return (
-    <div className="flex flex-col pt-10 mb-6 lg:mb-16">
-      <main className="px-4 py-12 sm:px-6 lg:px-8 lg:mx-16 xl:mx-20 2xl:mx-32">
-        <div className="flex flex-col gap-6 lg:flex-row lg:gap-6 xl:gap-8 2xl:gap-10">
+    <div className="flex flex-col pt-10 lg:pt-20 mb-6 lg:mb-16">
+      <main className="px-4 py-12 sm:px-6 lg:px-8 lg:mx-16 xl:mx-20 2xl:mx-20">
+        <div className="flex flex-col gap-6 lg:flex-row lg:gap-6 xl:gap-8 2xl:gap-11">
           {/* Main Content */}
           <div className="w-full lg:w-[70%]">
             <BlogContent post={post} />
           </div>
 
           {/* Sidebar */}
-          <aside className="w-full space-y-12 lg:w-[30%]">
+          <aside className="w-full space-y-11 lg:w-[31%]">
             <BlogSearch />
             <BlogCategories categories={categories} />
             <RecentPosts posts={recentPosts} />

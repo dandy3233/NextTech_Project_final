@@ -52,7 +52,7 @@ export default function ServiceSidebar({ services = [], activeId }) {
     <aside className="space-y-11 lg:top-10 py-20 md:py-0 h-fit flex flex-col mb-28 md:mb-0 ml-0 lg:ml-10 xl:ml-14">
       {/* Services List */}
       <div className="bg-white py-8 rounded-lg p-6 sm:p-6 lg:p-5 xl:p-6 flex flex-col border border-gray-600 border-opacity-20">
-        <h3 className="font-sans text-2xl lg:text-xl xl:text-3xl 2xl:text-4xl font-semibold text-gray-900 mb-6 lg:mb-4 xl:mb-6">
+        <h3 className="font-sans text-2xl lg:text-xl xl:text-2xl 2xl:text-3xl font-semibold text-gray-900 mb-6 lg:mb-4 xl:mb-6">
           Services List
         </h3>
         <div className="flex flex-col space-y-3 lg:space-y-3 h-[26rem] lg:h-[20rem] xl:h-[26rem] overflow-y-auto pr-2 custom-scrollbar">
@@ -60,7 +60,7 @@ export default function ServiceSidebar({ services = [], activeId }) {
             <Link
               key={item.id}
               to={`/service/${item.id}`}
-              className={`rounded-lg px-6 py-4 lg:py-2 xl:py-4 2xl:py-5 flex items-center justify-between border border-gray-600 border-opacity-20 transition-all duration-300 group ${
+              className={`rounded-lg px-6 py-4 lg:py-2 xl:py-4 2xl:py-4 flex items-center justify-between border border-gray-600 border-opacity-20 transition-all duration-300 group ${
                 activeId === item.id
                   ? "bg-[#101010] border-transparent"
                   : "bg-white hover:bg-[#101010]"
