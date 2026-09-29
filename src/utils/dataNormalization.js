@@ -19,8 +19,8 @@ export const fixImageUrl = (url) => {
         return cleaned;
     }
 
-    // In production, prepend the backend origin
-    return `${BACKEND_URL}${cleaned}`;
+    // In production, prepend the backend origin if defined, or use the proxied relative path
+    return BACKEND_URL ? `${BACKEND_URL}${cleaned}` : cleaned;
 };
 
 /**

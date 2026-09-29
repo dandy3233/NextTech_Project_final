@@ -1,6 +1,14 @@
 {
   "rewrites": [
     {
+      "source": "/api/:path*",
+      "destination": "https://nexttech-back-end.onrender.com/api/:path*"
+    },
+    {
+      "source": "/Public/:path*",
+      "destination": "https://nexttech-back-end.onrender.com/Public/:path*"
+    },
+    {
       "source": "/(.*)",
       "destination": "/index.html"
     }
