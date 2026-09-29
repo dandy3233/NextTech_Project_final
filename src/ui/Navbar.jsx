@@ -90,7 +90,7 @@ const Navbar = () => {
               transition-all duration-300 py-[1rem] lg:py-[0rem]
               ${
                 isNavbarSticky
-                  ? 'px-[1rem] lg:px-[2rem] xl:px-[8rem] lg:pb-[0.75rem] '
+                  ? 'px-[1rem] lg:px-[2rem] xl:px-[2rem] 2xl:px-[1rem] lg:pb-[0.75rem] '
                   : 'px-[1rem] lg:px-[2rem]'
               }
             `}
@@ -101,7 +101,7 @@ const Navbar = () => {
                 src={NextTechLogo}
                 alt="NextTech Logo"
                 className={`object-contain w-[12.5rem] h-[3.4375rem] lg:h-[5rem] lg:w-[10rem] transition-all duration-300
-                  ${isNavbarSticky ? 'xl:w-[12rem]' : ''}
+                  ${isNavbarSticky ? 'xl:w-[12rem] 2xl:w-[14rem]' : ''}
                 `}
               />
             </div>
