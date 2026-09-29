@@ -41,15 +41,19 @@ const TeamCard = ({ member }) => {
     linkedin: { icon: FaLinkedinIn, size: 15 },
   };
 
-  /* ===============================
-     DYNAMIC SOCIAL ITEMS FROM BACKEND
-  =============================== */
-
+  const seenPlatforms = new Set();
   const socialItems = (Array.isArray(socialMedia) ? socialMedia : [])
     .filter((item) => item?.platform && item?.url && item.url !== "#")
-    .map((item) => {
+    .filter((item) => {
+      const key = item.platform.toLowerCase();
+      if (seenPlatforms.has(key)) return false;
+      seenPlatforms.add(key);
+      return true;
+    })
+    .map((item, index) => {
       const key = item.platform.toLowerCase();
       return {
+        id: item._id || item.id || `${item.platform}-${index}`,
         platform: item.platform,
         url: item.url,
         ...(PLATFORM_ICONS[key] || {}),
@@ -180,7 +184,7 @@ const TeamCard = ({ member }) => {
         <div
           className="
             absolute
-            right-[39px]
+            right-[49px]
             -bottom-[26px]
             z-30
             h-[54px]
@@ -227,7 +231,7 @@ const TeamCard = ({ member }) => {
                 const isLast = index === socialItems.length - 1;
                 return (
                   <button
-                    key={social.platform}
+                    key={social.id || `${social.platform}-${index}`}
                     type="button"
                     aria-label={social.platform}
                     onClick={(event) =>
