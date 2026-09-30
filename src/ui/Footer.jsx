@@ -50,7 +50,7 @@ const Footer = () => {
 
             <div className="space-y-5 text-[15px]">
               <div className="flex items-start gap-4">
-                <FaMapMarkerAlt className="mt-1 text-tertiary" />
+               <FaMapMarkerAlt className="mt-1 text-tertiary text-[1.125rem] lg:text-[1.5625rem] xl:text-[2.375rem]" />
                 <p>{description.address}, <br /> {description.country}</p>
               </div>
               <div className="flex items-center gap-4">

@@ -47,7 +47,7 @@ const TeamSection = () => {
   const displayedMembers = safeMembers.slice(offset, offset + itemsPerPage);
 
   return (
-    <section className="py-12 md:py-20 lg:py-24 px-6 md:px-7 2xl:px-[6.75rem]  bg-white">
+    <section className="py-12 md:py-20 lg:py-24 px-6 md:px-7 lg:px-[6.5rem] xl:px-[7rem] 2xl:px-[6.75rem]  bg-white">
       <div className="max-w-7xl 2xl:max-w-screen-2xl  mx-auto">
         {/* Section Header */}
         <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-10 md:mb-14 gap-6">
