@@ -8,7 +8,7 @@ const RecentProjects = () => {
 
   return (
     /* Increased vertical padding for that spacious 'zoomed' feel */
-    <section className="py-12 md:py-20 lg:py-[7.375rem] px-6 md:px-12 lg:px-28 bg-white ">
+    <section className="py-12 md:py-20 lg:py-[7.375rem] px-6 md:px-12 lg:px-8 xl:px-28 bg-white ">
 
       <div className="max-w-7xl lg:max-w-[100rem] mx-auto flex flex-col lg:flex-row  lg:items-start gap-10 lg:gap-10">
 

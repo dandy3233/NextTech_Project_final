@@ -22,14 +22,14 @@ const Hero = () => {
 
   return (
     <section
-      className="relative w-full overflow-hidden pt-[9rem] lg:px-24 lg:pt-[250px] xl:pt-[194px] md:pt-[140px] pb-11 lg:pb-[130px] md:pb-[20px] xl:pb-[80px] 2xl:pb-[30px]
+      className="relative w-full overflow-hidden pt-[9rem] lg:px-6 xl:px-24 lg:pt-[250px] xl:pt-[194px] md:pt-[140px] pb-11 lg:pb-[130px] md:pb-[20px] xl:pb-[80px] 2xl:pb-[30px]
                  bg-no-repeat bg-center bg-cover"
       style={{
         backgroundImage: `url(${heroBg})`,
       }}
     >
 
-      <div className="max-w-6xl lg:max-w-[1400px] mx-auto px-6 lg:px-4 xl:max-w-[1650px]">
+      <div className="max-w-6xl lg:max-w-[1400px] mx-auto px-6 lg:px-0 xl:px-4 xl:max-w-[1650px]">
         <div className="flex flex-col md:flex-row justify-between md:items-center gap-16 lg:gap-24">
 
           {/* LEFT CONTENT */}

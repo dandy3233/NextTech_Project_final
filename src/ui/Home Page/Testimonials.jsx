@@ -49,7 +49,7 @@ const Testimonials = () => {
   const currentItems = safeItems.slice(offset, offset + itemsPerPage);
 
   return (
-    <section className="py-16 md:py-[5.25rem] lg:px-32 bg-white overflow-hidden">
+    <section className="py-16 md:py-[5.25rem] lg:px-8 xl:px-32 bg-white overflow-hidden">
       <div className="max-w-[1640px] mx-auto px-4">
 
         {/* Header Section */}

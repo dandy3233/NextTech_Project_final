@@ -130,7 +130,7 @@ export default function Contact() {
           </div>
 
           {/* ================= RIGHT SIDE: Info from Data ================= */}
-          <div className="order-2 lg:px-24 lg:order-2 space-y-8 sm:space-y-8">
+          <div className="order-2 lg:px-0 xl:px-24 lg:order-2 space-y-8 sm:space-y-8">
             <div>
               <h2 className="text-4xl md:text-5xl font-extrabold text-gray-900 mb-6 ml-2 tracking-tight">
                 {contactInfo.title}

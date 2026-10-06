@@ -14,7 +14,7 @@ const iconMap = {
 const StatCard = ({ item, index }) => {
   const Icon = iconMap[item.icon] || HiMiniUserGroup;
   return (
-    <div className={`bg-white py-7 px-6 lg:py-8 lg:px-7 shadow-[0_10px_30px_rgba(0,0,0,0.06)] rounded-xl flex items-center gap-5 w-full h-[7.5rem] lg:h-[8.5rem] xl:h-[9rem] ${index >= 2 ? 'lg:ml-4' : ''}`}>
+    <div className={`bg-white py-7 px-6 lg:py-8 lg:px-7 xl:px-7 shadow-[0_10px_30px_rgba(0,0,0,0.06)] rounded-xl flex items-center gap-5 w-full h-[7.5rem] lg:h-[8.5rem] xl:h-[9rem] ${index >= 2 ? 'lg:ml-2 xl:ml-4' : ''}`}>
 
       <div className="text-5xl lg:text-[44px] text-primary flex-shrink-0 xl:text-5xl">
         <Icon />
@@ -51,7 +51,7 @@ const CounterComponent = () => {
   }
 
   return (
-    <section className="py-8 lg:py-14 px-6 lg:px-[8.75rem]  bg-white shadow-2xl">
+    <section className="py-8 lg:py-12 xl:py-14 px-6 lg:px-[2.75rem] xl:px-[8.75rem]  bg-white shadow-2xl">
       <div className="max-w-[1692px] mx-auto">
 
         {error && (
@@ -60,7 +60,7 @@ const CounterComponent = () => {
           </div>
         )}
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-[3.25rem]">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-[2.25rem] xl:gap-[3.25rem]">
           {Array.isArray(statsData) && statsData.length > 0 ? (
             statsData.map((stat, index) => {
               const mappedStat = {

@@ -32,7 +32,7 @@ export default function WhyWeOffer() {
   }
 
   return (
-    <section className="py-16 md:py-24 lg:px-14 lg:py-[120px] bg-white overflow-hidden">
+    <section className="py-16 md:py-24 lg:px-8 xl:px-14 lg:py-[120px] bg-white overflow-hidden">
       <style>
         {`
           .mobile-dots .swiper-pagination-bullet {
@@ -53,10 +53,10 @@ export default function WhyWeOffer() {
       </style>
 
       <div className="max-w-[1690px] mx-auto px-6 lg:px-0">
-        <div className="flex flex-col lg:grid lg:grid-cols-2 gap-12 lg:gap-[180px] ">
+        <div className="flex flex-col lg:grid lg:grid-cols-2 gap-12 lg:gap-[20px] xl:gap-[180px] ">
 
           {/* LEFT CONTENT */}
-          <div className="space-y-6 lg:space-y-10 lg:ml-20">
+          <div className="space-y-6 lg:space-y-10 lg:ml-2 xl:ml-20">
             <div className="space-y-8">
               <span className="text-primary font-bold uppercase tracking-widest text-base">
                 {workData.subtitle}
@@ -191,13 +191,13 @@ function FeatureCard({ feature, isMobile, stagger = false }) {
   const Icon = feature.icon;
   return (
     <div className={`
-      bg-white py-5 px-6 lg:py-6 lg:px-8
+      bg-white py-5 px-6 lg:py-6 lg:px-6 xl:px-8
       shadow-[0_12px_35px_rgba(0,168,232,0.14)] 
       border-l-[6px] border-primary 
       rounded-r-md lg:w-[80%] 2xl:w-[78%]
       flex items-center gap-5 
       transition-all duration-300 ease-out
-      ${!isMobile && stagger ? 'lg:ml-40' : 'lg:ml-0'}
+      ${!isMobile && stagger ? 'lg:ml-20 xl:ml-40' : 'lg:ml-0'}
     `}>
       <div className="text-primary text-2xl lg:text-[30px] flex-shrink-0">
         <Icon />

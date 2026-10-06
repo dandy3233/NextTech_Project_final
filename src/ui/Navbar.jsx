@@ -86,11 +86,11 @@ const Navbar = () => {
         {/* --- MAIN NAVBAR --- */}
         <div className="transition-all duration-300 w-full">
           <div
-            className={`max-w-[100rem] mx-auto flex justify-between items-center
-              transition-all duration-300 py-[1rem] lg:py-[0rem]
+            className={`max-w-[100rem] mx-auto flex justify-between gap-5 xl:gap-0 items-center
+              transition-all duration-300 py-[1rem] lg:py-[0rem] 
               ${
                 isNavbarSticky
-                  ? 'px-[1rem] lg:px-[8rem] xl:px-[7rem] 2xl:px-[8rem]  lg:pb-[0.75rem] '
+                  ? 'px-[1rem] lg:px-[2rem] xl:px-[7rem] 2xl:px-[8rem]  lg:pb-[0.75rem] '
                   : 'px-[1rem] lg:px-[2rem]'
               }
             `}
@@ -100,8 +100,8 @@ const Navbar = () => {
               <img
                 src={NextTechLogo}
                 alt="NextTech Logo"
-                className={`object-contain w-[12.5rem] h-[3.4375rem] lg:h-[5rem] lg:w-[10rem] transition-all duration-300
-                  ${isNavbarSticky ? 'xl:w-[12rem] 2xl:w-[12rem]' : ''}
+                className={`object-contain w-[12.5rem] h-[3.4375rem] lg:h-[5rem] lg:w-[18rem] xl:w-[10rem] transition-all duration-300
+                  ${isNavbarSticky ? ' xl:w-[12rem] 2xl:w-[12rem]' : ''}
                 `}
               />
             </div>
