@@ -86,7 +86,7 @@ const Navbar = () => {
         {/* --- MAIN NAVBAR --- */}
         <div className="transition-all duration-300 w-full">
           <div
-            className={`max-w-[100rem] mx-auto flex justify-between gap-5 xl:gap-0 items-center
+            className={`max-w-[100rem]  flex justify-between gap-5 xl:gap-0 items-center
               transition-all duration-300 py-[1rem] lg:py-[0rem] 
               ${
                 isNavbarSticky
@@ -174,7 +174,8 @@ const Navbar = () => {
               <div className="min-w-[48px] h-[48px] border-2 border-primary rounded-lg flex items-center justify-center text-primary bg-white">
                 <MdLocationOn size={26} />
               </div>
-              <p className="text-base text-gray-700 font-medium">Bole, Welo-Sefer, st 4090, Addis Ababa, Ethiopia</p>
+              <p className="text-base text-gray-700 font-medium">FOAM295 Compass Building, Al Shohada Road, Al Hamra Industrial Zone-FZ, Ras Al Khaimah,
+United Arab Emirates</p>
             </div>
             <div className="flex gap-5 items-center">
               <div className="min-w-[48px] h-[48px] border-2 border-primary rounded-lg flex items-center justify-center text-primary bg-white">
@@ -190,7 +191,7 @@ const Navbar = () => {
             </div>
           </div>
 
-          <div className="flex justify-center py-4">
+          <div className="flex justify-center py-4 pb-20">
             <Button as={Link} to="/contacts" variant="primary" size="xl">
               Send Message
             </Button>

@@ -54,7 +54,7 @@ const Testimonials = () => {
 
         {/* Header Section */}
         <div className="text-center mb-20">
-          <span className="text-[#00AEEF] font-bold text-base lg:text-lg lg:ml-8  uppercase block mb-4 lg:mb-8">
+          <span className="text-[#00AEEF] font-bold text-base xl:text-lg 2xl:text-lg   lg:ml-8  uppercase block mb-4 lg:mb-8">
             {subtitle}
           </span>
           <h2 className="text-[32px] md:text-[34px] lg:text-[37px]  font-normal text-[#1A2B49] leading-tight">

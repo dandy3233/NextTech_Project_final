@@ -52,13 +52,13 @@ export default function WhyWeOffer() {
         `}
       </style>
 
-      <div className="max-w-[1690px] mx-auto px-6 lg:px-0">
+      <div className=" px-6 lg:px-0">
         <div className="flex flex-col lg:grid lg:grid-cols-2 gap-12 lg:gap-[20px] xl:gap-[180px] ">
 
           {/* LEFT CONTENT */}
           <div className="space-y-6 lg:space-y-10 lg:ml-2 xl:ml-20">
             <div className="space-y-8">
-              <span className="text-primary font-bold uppercase tracking-widest text-base">
+              <span className="text-primary font-bold uppercase  text-base xl:text-lg 2xl:text-lg  block">
                 {workData.subtitle}
               </span>
               <h2 className="text-[2.75rem] sm:text-3xl lg:text-[38px] xl:text-[38px] font-normal text-[#0B162C] leading-[1.18] tracking-tight">

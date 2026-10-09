@@ -16,7 +16,7 @@ const RecentProjects = () => {
 <div className="w-full lg:w-[50%] lg:px-2 text-start lg:text-left flex flex-col items-start">
   
   {/* Subtitle */}
-  <span className="text-primary font-bold text-xs md:text-base lg:text-[17px] uppercase">
+  <span className="text-primary font-bold text-base xl:text-lg 2xl:text-lg block uppercase">
     {subtitle}
   </span>
 

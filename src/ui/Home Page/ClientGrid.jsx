@@ -7,17 +7,17 @@ import LoadingSpinner from "../LoadingSpinner";
 
 const LogoCard = ({ logo }) => (
   <div
-    className="w-full max-w-[10.625rem] h-[3.6875rem]
+    className="w-full  h-[4.6875rem]
 
-sm:max-w-[12.5rem] sm:h-[5.3125rem]
+sm:w-[12.5rem] sm:h-[5.3125rem]
 
-md:max-w-[13.75rem] md:h-[5.9375rem]
+md:w-[13.75rem] md:h-[5.9375rem]
 
-lg:max-w-[22.5rem] lg:h-[5rem]
+lg:w-[22.5rem] lg:h-[5rem]
 
-xl:w-[30rem] xl:h-[5rem]
+xl:w-[22.5rem] xl:h-[5.3125rem]
 
-2xl:w-[18.75rem] 2xl:h-[5.625rem]
+2xl:w-[18.75rem] 2xl:h-[6.25rem]
       
       bg-white rounded-[0.5rem] md:rounded-[0.9375rem]
      shadow-[0rem_0.9375rem_2.5rem_rgba(176,190,210,0.25)] 
@@ -119,7 +119,7 @@ const PAGE_LIMIT =
 
         {/* Header Section */}
         <div className="text-center mb-12 md:mb-16">
-          <span className="text-[#00AEEF] font-bold text-xs md:text-lg lg:ml-8 uppercase block mb-4">
+          <span className="text-primary font-bold text-base xl:text-lg 2xl:text-lg lg:ml-8 uppercase block mb-4">  
             {subtitle}
           </span>
           <h2 className="text-2xl md:text-5xl lg:text-[2.75rem] font-medium text-[#1A2B49] leading-tight lg:ml-16 mx-auto">

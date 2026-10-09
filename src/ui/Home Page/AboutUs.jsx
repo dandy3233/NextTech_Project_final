@@ -10,14 +10,16 @@ const AboutUs = () => {
       {/* Container: Gradually increases max-width. 
           2xl:max-w-screen-2xl (1536px) keeps it readable on massive monitors.
       */}
-      <div className="container px-5   lg:px-12 xl:px-20 2xl:max-w-[107.5rem]">
+      <div className=" px-5   lg:px-12 xl:px-20 ">
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 xl:gap-24 2xl:gap-[2.5rem] items-start">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 xl:gap-14  2xl:gap-[8.5rem] items-start">
 
           {/* LEFT SIDE: IMAGE & HEADER */}
           <div className="w-full flex flex-col space-y-6 lg:space-y-16">
             <div className="space-y-3 lg:space-y-4">
-              <span className="text-primary lg:ml-12 font-bold text-sm md:text-base lg:text-base uppercase tracking-wider block">
+              <span className="text-primary lg:ml-12 font-bold text-base md:text-base lg:text-base 2xl:text-lg uppercase  block">
+            
+
                 {aboutData.subtitle}
               </span>
               <h2 className="text-[1.75rem] sm:text-4xl lg:text-[28px] xl:text-[42px]  lg:ml-10 font-medium text-[#0B162C] leading-[1.18] tracking-tight">
@@ -33,11 +35,11 @@ const AboutUs = () => {
             </div>
 
             {/* Image Wrapper: ensures image scales nicely but doesn't blow up too large */}
-            <div className="relative group lg:ml-11 ">
+            <div className="relative group lg:ml-11">
               <img
                 src={aboutUsImage}
                 alt="Our Team"
-                className="w-[310px] sm:min-w-[550px] md:min-w-full max-h-[400px] md:max-h-[360px] lg:max-h-[600px] lg:min-w-[100px] xl:max-h-[600px] rounded-[10px] object-cover transform transition-transform duration-500 hover:scale-[1.01]"
+                className="w-[380px] sm:w-[550px] md:w-full h-[400px] md:h-[360px] lg:h-[540px] lg:w-[540px] xl:h-[540px] 2xl:h-[560px] 2xl:w-full rounded-[10px] object-cover transform transition-transform duration-500 hover:scale-[1.01]"
               />
             </div>
           </div>
@@ -55,7 +57,7 @@ const AboutUs = () => {
             </div>
 
             {/* VISION/MISSION GRID: Adjusts columns for smaller screens */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 lg:gap-3 xl:gap-6 lg:pr-14">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 lg:gap-3 xl:gap-5 2xl:gap-6 lg:pr-14">
               {aboutData.features.map((item, index) => (
                 <div key={item.id} className={`group ${index % 2 !== 0 ? 'lg:ml-6' : ''}`}>
                   <h4 className="text-xl md:text-2xl xl:text-2xl font-normal text-[#26262C] mb-3 group-hover:text-primary transition-colors">

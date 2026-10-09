@@ -36,7 +36,7 @@ const Footer = () => {
 
   return (
     <footer className={`bg-secondary text-gray-400 px-6 font-sans relative z-10 ${isHomePage
-        ? 'py-12 -mt-20 lg:pt-[21rem] lg:px-8 xl:px-44' // Spacing for Home Page (with card overlap)
+        ? 'py-12 -mt-20 md:mt-28 lg:pt-[21rem] lg:px-8 xl:px-44' // Spacing for Home Page (with card overlap)
         : 'py-12 mt-0 lg:px-8 xl:px-44'                 // Spacing for all other pages (clean look)
       }`}>
       <div className="max-w-[96.875rem] mt-[10rem] md:mt-0 mx-auto">

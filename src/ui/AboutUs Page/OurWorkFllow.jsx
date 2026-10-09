@@ -515,7 +515,7 @@ const Workflow = () => {
           </Swiper>
 
           {/* CUSTOM PAGINATION DOTS */}
-          <div className="custom-pagination flex justify-center items-center gap-3 mt-4" />
+          <div className="custom-pagination flex justify-center items-center gap-1 mt-4" />
         </div>
       </div>
     </section>

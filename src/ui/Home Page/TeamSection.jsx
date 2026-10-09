@@ -51,7 +51,7 @@ const TeamSection = () => {
         {/* Section Header */}
         <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-10 md:mb-14 gap-6">
           <div className="text-left">
-            <span className="text-[#00AEEF] font-semibold lg:ml-2 text-base lg:text-xl tracking-normal">
+            <span className="text-primary font-bold uppercase  lg:ml-2 text-base xl:text-lg 2xl:text-lg tracking-wider block">
               {teamSectionHeaderData.subtitle}
             </span>
             <h2 className="text-3xl sm:text-4xl lg:text-[40px] font-normal text-[#0B162C] mt-2 lg:mt-6 lg:ml-3 max-w-lg">
