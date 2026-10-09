@@ -37,7 +37,7 @@ const AboutUs = () => {
               <img
                 src={aboutUsImage}
                 alt="Our Team"
-                className="min-w-[310px] sm:min-w-[550px] md:min-w-full max-h-[400px] md:max-h-[360px] lg:max-h-[600px] lg:min-w-[100px] xl:max-h-[600px] rounded-[10px] object-cover transform transition-transform duration-500 hover:scale-[1.01]"
+                className="w-[310px] sm:min-w-[550px] md:min-w-full max-h-[400px] md:max-h-[360px] lg:max-h-[600px] lg:min-w-[100px] xl:max-h-[600px] rounded-[10px] object-cover transform transition-transform duration-500 hover:scale-[1.01]"
               />
             </div>
           </div>

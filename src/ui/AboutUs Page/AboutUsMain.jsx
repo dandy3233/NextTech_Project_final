@@ -36,33 +36,31 @@ const AboutUs = () => {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-6">
               {aboutData.features.map((item, index) => (
                 <div 
-  key={item.id} 
-  className={`flex flex-col items-start text-center md:flex-row md:items-center md:text-start gap-3 md:gap-5 ${
-    index === 0 
-      ? "md:col-span-2 md:flex-col md:items-center md:text-center lg:px-8 lg:flex-row lg:items-start lg:text-left lg:ml-32" 
-      : ""
-  }`}
->
-  {/* Icon */}
-  <div className="flex-shrink-0 w-16 h-16 lg:w-12 lg:h-14 flex items-center justify-center">
-    <img 
-      src={item.icon} 
-      alt={item.title} 
-      className="w-full h-full object-contain"
-    />
-  </div>
-
-  {/* Title + Text */}
-  <div className="flex flex-col items-start md:items-start">
-    <h4 className="text-xl lg:text-[22px] lg:ml-3 font-normal text-[#0a1128] mb-2">
-      {item.title}
-    </h4>
-
-    <p className="text-gray-400 text-sm lg:text-[15px] max-w-[20rem] lg:mx-0">
-      {item.text}
-    </p>
-  </div>
-</div>
+                  key={item.id} 
+                  className={`flex flex-row items-center text-start md:items-center lg:flex-row lg:items-start lg:text-left gap-5 ${
+                    index === 0 
+                      ? "md:col-span-2 md:flex-col md:items-center md:text-center  lg:px-8 lg:flex-row lg:items-start lg:text-left lg:ml-32" 
+                      : ""
+                  }`}
+                >
+                  {/* Icon Image Container */}
+                  <div className="flex-shrink-0 w-16 h-16 lg:w-12 lg:h-14 flex items-center justify-center">
+                    <img 
+                      src={item.icon} 
+                      alt={item.title} 
+                      className="w-full h-full object-contain"
+                    />
+                  </div>
+                  
+                  <div className="flex flex-col ">
+                    <h4 className="text-xl lg:text-[22px] lg:ml-3 font-normal text-[#0a1128] mb-2">
+                      {item.title}
+                    </h4>
+                    <p className="text-gray-400 text-sm lg:text-[15px] max-w-[20rem]  lg:mx-0">
+                      {item.text}
+                    </p>
+                  </div>
+                </div>
               ))}
             </div>
           </div>
