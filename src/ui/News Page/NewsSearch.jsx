@@ -1,4 +1,5 @@
 import { MdSearch } from "react-icons/md";
+
 import { useState, useRef, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useNewsSearch } from "../../hooks/useNewsPage";
@@ -42,7 +43,7 @@ function BlogSearch() {
 
     const handleResultClick = (post) => {
         // Use post._id as backend uses MongoDB ObjectId, fallback to id if necessary
-        const postId = post._id;
+        const postId = post._id || post.id;
         navigate(`/news/${postId}`);
         setShowResults(false);
         setSearchValue(""); // Clear search
@@ -74,7 +75,7 @@ function BlogSearch() {
                         ) : filteredResults.length > 0 ? (
                             filteredResults.map((post) => (
                                 <div
-                                    key={post._id}
+                                    key={post._id || post.id}
                                     onClick={() => handleResultClick(post)}
                                     className="px-4 py-3 hover:bg-gray-50 cursor-pointer border-b border-gray-100 last:border-b-0 transition-colors"
                                 >
@@ -82,7 +83,10 @@ function BlogSearch() {
                                         {post.title}
                                     </h4>
                                     <p className="text-xs text-gray-500 line-clamp-1">
-                                        {post.excerpt ||
+                                        {post.descriptionOne ||
+                                            post.descriptionTwo ||
+                                            post.discriptionThree ||
+                                            post.excerpt ||
                                             (Array.isArray(post.content) ? post.content.join(" ") : post.content)?.substring(0, 100)}
                                     </p>
                                     {post.tags && (

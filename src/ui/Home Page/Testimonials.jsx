@@ -182,12 +182,12 @@ const Testimonials = () => {
       </div>
       {/* Pagination Dots */}
         {totalPages > 1 && (
-          <div className="flex justify-center gap-2 mt-14 lg:ml-12 lg:mt-24">
+          <div className="flex justify-center gap-1 mt-14 lg:ml-12 lg:mt-24">
             {[...Array(totalPages)].map((_, index) => (
               <button
                 key={index}
                 onClick={() => setCurrentPage(index)}
-                className={`h-2 transition-all duration-300 rounded-full ${currentPage === index ? 'w-2 bg-[#00AEEF]' : 'w-2 bg-gray-300'
+                className={`w-2.5 h-2.5 transition-all duration-300 rounded-full ${currentPage === index ? 'bg-[#1e3a5f] scale-125 shadow-md' : 'bg-sky-200 hover:bg-sky-300 hover:scale-110'
                   }`}
               />
             ))}

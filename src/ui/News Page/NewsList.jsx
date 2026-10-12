@@ -23,7 +23,7 @@ function BlogList({ posts }) {
             {/* Grid now uses currentPosts state updated by Pagination */}
             <div className="grid grid-cols-1 gap-x-6 xl:gap-x-6 2xl:gap-x-8 gap-y-12 sm:grid-cols-2 lg:grid-cols-3 lg:mx-16 xl:mx-20 2xl:mx-[5rem] ">
                 {currentPosts.map((post) => (
-                    <BlogCard key={post.id} post={post} />
+                    <BlogCard key={post._id || post.id} post={post} />
                 ))}
             </div>
 

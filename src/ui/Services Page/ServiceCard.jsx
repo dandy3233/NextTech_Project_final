@@ -27,7 +27,7 @@ export default function ServiceCard({ service }) {
           font-bold text-gray-900 line-clamp-1 
           group-hover:text-primary transition-colors duration-300
         ">
-          {service.title}
+          {service.title ? service.title.charAt(0).toUpperCase() + service.title.slice(1) : ''}
         </h3>
 
         <p className="

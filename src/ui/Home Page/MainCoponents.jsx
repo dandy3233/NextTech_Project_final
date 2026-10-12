@@ -20,10 +20,17 @@ const Hero = () => {
     setCurrentIndex(newIndex);
   };
 
+  const scrollToAbout = () => {
+    const aboutSection = document.getElementById("about-us");
+    if (aboutSection) {
+      aboutSection.scrollIntoView({ behavior: "smooth" });
+    }
+  };
+
   return (
     <section
-      className="relative w-full overflow-hidden pt-[9rem] lg:px-6 xl:px-24 lg:pt-[250px] xl:pt-[194px] md:pt-[140px] pb-11 lg:pb-[130px] md:pb-[20px] xl:pb-[80px] 2xl:pb-[30px]
-                 bg-no-repeat bg-center bg-cover"
+      className="relative w-full overflow-hidden pt-[12rem] lg:px-6 xl:px-24 lg:pt-[250px] xl:pt-[194px] md:pt-[140px] pb-11 lg:pb-[130px] md:pb-[20px] xl:pb-[80px] 2xl:pb-[30px]
+                 bg-white bg-no-repeat bg-left-top lg:bg-center bg-cover"
       style={{
         backgroundImage: `url(${heroBg})`,
       }}
@@ -45,11 +52,11 @@ const Hero = () => {
 
             <div className="pt-4 lg:pt-1 lg:ml-5">
               <Button
-                as={Link}
-                to="/contacts"
+                onClick={scrollToAbout}
                 variant="primary"
                 size="lg"
-                iconAfter={IoIosArrowForward}>
+                iconAfter={IoIosArrowForward}
+              >
                 Get Started
               </Button>
             </div>

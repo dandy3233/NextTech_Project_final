@@ -5,18 +5,19 @@ import RecentPosts from "./RecentPosts";
 import BlogTags from "./NewsTags";
 import BlogContent from "./NewsContent";
 import NotFoundMessage from "../NotFoundMessage";
-import useBlog from "../../hooks/useNewsPage";
+import useBlog, { useSingleNews } from "../../hooks/useNewsPage";
 import LoadingSpinner from "../LoadingSpinner";
 
 function BlogDetail() {
   const { id } = useParams();
-  const { posts, categories, tags, recentPosts, loading } = useBlog();
+  const { post: singlePost, loading: singleLoading } = useSingleNews(id);
+  const { posts, categories, tags, recentPosts, loading: blogLoading } = useBlog();
 
-  if (loading) {
+  if (singleLoading || blogLoading) {
     return <LoadingSpinner text="Loading News Details..." />;
   }
 
-  const post = posts.find((p) => String(p._id) === String(id));
+  const post = singlePost || posts.find((p) => String(p._id) === String(id));
 
   if (!post) {
     return <NotFoundMessage itemType="News" backPath="/news" />;

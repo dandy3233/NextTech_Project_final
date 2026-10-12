@@ -10,7 +10,7 @@ export default function CertificateCard({ item }) {
   const description = item.certificateDescription;
   const title = item.certificateName;
   const goToDetail = () => {
-    navigate(`/certificate/${item._id}`);
+    navigate(`/certificates/${item._id}`);
   };
   // const truncateWords = (text, wordLimit = 5) => {
   //   if (!text) return "";
@@ -53,7 +53,7 @@ export default function CertificateCard({ item }) {
       <div className="pt-5 pb-5 sm:pb-1 ">
         <h1 className="font-extrabold lg:w-[18rem]  xl:w-[20rem] truncate
       text-base sm:text-base md:text-lg lg:text-base xl:text-xl   2xl:text-2xl  text-[#151515] group-hover:text-[#04A9C1] pb-1">
-          {title}  </h1>
+          {title ? title.charAt(0).toUpperCase() + title.slice(1) : ''}  </h1>
        <p className="font-normal lg:w-[17rem] text-sm sm:text-sm md:text-sm lg:text-sm xl:text-base 2xl:text-xl text-[#666666] truncate">
   {description}
 </p>

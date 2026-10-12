@@ -6,7 +6,7 @@ import Button from "../Button.jsx";
 
 const AboutUs = () => {
   return (
-    <section className="bg-[#FBFBFB] py-12 md:py-20  lg:py-16 xl:py-20">
+    <section id="about-us" className="scroll-mt-20 bg-[#FBFBFB] py-12 md:py-20  lg:py-16 xl:py-20">
       {/* Container: Gradually increases max-width. 
           2xl:max-w-screen-2xl (1536px) keeps it readable on massive monitors.
       */}

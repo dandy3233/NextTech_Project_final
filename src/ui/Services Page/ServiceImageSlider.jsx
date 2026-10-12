@@ -51,7 +51,7 @@ export default function ServiceImageSlider({ images = [], headLine }) {
 
       {/* Dot controls */}
       {totalSlides > 1 && (
-        <div className="flex justify-center gap-3 mt-10">
+        <div className="flex justify-center gap-1 mt-10">
           {Array.from({ length: totalSlides }).map((_, idx) => (
             <button
               key={idx}
@@ -60,8 +60,8 @@ export default function ServiceImageSlider({ images = [], headLine }) {
                 w-2.5 xs:w-3 h-2.5 xs:h-3 rounded-full
                 transition-all duration-300
                 ${currentIndex === idx
-                  ? "bg-gray-600 scale-125 shadow-md"
-                  : "bg-gray-300 hover:bg-gray-400 hover:scale-110"
+                  ? "bg-[#1e3a5f] scale-125 shadow-md"
+                  : "bg-sky-200 hover:bg-sky-300 hover:scale-110"
                 }
               `}
               aria-label={`Slide ${idx + 1}`}

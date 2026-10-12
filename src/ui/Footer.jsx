@@ -1,7 +1,7 @@
 import { footerData } from '../data/FooterData';
 import {
   FaMapMarkerAlt, FaPhoneAlt, FaEnvelope, FaPaperPlane,
-  FaFacebookF, FaTwitter, FaBehance, FaInstagram, FaGlobe
+  FaFacebookF, FaTwitter, FaBehance, FaInstagram, FaGlobe, FaChevronRight
 } from 'react-icons/fa';
 import FooterModal from './Home Page/FooterModal';
 import { useState, useMemo } from 'react';
@@ -106,15 +106,18 @@ const Footer = () => {
             <p className="text-[15px] leading-relaxed text-tertiary">{newsletter.subtitle}</p>
 
             <button
-              onClick={() => setIsModalOpen(true)}
-              className="group flex items-center justify-between w-full bg-[#031b33] border border-sky-900/50 text-sky-400 py-2 pl-5 pr-2 rounded-xl hover:bg-sky-900 transition-all text-sm"
-            >
-              <span>Click me to send an email</span>
-              <div className="bg-[#0A1128] p-3 rounded-lg group-hover:bg-[#00AEEF] transition-colors">
-                <FaPaperPlane className="text-white" />
-              </div>
-            </button>
+                onClick={() => setIsModalOpen(true)}
+                className="group flex items-center justify-between w-full bg-primary border border-sky-900/50 text-sky-400 py-2 pl-5 pr-2 rounded-xl hover:bg-sky-900 transition-all text-sm"
+              >
+                <span className="text-white flex items-center gap-2">
+                  Click me to send an email
+                  <FaChevronRight className="text-[0.75rem] transition-transform duration-300 group-hover:translate-x-1" />
+                </span>
 
+                <div className="bg-[#0A1128] p-3 rounded-lg group-hover:bg-[#0A1128] transition-colors">
+                  <FaPaperPlane className="text-white" />
+                </div>
+              </button>
             <FooterModal
               isOpen={isModalOpen}
               onClose={() => setIsModalOpen(false)}

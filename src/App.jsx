@@ -73,7 +73,7 @@ function App() {
 
           <Route path="gallery" element={<Gallery />} />
           <Route path="certificates" element={<Certificates />} />
-          <Route path="/certificate/:id" element={<CertificateDetail />} />
+          <Route path="/certificates/:id" element={<CertificateDetail />} />
           <Route path="/news/:id" element={<BlogDetail />} />
           <Route path="news" element={<News />} />
           <Route path="contacts" element={<Contact />} />

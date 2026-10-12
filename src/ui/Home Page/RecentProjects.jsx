@@ -69,26 +69,26 @@ const RecentProjects = () => {
             <img
               src={images.mainLeft}
               alt="Working"
-              className="w-full h-[450px] md:h-[350px] lg:h-[435px] object-cover  hover:scale-105 transition-transform duration-700"
+              className="w-full h-[450px] md:h-[350px] lg:h-[435px] xl:h-[445px] object-cover  hover:scale-105 transition-transform duration-700"
             />
           </div>
           <div className="rounded-[25px] lg:rounded-[25px] overflow-hidden shadow-md">
             <img
               src={images.mainRight}
               alt="VR Technology"
-              className="w-full h-[450px] md:h-[350px] lg:h-[435px] object-cover object-top hover:scale-105 transition-transform duration-700"
+              className="w-full h-[450px] md:h-[350px] lg:h-[435px] xl:h-[445px] object-cover object-top hover:scale-105 transition-transform duration-700"
             />
           </div>
 
           {/* Bottom Row: Height scaled for zoom */}
-          <div className="rounded-[1.25rem] lg:rounded-[1.5625rem] overflow-hidden shadow-lg h-[7rem] md:h-[10rem] lg:h-[8.75rem]">
+          <div className="rounded-[1.25rem] lg:rounded-[1.5625rem] overflow-hidden shadow-lg h-[7rem] md:h-[10rem] lg:h-[8.75rem] xl:h-[9.75rem]">
             <img
               src={images.bottomLeft}
               alt="Laptop"
               className="w-full h-full object-cover object-top hover:scale-110 transition-transform duration-700"
             />
           </div>
-         <div className="rounded-[1.25rem] lg:rounded-[1.5625rem] overflow-hidden shadow-lg h-[7rem] md:h-[10rem] lg:h-[8.75rem]">
+         <div className="rounded-[1.25rem] lg:rounded-[1.5625rem] overflow-hidden shadow-lg h-[7rem] md:h-[10rem] lg:h-[8.75rem] xl:h-[9.75rem]">
             <img
               src={images.bottomRight}
               alt="Laptop"

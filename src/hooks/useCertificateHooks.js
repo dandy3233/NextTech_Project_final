@@ -12,7 +12,7 @@ export const fetchAllCertificates = async (params = {}) => {
 
 export const getCertificateById = async (id) => {
     const response = await generalService.getSingleCertificate(id);
-    const item = response.data?.data?.certificate;
+    const item = response.data?.data?.certificate || response.data?.certificate || response.data?.data;
     return item ? fixObjectMedia(item) : null;
 };
 

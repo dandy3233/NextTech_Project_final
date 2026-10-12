@@ -36,18 +36,21 @@ export default function WhyWeOffer() {
       <style>
         {`
           .mobile-dots .swiper-pagination-bullet {
-            background-color: #ADD8E6 !important;
+            background-color: #bae6fd !important;
             opacity: 1 !important;
-            width: 8px !important;
-            height: 8px !important;
-            margin: 0 4px !important;
-            display: inline-block;
-            border-radius: 50%;
-          }
-          .mobile-dots .swiper-pagination-bullet-active {
-            background-color: #0a1128 !important;
             width: 10px !important;
             height: 10px !important;
+            margin: 0 2px !important;
+            display: inline-block;
+            border-radius: 50%;
+            transition: all 0.3s ease;
+          }
+          .mobile-dots .swiper-pagination-bullet-active {
+            background-color: #1e3a5f !important;
+            width: 10px !important;
+            height: 10px !important;
+            transform: scale(1.25);
+            box-shadow: 0 2px 6px rgba(30,58,95,0.3);
           }
         `}
       </style>
@@ -152,13 +155,13 @@ export default function WhyWeOffer() {
                 {/* THE PROGRESS LINE & NAV BUTTON (DESKTOP ONLY) */}
                 <div className="flex flex-col items-center lg:pt-10 gap-3 h-[480px]">
                   {/* Dynamic Dots based on groups of 4 items */}
-                  <div className="flex flex-col gap-1.5 items-center my-1">
+                  <div className="flex flex-col gap-1 items-center my-1">
                     {Array.from({ length: totalPages }).map((_, dotIdx) => (
                       <span
                         key={dotIdx}
                         className={`rounded-full transition-all duration-300 ${dotIdx === currentPage
-                          ? "w-2.5 h-2.5 bg-primary shadow-sm"
-                          : "w-2 h-2 bg-gray-300"
+                          ? "w-2.5 h-2.5 bg-[#1e3a5f] shadow-md scale-125"
+                          : "w-2 h-2 bg-sky-200"
                           }`}
                       />
                     ))}

@@ -42,16 +42,21 @@ export function useSingleNews(id) {
  * useNewsSearch hook for searching news posts by title.
  */
 export function useNewsSearch(searchTerm) {
+    const trimmed = typeof searchTerm === 'string' ? searchTerm.trim() : '';
+
     return useQuery({
-        queryKey: ['newsSearch', searchTerm],
+        queryKey: ['newsSearch', trimmed],
         queryFn: async () => {
-            const response = await generalService.searchNews({ title: searchTerm, status: 'published' });
+            const response = await generalService.searchNews({ title: trimmed, status: 'published' });
             const result = response.data;
-            let items = result?.news || result?.data?.news || result?.data || result;
+            let items = result?.data?.news || result?.news || result?.data || (Array.isArray(result) ? result : []);
             if (!Array.isArray(items)) items = items ? [items] : [];
-            return normalizeArrayResponse(items, 'news');
+            const normalized = normalizeArrayResponse(items, 'news');
+            return normalized.filter(
+                (post) => String(post.status).toLowerCase() === 'published'
+            );
         },
-        enabled: !!searchTerm && searchTerm.length >= 3,
+        enabled: !!trimmed && trimmed.length >= 3,
     });
 }
 
@@ -102,7 +107,7 @@ function useBlog() {
     // Get recent posts (sorted by date, take top 5)
     const recentPosts = useMemo(() => {
         return [...rawPosts]
-            .sort((a, b) => new Date(b.createdDate || 0) - new Date(a.createdDate || 0))
+            .sort((a, b) => new Date(b.createdDate || b.happenedOn || 0) - new Date(a.createdDate || a.happenedOn || 0))
             .slice(0, 5);
     }, [rawPosts]);
 

@@ -36,7 +36,7 @@ function BlogCard({ post }) {
                     </div>
 
                     <h1 className="line-clamp-2 mb-4 text-left font-bold leading-8 text-[#1a1a1a] transition-colors group-hover:text-sky-500 text-xl 2xl:text-xl">
-                        {post.title}
+                        {post.title ? post.title.charAt(0).toUpperCase() + post.title.slice(1) : ''}
                     </h1>
 
                     <span

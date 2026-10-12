@@ -198,14 +198,14 @@ const PAGE_LIMIT =
               </div>
               {/* Pagination Dots */}
               {totalPages > 1 && (
-                <div className="flex justify-center items-center gap-3 mt-12 md:mt-16 relative z-10">
+                <div className="flex justify-center items-center gap-1 mt-12 md:mt-16 relative z-10">
                   {[...Array(totalPages)].map((_, index) => (
                     <button
                       key={index}
                       onClick={() => handlePageChange(index)}
                       aria-label={`Go to page ${index + 1}`}
                       title={`Page ${index + 1}`}
-                      className={`h-2 transition-all duration-300 rounded-full ${currentPage === index ? 'w-2 bg-[#00AEEF]' : 'w-2 bg-gray-300'
+                      className={`w-2.5 h-2.5 transition-all duration-300 rounded-full ${currentPage === index ? 'bg-[#1e3a5f] scale-125 shadow-md' : 'bg-sky-200 hover:bg-sky-300 hover:scale-110'
                         }`}
                     />
                   ))}

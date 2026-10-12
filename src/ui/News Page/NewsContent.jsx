@@ -1,9 +1,9 @@
 import PropTypes from "prop-types";
 import {
     MdOutlinePerson,
-    MdOutlineCalendarToday,
     MdOutlineFolderOpen,
 } from "react-icons/md";
+import { FaRegCalendarCheck } from "react-icons/fa";
 import { formatLongDate } from "../../utils/dataNormalization";
 
 function BlogContent({ post }) {
@@ -19,23 +19,25 @@ function BlogContent({ post }) {
     />
 </div>
 
-            <div className="mb-10 flex flex-wrap items-center gap-8 text-[15px] 2xl:text-lg 2xl:gap-14 text-gray-500">
-                <div className="flex items-center font-bold">
-                    <MdOutlinePerson className="mr-2 text-sky-500 " size={22} />
-                    <span>{post.author}</span>
-                </div>
-                <div className="flex items-center font-bold">
-                    <MdOutlineCalendarToday className="mr-2 text-sky-500" size={22} />
-                    <span>{formatLongDate(post.happenedOn)}</span>
-                </div>
-                <div className="flex items-center font-bold">
-                    <MdOutlineFolderOpen className="mr-2 text-sky-500" size={22} />
-                    <span>{post.catagory}</span>
-                </div>
-            </div>
+           <div className="mb-10 flex flex-wrap items-center gap-4 md:gap-6 2xl:gap-14 text-[0.9375rem] 2xl:text-[1.125rem] text-gray-500">
+  <div className="flex items-center font-bold">
+    <MdOutlinePerson className="mr-2 text-sky-500 text-[1.5rem] md:text-[1.25rem] xl:text-[1.375rem] 2xl:text-[1.75rem]" />
+    <span>{post.author}</span>
+  </div>
+
+  <div className="flex items-center font-bold">
+    <FaRegCalendarCheck className="mr-2 text-sky-500 text-[1.125rem] md:text-[1.25rem] xl:text-[1.375rem] 2xl:text-[1.75rem]" />
+    <span>{formatLongDate(post.happenedOn)}</span>
+  </div>
+
+  <div className="flex items-center font-bold">
+    <MdOutlineFolderOpen className="mr-2 text-sky-500 text-[1.125rem] md:text-[1.25rem] xl:text-[1.375rem] 2xl:text-[1.75rem]" />
+    <span>{post.catagory}</span>
+  </div>
+</div>
 
             <h1 className="mb-8 2xl:mb-12 text-2xl font-extrabold md:text-3xl lg:text-5xl 2xl:text-6xl pr-20 leading-tight ">
-                {post.title}
+                {post.title ? post.title.charAt(0).toUpperCase() + post.title.slice(1) : ''}
             </h1>
 
             <div className="space-y-6 2xl:space-y-10 text-gray-600 text-lg 2xl:text-xl leading-relaxed">

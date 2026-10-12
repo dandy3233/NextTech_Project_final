@@ -73,7 +73,7 @@ export default function ServiceSidebar({ services = [], activeId }) {
                     : "text-gray-800 group-hover:text-white"
                 }`}
               >
-                {item.title}
+                {item.title ? item.title.charAt(0).toUpperCase() + item.title.slice(1) : ''}
               </span>
               <IoIosArrowRoundForward
                 className={`text-2xl transition-all duration-300 group-hover:translate-x-1 ${

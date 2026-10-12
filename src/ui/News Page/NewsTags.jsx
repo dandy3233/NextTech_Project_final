@@ -12,12 +12,26 @@ function BlogTags({ tags }) {
         setTimeout(() => setCopiedTag(null), 1500);
     };
 
-    if (!tags || tags.length === 0) return null;
+    // Normalize tags into a clean array of non-empty strings
+    const rawList = Array.isArray(tags)
+        ? tags
+        : typeof tags === "string"
+        ? tags.split(",")
+        : [];
+
+    const validTags = rawList
+        .map((tag) => (typeof tag === "string" ? tag.trim() : String(tag || "").trim()))
+        .filter((tag) => tag.length > 0);
+
+    // If tags is empty, do not display or render anything
+    if (!validTags || validTags.length === 0) {
+        return null;
+    }
 
     // Pagination Logic
-    const totalPages = Math.ceil(tags.length / tagsPerPage);
+    const totalPages = Math.ceil(validTags.length / tagsPerPage);
     const startIndex = (currentPage - 1) * tagsPerPage;
-    const currentTags = tags.slice(startIndex, startIndex + tagsPerPage);
+    const currentTags = validTags.slice(startIndex, startIndex + tagsPerPage);
 
     return (
         <section className="bg-[#f4f7fa] p-8">
@@ -64,7 +78,10 @@ function BlogTags({ tags }) {
 }
 
 BlogTags.propTypes = {
-    tags: PropTypes.arrayOf(PropTypes.string),
+    tags: PropTypes.oneOfType([
+        PropTypes.arrayOf(PropTypes.string),
+        PropTypes.string,
+    ]),
 };
 
 export default BlogTags;

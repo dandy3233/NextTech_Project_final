@@ -65,7 +65,7 @@ export default function GalleryCard({ src, alt = "Gallery image", onClick }) {
       onClick={onClick}
     >
       {/* Image & Carousel Wrapper */}
-      <div className="relative w-full h-[260px] sm:h-[280px] xl:h-[300px] shrink-0">
+      <div className="relative w-full h-[260px] sm:h-[280px] xl:h-[24rem] shrink-0">
         <img
           src={allImages[currentIndex]}
           alt={alt}
@@ -78,17 +78,17 @@ export default function GalleryCard({ src, alt = "Gallery image", onClick }) {
         {hasMultipleImages && (
           <button
             onClick={prev}
-            className="absolute left-3 top-1/2 -translate-y-1/2 bg-[#00A3E0] hover:bg-[#0097a7]  text-white pt-2 px-1  "
+            className="absolute left-3 top-1/2 -translate-y-1/2 bg-primary hover:bg-[#0097a7]  text-white pt-2 px-1  "
           >
             <img src={LeftArrow}
-              className="h-6 w-6 lg:h-5 lg:w-5 xl:w-7 xl:h-8 object-cover"
+              className="h-6 w-6 lg:h-5 lg:w-5 xl:w-9 xl:h-8 object-cover"
               alt="" />
           </button>
         )}
         {hasMultipleImages && (
           <button
             onClick={next}
-            className="absolute right-3 top-1/2 -translate-y-1/2 hover:bg-[#0097a7] bg-[#00A3E0]   text-white pt-2 px-1    "
+            className="absolute right-3 top-1/2 -translate-y-1/2 hover:bg-[#0097a7] bg-primary   text-white pt-2 px-1    "
           >
             <img src={RightArrow}
               className=" h-6 w-6 lg:h-5 lg:w-5 xl:w-8 xl:h-8 object-cover "
@@ -103,7 +103,7 @@ export default function GalleryCard({ src, alt = "Gallery image", onClick }) {
           <div
             className="
             absolute bottom-0 left-0 right-0 z-10
-            bg-black/60 
+            bg-black/20 
             px-3 pb-5 pt-3 
           "
           >
@@ -136,7 +136,7 @@ export default function GalleryCard({ src, alt = "Gallery image", onClick }) {
       {/* Description Div */}
       <div className="p-5 flex flex-col gap-2 flex-grow bg-white border-t border-gray-50">
         <h3 className="font-semibold text-lg text-gray-800 group-hover:text-[#00A3E0] transition-colors duration-300">
-          {src.title}
+          {src.title ? src.title.charAt(0).toUpperCase() + src.title.slice(1) : ''}
         </h3>
         {src.description && (
           <p className="text-sm text-gray-500 leading-relaxed">

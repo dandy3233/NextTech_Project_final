@@ -5,7 +5,7 @@ export default function CertificateContent({ certificateName, certificateDescrip
       {/* Title */}
       <div className="w-full">
         <h1 className="text-3xl md:text-4xl lg:text-5x1  2xl:text-6xl font-sans font-bold text-gray-900 mb-5">
-          {certificateName}
+          {certificateName ? certificateName.charAt(0).toUpperCase() + certificateName.slice(1) : ''}
         </h1>
         {/* Description */}
         <div className="text-lg md:text-sm lg:text-base 2xl:text-base w-full text-gray-600  leading-relaxed mb-10 whitespace-pre-line">

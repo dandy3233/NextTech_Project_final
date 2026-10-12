@@ -69,7 +69,7 @@ export default function PortfolioCard({ item }) {
     text-lg xs:text-xl sm:text-xl md:text-lg lg:text-base xl:text-2xl 2xl:text-xl 
     font-bold leading-tight line-clamp-2
   ">
-          {item.title}
+          {item.title ? item.title.charAt(0).toUpperCase() + item.title.slice(1) : ''}
         </h3>
       </div>
 

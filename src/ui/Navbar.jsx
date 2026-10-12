@@ -60,9 +60,9 @@ const Navbar = () => {
           : 'lg:max-w-[100rem] lg:mx-auto lg:ml-2 lg:rounded-[20px] overflow-hidden'
         }`}>
 
-        {/* --- TOP BAR (Only visible on Home page when not sticky) --- */}
+        {/* --- TOP BAR (Only visible on Home page when not sticky on desktop) --- */}
         {(!isSticky && isHomePage) && (
-          <div className="bg-secondary text-white py-3 px-6 lg:px-0 w-full">
+          <div className="hidden lg:block bg-secondary text-white py-3 px-6 lg:px-0 w-full">
             <div className="w-full hidden lg:flex justify-between items-center text-sm">
               {/* Left Side: Location & Email */}
               <div className="flex items-center gap-8 lg:ml-6">
@@ -143,18 +143,19 @@ const Navbar = () => {
       {/* --- MOBILE SIDEBAR --- */}
       {isOpen && (
         <div className="fixed inset-0 bg-white z-[100] flex flex-col overflow-y-auto">
-          <div className="px-2 py-4 flex justify-between items-center">
-            <img src={NextTechLogo} alt="NextTech Logo" className="w-[200px] h-[50px]" />
+          <div className="px-4 sm:px-6 py-4 flex justify-between items-center">
+            <img src={NextTechLogo} alt="NextTech Logo" className="w-[180px] sm:w-[200px] h-auto object-contain" />
             <button
               onClick={() => setIsOpen(false)}
-              className="bg-primary p-3 text-white rounded-lg flex items-center justify-center w-13 h-12"
+              className="bg-primary p-3 text-white rounded-lg flex items-center justify-center w-12 h-12"
+              aria-label="Close menu"
             >
               <LiaTimesSolid size={24} />
             </button>
           </div>
 
-          <div className="flex flex-col p-10 gap-8">
-            {visibleNavLinks.map((link) => (
+          <div className="flex flex-col px-6 sm:px-10 py-6 gap-6 sm:gap-8">
+            {navLinks.map((link) => (
               <NavLink
                 key={link.name}
                 to={link.href}
@@ -168,31 +169,31 @@ const Navbar = () => {
             ))}
           </div>
 
-          <div className="mt-auto bg-[#eafcff] px-10 py-4 space-y-8">
-            <h3 className="text-[#0a1128] text-3xl mb-4 text-center font-normal">Contact Info</h3>
-            <div className="flex gap-5 items-start">
-              <div className="min-w-[48px] h-[48px] border-2 border-primary rounded-lg flex items-center justify-center text-primary bg-white">
-                <MdLocationOn size={26} />
+          <div className="mt-auto bg-[#eafcff] px-6 sm:px-10 py-6 space-y-6">
+            <h3 className="text-[#0a1128] text-2xl sm:text-3xl mb-2 text-center font-normal">Contact Info</h3>
+            <div className="flex gap-4 sm:gap-5 items-start">
+              <div className="min-w-[44px] h-[44px] sm:min-w-[48px] sm:h-[48px] border-2 border-primary rounded-lg flex items-center justify-center text-primary bg-white shrink-0">
+                <MdLocationOn size={24} />
               </div>
-              <p className="text-base text-gray-700 font-medium">FOAM295 Compass Building, Al Shohada Road, Al Hamra Industrial Zone-FZ, Ras Al Khaimah,
+              <p className="text-sm sm:text-base text-gray-700 font-medium break-words">FOAM295 Compass Building, Al Shohada Road, Al Hamra Industrial Zone-FZ, Ras Al Khaimah,
 United Arab Emirates</p>
             </div>
-            <div className="flex gap-5 items-center">
-              <div className="min-w-[48px] h-[48px] border-2 border-primary rounded-lg flex items-center justify-center text-primary bg-white">
-                <FaPhone size={22} />
+            <div className="flex gap-4 sm:gap-5 items-center">
+              <div className="min-w-[44px] h-[44px] sm:min-w-[48px] sm:h-[48px] border-2 border-primary rounded-lg flex items-center justify-center text-primary bg-white shrink-0">
+                <FaPhone size={20} />
               </div>
-              <p className="text-lg text-gray-700 font-medium">+251 911 109851</p>
+              <p className="text-base sm:text-lg text-gray-700 font-medium">+971 55 824 1888</p>
             </div>
-            <div className="flex gap-5 items-center">
-              <div className="min-w-[48px] h-[48px] border-2 border-primary rounded-lg flex items-center justify-center text-primary bg-white">
-                <HiOutlineMailOpen size={22} />
+            <div className="flex gap-4 sm:gap-5 items-center">
+              <div className="min-w-[44px] h-[44px] sm:min-w-[48px] sm:h-[48px] border-2 border-primary rounded-lg flex items-center justify-center text-primary bg-white shrink-0">
+                <HiOutlineMailOpen size={20} />
               </div>
-              <p className="text-lg text-gray-700 font-medium">info@gaenginering.et</p>
+              <p className="text-base sm:text-lg text-gray-700 font-medium break-all">info@gaenginering.et</p>
             </div>
           </div>
 
-          <div className="flex justify-center py-4 pb-20">
-            <Button as={Link} to="/contacts" variant="primary" size="xl">
+          <div className="flex justify-center py-6 pb-16">
+            <Button as={Link} to="/contacts" onClick={() => setIsOpen(false)} variant="primary" size="xl">
               Send Message
             </Button>
           </div>

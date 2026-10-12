@@ -54,7 +54,7 @@ export default function PortfolioGallerySlider({ images = [] }) {
       </div>
 
       {showDots && (
-        <div className="flex justify-center gap-3 mt-16 lg:mt-10 xl:mt-12 2xl:mt-16">
+        <div className="flex justify-center gap-1 mt-16 lg:mt-10 xl:mt-12 2xl:mt-16">
           {Array.from({ length: totalSlides }).map((_, idx) => (
             <button
               key={idx}
@@ -63,8 +63,8 @@ export default function PortfolioGallerySlider({ images = [] }) {
                 w-2.5 lg:w-2.5 h-2.5 lg:h-2.5 xl:w-3 xl:h-3 rounded-full
                 transition-all duration-300
                 ${currentIndex === idx
-                  ? "bg-gray-600 scale-125 shadow-md"
-                  : "bg-gray-300 hover:bg-gray-400 hover:scale-110"
+                  ? "bg-[#1e3a5f] scale-125 shadow-md"
+                  : "bg-sky-200 hover:bg-sky-300 hover:scale-110"
                 }
               `}
               aria-label={`Go to slide ${idx + 1}`}

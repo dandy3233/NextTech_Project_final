@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
 
 function BlogCategories({ categories }) {
-    if (!categories) return null;
+    if (!categories || !Array.isArray(categories) || categories.length === 0) return null;
 
     return (
         <section className="bg-[#f4f7fa] p-8">

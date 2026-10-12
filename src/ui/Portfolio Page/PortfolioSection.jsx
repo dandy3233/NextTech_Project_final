@@ -8,14 +8,14 @@ export default function PortfolioSection() {
   const scrollRef = useRef(null);
   const { data: portfolioProjects, loading, error } = usePortfolio({ limit: 100, page: 1 });
 
-  // FIXED: Wrapped in useMemo to prevent unnecessary re-renders and fix the warning
-  const projectCategories = useMemo(() => {
-    if (!portfolioProjects) return ["All"];
-    return [
-      "All",
-      ...new Set(portfolioProjects.map((item) => item.catagory))
-    ];
+  const otherCategories = useMemo(() => {
+    if (!portfolioProjects) return [];
+    return Array.from(new Set(portfolioProjects.map((item) => item.catagory).filter(Boolean)));
   }, [portfolioProjects]);
+
+  const projectCategories = useMemo(() => {
+    return ["All", ...otherCategories];
+  }, [otherCategories]);
 
   const [selectedCategory, setSelectedCategory] = useState("All")
   const [currentPage, setCurrentPage] = useState(1)
@@ -23,47 +23,128 @@ export default function PortfolioSection() {
 
   const ITEMS_PER_PAGE = 6
 
-  // 1. MOUSE WHEEL SCROLL
+  // 1. MOUSE WHEEL & DRAG SCROLL
   useEffect(() => {
     const el = scrollRef.current;
     if (!el) return;
 
     const onWheel = (e) => {
-      if (e.deltaY === 0) return;
+      const delta = e.deltaY !== 0 ? e.deltaY : e.deltaX;
+      if (delta === 0) return;
       e.preventDefault();
       el.scrollBy({
-        left: e.deltaY * 2,
+        left: delta * 2,
         behavior: "auto"
       });
     };
 
+    // Mouse drag support
+    let isDown = false;
+    let startX = 0;
+    let scrollStart = 0;
+    let hasMoved = false;
+
+    const onMouseDown = (e) => {
+      isDown = true;
+      hasMoved = false;
+      startX = e.pageX - el.offsetLeft;
+      scrollStart = el.scrollLeft;
+    };
+
+    const onMouseLeave = () => {
+      isDown = false;
+    };
+
+    const onMouseUp = () => {
+      isDown = false;
+    };
+
+    const onMouseMove = (e) => {
+      if (!isDown) return;
+      const x = e.pageX - el.offsetLeft;
+      const walk = (x - startX) * 1.5;
+      if (Math.abs(walk) > 5) {
+        hasMoved = true;
+        e.preventDefault();
+        el.scrollLeft = scrollStart - walk;
+      }
+    };
+
     el.addEventListener("wheel", onWheel, { passive: false });
-    return () => el.removeEventListener("wheel", onWheel);
+    el.addEventListener("mousedown", onMouseDown);
+    el.addEventListener("mouseleave", onMouseLeave);
+    el.addEventListener("mouseup", onMouseUp);
+    el.addEventListener("mousemove", onMouseMove);
+
+    return () => {
+      el.removeEventListener("wheel", onWheel);
+      el.removeEventListener("mousedown", onMouseDown);
+      el.removeEventListener("mouseleave", onMouseLeave);
+      el.removeEventListener("mouseup", onMouseUp);
+      el.removeEventListener("mousemove", onMouseMove);
+    };
   }, []);
 
-  // 2. SMART AUTO-SCROLL (Forward and Backward)
-  useEffect(() => {
-    const index = projectCategories.indexOf(selectedCategory);
+  // Accurate Forward & Backward Scroll Handler
+  const scrollCategoryIntoView = (index, behavior = "smooth") => {
     const container = scrollRef.current;
+    if (!container) return;
 
-    if (container) {
-      const buttons = container.querySelectorAll("button");
-      const activeButton = buttons[index];
+    if (index === -1) {
+      container.scrollTo({ left: 0, behavior });
+      return;
+    }
 
-      if (activeButton) {
-        const containerWidth = container.offsetWidth;
-        const buttonLeft = activeButton.offsetLeft;
-        const buttonWidth = activeButton.offsetWidth;
+    const buttons = container.querySelectorAll("button");
+    const targetButton = buttons[index];
+    if (!targetButton) return;
 
-        const targetScroll = buttonLeft - (containerWidth / 2) + (buttonWidth / 2);
+    const containerRect = container.getBoundingClientRect();
+    const buttonRect = targetButton.getBoundingClientRect();
 
-        container.scrollTo({
-          left: targetScroll,
-          behavior: "smooth"
-        });
+    const relativeLeft = buttonRect.left - containerRect.left + container.scrollLeft;
+    const targetScroll = relativeLeft - (container.clientWidth / 2) + (buttonRect.width / 2);
+
+    container.scrollTo({
+      left: Math.max(0, targetScroll),
+      behavior
+    });
+  };
+
+  const handleCategoryClick = (category, index) => {
+    setSelectedCategory(category);
+    setCurrentPage(1);
+    scrollCategoryIntoView(index);
+  };
+
+  // Double click scrolls BACKWARD (to the left)
+  const handleCategoryDoubleClick = (category, index) => {
+    const container = scrollRef.current;
+    if (!container) return;
+
+    if (index > 0) {
+      const prevCategory = otherCategories[index - 1];
+      setSelectedCategory(prevCategory);
+      setCurrentPage(1);
+      scrollCategoryIntoView(index - 1);
+    } else {
+      setSelectedCategory("All");
+      setCurrentPage(1);
+      container.scrollTo({ left: 0, behavior: "smooth" });
+    }
+  };
+
+  // 2. SMART AUTO-SCROLL (Forward and Backward sync)
+  useEffect(() => {
+    if (selectedCategory === "All") {
+      scrollCategoryIntoView(-1);
+    } else {
+      const index = otherCategories.indexOf(selectedCategory);
+      if (index !== -1) {
+        scrollCategoryIntoView(index);
       }
     }
-  }, [selectedCategory, projectCategories]); // Warning fixed here
+  }, [selectedCategory, otherCategories]);
 
   const filteredItems = useMemo(() => {
     if (!portfolioProjects) return [];
@@ -100,46 +181,71 @@ export default function PortfolioSection() {
           Our portfolio
         </h2>
 
-        <div className="flex justify-center gap-2 mt-28">
+        <div className="flex justify-center gap-1 mt-28">
           {Array.from({ length: totalDots }).map((_, index) => (
             <span
               key={index}
-              className={`w-2 h-2 rounded-full transition-all duration-500 ${activeDotIndex === index ? "bg-gray-600 scale-125"
-                : "bg-cyan-100"
-                }`}
+              className={`w-2.5 h-2.5 rounded-full transition-all duration-300 ${
+                activeDotIndex === index
+                  ? "bg-[#1e3a5f] scale-125 shadow-md"
+                  : "bg-sky-200"
+              }`}
             />
           ))}
         </div>
       </div>
 
-      <div className="mb-10 sm:mb-14 md:mb-16 lg:mb-20 xl:mb-20 2xl:mb-20 sm:px-28 md:px-36 lg:px-48 xl:px-52 2xl:px-56 flex justify-center">
-        <div
-          ref={scrollRef}
-          className="w-full max-w-4xl flex overflow-x-auto gap-4 pb-4 
-                     cursor-grab active:cursor-grabbing
-                     no-scrollbar select-none"
-          style={{
-            scrollbarWidth: 'none',
-            msOverflowStyle: 'none',
-            WebkitOverflowScrolling: 'touch'
-          }}
-        >
-          {projectCategories.map((category) => (
-            <button
-              key={category}
-              onClick={() => {
-                setSelectedCategory(category)
-                setCurrentPage(1)
-              }}
-              className={`flex-none px-4 xs:px-5 sm:px-6 md:px-7 lg:px-8 xl:px-6 2xl:px-7 py-2.5 xs:py-3 sm:py-3.5 md:py-4 lg:py-4.5 xl:py-3 text-sm xs:text-base sm:text-base md:text-lg lg:text-xl font-semibold whitespace-nowrap rounded-full transition-all duration-500 ease-in-out snap-center ${selectedCategory === category
-                ? "text-primary bg-transparent "
+      <div className="mb-10 sm:mb-14 md:mb-16 lg:mb-20 xl:mb-20 2xl:mb-20 sm:px-10 md:px-16 lg:px-24 xl:px-32 flex justify-center">
+        <div className="w-full max-w-5xl flex items-center gap-3 sm:gap-4">
+          {/* FIXED 'All' BUTTON */}
+          <button
+            onClick={() => {
+              setSelectedCategory("All");
+              setCurrentPage(1);
+              scrollCategoryIntoView(-1);
+            }}
+            onDoubleClick={() => {
+              scrollCategoryIntoView(-1);
+            }}
+            className={`shrink-0 px-4 xs:px-5 sm:px-6 md:px-7 lg:px-8 xl:px-6 2xl:px-7 py-2.5 xs:py-3 sm:py-3.5 md:py-4 lg:py-4.5 xl:py-3 text-sm xs:text-base sm:text-base md:text-lg lg:text-xl font-semibold whitespace-nowrap rounded-full transition-all duration-300 ${
+              selectedCategory === "All"
+                ? "text-primary bg-transparent font-bold"
                 : "bg-gray-100 md:bg-transparent text-gray-700 hover:bg-gray-200 hover:text-gray-900"
-                }
-              `}
-            >
-              {category}
-            </button>
-          ))}
+            }`}
+          >
+            All
+          </button>
+
+          {/* SCROLLABLE OTHER CATEGORIES */}
+          <div
+            ref={scrollRef}
+            className="flex-1 min-w-0 flex overflow-x-auto gap-3 sm:gap-4 pb-4 pt-1
+                       cursor-grab active:cursor-grabbing
+                       no-scrollbar select-none"
+            style={{
+              scrollbarWidth: 'none',
+              msOverflowStyle: 'none',
+              WebkitOverflowScrolling: 'touch'
+            }}
+          >
+            {otherCategories.map((category, index) => (
+              <button
+                key={category}
+                onClick={() => handleCategoryClick(category, index)}
+                onDoubleClick={(e) => {
+                  e.preventDefault();
+                  handleCategoryDoubleClick(category, index);
+                }}
+                className={`flex-none px-4 xs:px-5 sm:px-6 md:px-7 lg:px-8 xl:px-6 2xl:px-7 py-2.5 xs:py-3 sm:py-3.5 md:py-4 lg:py-4.5 xl:py-3 text-sm xs:text-base sm:text-base md:text-lg lg:text-xl font-semibold whitespace-nowrap rounded-full transition-all duration-300 snap-center ${
+                  selectedCategory === category
+                    ? "text-primary bg-transparent font-bold"
+                    : "bg-gray-100 md:bg-transparent text-gray-700 hover:bg-gray-200 hover:text-gray-900"
+                }`}
+              >
+                {category}
+              </button>
+            ))}
+          </div>
         </div>
       </div>
 

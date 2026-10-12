@@ -6,13 +6,11 @@ import { formatLongDate } from "../../utils/dataNormalization";
 function RecentPosts({ posts }) {
     const navigate = useNavigate();
 
-    if (!posts) return null;
+    if (!posts || !Array.isArray(posts) || posts.length === 0) return null;
 
     const handlePostClick = (postId) => {
         navigate(`/news/${postId}`);
     };
-
-
 
     return (
         <section className="bg-[#f4f7fa] p-8">
@@ -22,9 +20,9 @@ function RecentPosts({ posts }) {
             <div className="space-y-6">
                 {posts.map((post) => (
                     <div
-                        key={post._id}
+                        key={post._id || post.id}
                         className="flex gap-4 group cursor-pointer transition-transform duration-300 hover:scale-[1.02]"
-                        onClick={() => handlePostClick(post._id)}
+                        onClick={() => handlePostClick(post._id || post.id)}
                     >
                         <img
                             src={post.imageCover}
@@ -33,11 +31,11 @@ function RecentPosts({ posts }) {
                         />
                         <div className="flex flex-col justify-center gap-3 overflow-hidden min-w-0">
                             <h4 className="truncate text-lg font-bold leading-snug text-[#1a1a1a] transition-colors duration-300 group-hover:text-[#00a6e3]">
-                                {post.title}
+                                {post.title ? post.title.charAt(0).toUpperCase() + post.title.slice(1) : ''}
                             </h4>
                             <div className="flex items-center text-sm font-medium text-[#00A3C4]">
                                 <MdOutlineCalendarToday className="mr-2" size={16} />
-                                <span>{formatLongDate(post.happenedOn)}</span>
+                                <span>{formatLongDate(post.happenedOn || post.createdDate)}</span>
                             </div>
                         </div>
                     </div>

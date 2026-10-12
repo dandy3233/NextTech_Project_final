@@ -15,7 +15,7 @@ export default function ServiceHeroImage({ src, title }) {
       </div>
 
       <h3 className="text-xl sm:text-xl md:text-2xl lg:text-2xl xl:text-2xl 2xl:text-3xl font-bold text-gray-900 line-clamp-1 group-hover:text-primary transition-colors duration-300">
-        {title}
+        {title ? title.charAt(0).toUpperCase() + title.slice(1) : ''}
       </h3>
     </>
   );
