@@ -179,7 +179,7 @@ export default function GalleryCard({ src, alt = "Gallery image", onClick }) {
       onClick={onClick}
     >
       {/* Image & Carousel Wrapper */}
-      <div className="relative w-full h-[260px] sm:h-[280px] xl:h-[24rem] shrink-0">
+      <div className="relative w-full h-[20rem] md:h-[22rem] xl:h-[24rem] shrink-0">
         <img
           src={allImages[currentIndex]}
           alt={currentAlt}
@@ -234,7 +234,7 @@ export default function GalleryCard({ src, alt = "Gallery image", onClick }) {
                 <button
                   key={index}
                   onClick={(e) => handleThumbnailClick(e, index)}
-                  className={`h-[10vh] w-[13vh] sm:h-[10vh] flex-shrink-0 rounded-sm overflow-hidden border transition-all duration-300
+                  className={`h-[8vh] w-[12vh] 2xl:w-[11vh] sm:h-[10vh] flex-shrink-0 rounded-sm overflow-hidden border transition-all duration-300
                   ${index === currentIndex
                       ? "border-blue-500"
                     : "border-white/30"
