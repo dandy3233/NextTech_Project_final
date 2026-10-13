@@ -11,7 +11,7 @@
 
 export const teamSectionHeaderData = {
   subtitle: "05 - Team Members",
-  mainHeading: "People Leading The Industry",
+  mainHeading: "Meet The People Behind Our Success",
   buttonText: "VIEW ALL",
   buttonLink: "/team"
 };

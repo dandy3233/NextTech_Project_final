@@ -19,7 +19,7 @@ export const statsData = [
 
 export const aboutData = {
   subtitle: "01 - ABOUT US",
-  title: "Technology, Science, Artificial Intelligence with Passion",
+  title: "Engineering the Future Through Technology",
   description: "NextTech delivers smart engineering and technology solutions across transport systems, infrastructure, power, electromechanical works, IT, and AI-driven platforms. ",
   subDescription: "We provide end-to-end services from supply and installation to commissioning and consultancy across sectors including healthcare, agriculture, EV systems, warehouses, cold rooms, machinery, telecommunications, and advanced industrial solutions.",
   
@@ -36,7 +36,7 @@ import { FaCheckCircle } from 'react-icons/fa';
 
 export const workData = {
   subtitle: "02 - SOME OF OUR WORK",
-  title: "Technology with Passion",
+  title: "Engineering Excellence Through Innovation",
   description1: "Established in 2009, NextTech has spent over  decades delivering smart engineering and advanced electro-mechanical solutions across transport systems, infrastructure, power, IT, and AI-driven platforms. We specialize in the precision supply and expert installation of complex systems, bridging the gap between engineering excellence and seamless operational efficiency.",
   description2: "Operating with a global perspective, we provide integrated, turnkey services—from design and supply to installation, commissioning, and consultancy—serving sectors including high-security ports, intelligent buildings, healthcare, agriculture, EV systems, telecommunications, warehouses, cold rooms, and advanced industrial solutions.",
   features: [ 
@@ -64,8 +64,8 @@ export const workData = {
 
 export const clientsData = {
   subtitle: "03 - OUR CLIENTS",
-  title: "Our Latest News & Articles",
-  blogTitle: "From The Blog",
+  title: "Connecting Through Collaboration",
+  blogTitle: "Committed to Our Clients",
   logos: [
     // Row 1 (4 items)
     { id: 1, src: "/HomePageImages/ovid.png",        alt: "Ovid" },

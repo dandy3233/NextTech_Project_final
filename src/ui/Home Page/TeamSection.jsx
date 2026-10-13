@@ -46,7 +46,7 @@ const TeamSection = () => {
     .slice(0, 4);
 
   return (
-    <section className="py-12 md:py-20 lg:py-24 px-6 md:px-7 lg:px-[2rem] xl:px-[7rem] 2xl:px-[6.75rem] bg-white">
+    <section className="py-12 md:py-20 lg:py-24 xl:py-28 px-6 md:px-7 lg:px-[2rem] xl:px-[7rem] 2xl:px-[6.75rem] bg-white">
       <div className="max-w-7xl 2xl:max-w-screen-2xl mx-auto">
         {/* Section Header */}
         <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-10 md:mb-14 gap-6">
@@ -54,13 +54,8 @@ const TeamSection = () => {
             <span className="text-primary font-bold uppercase  lg:ml-2 text-base xl:text-lg 2xl:text-lg tracking-wider block">
               {teamSectionHeaderData.subtitle}
             </span>
-            <h2 className="text-3xl sm:text-4xl lg:text-[40px] font-normal text-[#0B162C] mt-2 lg:mt-6 lg:ml-3 max-w-lg">
-              <span className="block">
-                {teamSectionHeaderData.mainHeading.split(' ').slice(0, -1).join(' ')}
-              </span>
-              <span className="block mt-2 lg:mt-8">
-                {teamSectionHeaderData.mainHeading.split(' ').slice(-1)}
-              </span>
+            <h2 className="text-3xl sm:text-4xl lg:text-[40px] font-normal text-[#0B162C] mt-2 lg:mt-6 lg:ml-3 max-w-lg leading-snug sm:leading-[1.35] lg:leading-[1.25] 2xl:leading-[1.8] tracking-tight text-balance">
+              {teamSectionHeaderData.mainHeading}
             </h2>
           </div>
 

@@ -8,7 +8,7 @@ const RecentProjects = () => {
 
   return (
     /* Increased vertical padding for that spacious 'zoomed' feel */
-    <section className="py-12 md:py-20 lg:py-[7.375rem] px-6 md:px-12 lg:px-8 xl:px-28 bg-white ">
+    <section className="py-12 md:py-20 lg:py-24 xl:py-28 px-6 md:px-12 lg:px-8 xl:px-28 bg-white ">
 
       <div className="max-w-7xl lg:max-w-[100rem] mx-auto flex flex-col lg:flex-row  lg:items-start gap-10 lg:gap-10">
 
@@ -20,15 +20,9 @@ const RecentProjects = () => {
     {subtitle}
   </span>
 
- {/* Title */}
-<h2 className="text-3xl md:text-5xl lg:text-[36px] font-normal text-slate-900 mt-10 lg:mt-10">
-  <span className="block leading-[1.15]">
-    {title.split(" with ")[0]}
-  </span>
-
-  <span className="block mt-8 leading-[1.15]">
-    with {title.split(" with ")[1]}
-  </span>
+{/* Title */}
+<h2 className="text-3xl md:text-5xl lg:text-[36px] 2xl:text-[36px] font-normal text-slate-900 mt-10 lg:mt-10 leading-snug md:leading-[1.25] lg:leading-[1.2] xl:leading-[1.8] tracking-tight text-balance">
+  {title}
 </h2>
 
   {/* Description */}
@@ -36,7 +30,7 @@ const RecentProjects = () => {
     {description.map((paragraph, index) => (
       <p
         key={index}
-        className={`text-gray-500 text-sm md:text-base lg:text-[18px] leading-relaxed lg:leading-[2] ${
+        className={`text-[#737A83] text-sm md:text-base lg:text-[18px] leading-relaxed lg:leading-[2] ${
           index !== description.length - 1
             ? "mb-8 lg:mb-10"
             : "mb-0"

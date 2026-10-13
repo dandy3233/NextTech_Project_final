@@ -74,10 +74,18 @@ const Navbar = () => {
 
               {/* Right Side: Social Media Icons */}
               <div className="flex items-center gap-[1rem] text-white ml-auto mr-6">
-                <FaFacebookF className="cursor-pointer hover:text-primary transition-colors text-base" />
-                <FaInstagram className="cursor-pointer hover:text-primary transition-colors text-base" />
-                <FaTwitter className="cursor-pointer hover:text-primary transition-colors text-base" />
-                <FaGlobe className="cursor-pointer hover:text-primary transition-colors text-base" />
+                <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
+                  <FaFacebookF className="cursor-pointer hover:text-primary transition-colors text-base" />
+                </a>
+                <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+                  <FaInstagram className="cursor-pointer hover:text-primary transition-colors text-base" />
+                </a>
+                <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" aria-label="Twitter">
+                  <FaTwitter className="cursor-pointer hover:text-primary transition-colors text-base" />
+                </a>
+                <a href="https://nexttech.com" target="_blank" rel="noopener noreferrer" aria-label="Website">
+                  <FaGlobe className="cursor-pointer hover:text-primary transition-colors text-base" />
+                </a>
               </div>
             </div>
           </div>
@@ -188,7 +196,7 @@ United Arab Emirates</p>
               <div className="min-w-[44px] h-[44px] sm:min-w-[48px] sm:h-[48px] border-2 border-primary rounded-lg flex items-center justify-center text-primary bg-white shrink-0">
                 <HiOutlineMailOpen size={20} />
               </div>
-              <p className="text-base sm:text-lg text-gray-700 font-medium break-all">info@gaenginering.et</p>
+              <p className="text-base sm:text-lg text-gray-700 font-medium break-all">info@nextechgtfz.com</p>
             </div>
           </div>
 

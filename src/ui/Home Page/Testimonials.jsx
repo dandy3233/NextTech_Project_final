@@ -49,15 +49,15 @@ const Testimonials = () => {
   const currentItems = safeItems.slice(offset, offset + itemsPerPage);
 
   return (
-    <section className="py-16 md:py-[5.25rem] lg:px-8 xl:px-32 bg-white overflow-hidden">
+    <section className="py-12 md:py-20 lg:py-24 xl:py-28 lg:px-8 xl:px-32 bg-white overflow-hidden">
       <div className="max-w-[1640px] mx-auto px-4">
 
         {/* Header Section */}
         <div className="text-center mb-20">
-          <span className="text-[#00AEEF] font-bold text-base xl:text-lg 2xl:text-lg   lg:ml-8  uppercase block mb-4 lg:mb-8">
+          <span className="text-primary font-bold text-base xl:text-lg 2xl:text-lg lg:ml-8 uppercase block mb-4 lg:mb-8">
             {subtitle}
           </span>
-          <h2 className="text-[32px] md:text-[34px] lg:text-[37px]  font-normal text-[#1A2B49] leading-tight">
+          <h2 className="text-3xl md:text-[34px] lg:text-[37px] font-normal text-[#0B162C] leading-tight text-balance">
             {title}
           </h2>
         </div>
@@ -119,7 +119,7 @@ const Testimonials = () => {
                   </div>
 
                   {/* Testimonial Text */}
-                  <p className="text-[#64748B] text-base md:text-[17px] leading-relaxed mb-8">
+                  <p className="text-[#737A83] text-base md:text-[17px] leading-relaxed mb-8">
                     &quot;{item.testimony}&quot;
                   </p>
 

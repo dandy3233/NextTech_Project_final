@@ -32,7 +32,7 @@ export default function WhyWeOffer() {
   }
 
   return (
-    <section className="py-16 md:py-24 lg:px-8 xl:px-14 lg:py-[120px] bg-white overflow-hidden">
+    <section className="py-12 md:py-20 lg:py-24 xl:py-28 lg:px-8 xl:px-14 bg-white overflow-hidden">
       <style>
         {`
           .mobile-dots .swiper-pagination-bullet {
@@ -64,20 +64,13 @@ export default function WhyWeOffer() {
               <span className="text-primary font-bold uppercase  text-base xl:text-lg 2xl:text-lg  block">
                 {workData.subtitle}
               </span>
-              <h2 className="text-[2.75rem] sm:text-3xl lg:text-[38px] xl:text-[38px] font-normal text-[#0B162C] leading-[1.18] tracking-tight">
-                {workData.title.includes('Passion') ? (
-                  <>
-                    <span className="block mb-3 sm:my-5 lg:mb-11">{workData.title.split('Passion')[0].trim()}</span>
-                    <span className="block">Passion{workData.title.split('Passion')[1]}</span>
-                  </>
-                ) : (
-                  workData.title
-                )}
+              <h2 className="text-3xl sm:text-3xl lg:text-[38px] xl:text-[38px] font-normal text-[#0B162C] leading-snug sm:leading-[1.4] lg:leading-[1.35] xl:leading-[1.9] tracking-tight text-balance">
+                {workData.title}
               </h2>
-              <p className="text-[#8F939B] text-base lg:text-[18px] leading-relaxed max-w-2xl">
+              <p className="text-[#737A83] text-base lg:text-[18px] leading-relaxed max-w-2xl">
                 {workData.description1}
               </p>
-              <p className="text-[#8F939B] text-base lg:text-[18px] leading-relaxed max-w-2xl">
+              <p className="text-[#737A83] text-base lg:text-[18px] leading-relaxed max-w-2xl">
                 {workData.description2}
               </p>
             </div>
@@ -123,7 +116,7 @@ export default function WhyWeOffer() {
                 </Swiper>
 
                 {/* THE DOTS: These will now change color based on the scroll position */}
-                <div className="mobile-dots flex justify-center gap-2 mt-8"></div>
+                <div className="mobile-dots flex justify-center gap-0 mt-8"></div>
               </div>
             ) : (
               /* DESKTOP VIEW: Vertical Individual Slider + Progress Line */

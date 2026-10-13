@@ -6,7 +6,7 @@ import Button from "../Button.jsx";
 
 const AboutUs = () => {
   return (
-    <section id="about-us" className="scroll-mt-20 bg-[#FBFBFB] py-12 md:py-20  lg:py-16 xl:py-20">
+    <section id="about-us" className="scroll-mt-20 bg-[#FBFBFB] py-12 md:py-20 lg:py-24 xl:py-28">
       {/* Container: Gradually increases max-width. 
           2xl:max-w-screen-2xl (1536px) keeps it readable on massive monitors.
       */}
@@ -22,15 +22,8 @@ const AboutUs = () => {
 
                 {aboutData.subtitle}
               </span>
-              <h2 className="text-[1.75rem] sm:text-4xl lg:text-[28px] xl:text-[42px]  lg:ml-10 font-medium text-[#0B162C] leading-[1.18] tracking-tight">
-                {aboutData.title.includes('Intelligence') ? (
-                  <>
-                    <span className="block mb-3 sm:my-9">{aboutData.title.split('Intelligence')[0].trim()}</span>
-                    <span className="block">Intelligence{aboutData.title.split('Intelligence')[1]}</span>
-                  </>
-                ) : (
-                  aboutData.title
-                )}
+              <h2 className="text-3xl sm:text-4xl lg:text-[28px] xl:text-[42px] lg:ml-10 font-normal text-[#0B162C] leading-snug sm:leading-[1.5] lg:leading-[1.35] xl:leading-[1.8] tracking-tight text-balance">
+                {aboutData.title}
               </h2>
             </div>
 

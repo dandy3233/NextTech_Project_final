@@ -154,7 +154,14 @@ export default function Contact() {
 
             <div className="flex gap-3 sm:gap-4 pt-6">
               {contactInfo.socials.map((social) => (
-                <a key={social.id} href={social.link} className="w-16 h-16 bg-cyan-50 flex items-center justify-center rounded-md text-primary">
+                <a
+                  key={social.id}
+                  href={social.link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={social.name || "Social Media"}
+                  className="w-16 h-16 bg-cyan-50 hover:bg-primary hover:text-white transition-colors duration-300 flex items-center justify-center rounded-md text-primary"
+                >
                   <social.icon size={18} />
                 </a>
               ))}

@@ -114,7 +114,7 @@ const PAGE_LIMIT =
   }
 
   return (
-    <section id="partners-section" className="py-10 md:py-24 lg:py-32 bg-[#FCFDFF] overflow-hidden">
+    <section id="partners-section" className="py-12 md:py-20 lg:py-24 xl:py-28 bg-[#FCFDFF] overflow-hidden">
       <div className=" mx-auto px-1">
 
         {/* Header Section */}
@@ -122,9 +122,9 @@ const PAGE_LIMIT =
           <span className="text-primary font-bold text-base xl:text-lg 2xl:text-lg lg:ml-8 uppercase block mb-4">  
             {subtitle}
           </span>
-          <h2 className="text-2xl md:text-5xl lg:text-[2.75rem] font-medium text-[#1A2B49] leading-tight lg:ml-16 mx-auto">
-            {title} <br className="hidden md:block" />
-            <span className="font-medium block mt-1 lg:mt-8">{blogTitle}</span>
+          <h2 className="text-3xl md:text-5xl lg:text-[2.75rem] font-normal text-[#0B162C] leading-tight lg:ml-16 mx-auto text-balance">
+            {title}{' '}
+            <span className="font-normal block mt-1 lg:mt-8">{blogTitle}</span>
           </h2>
         </div>
 

@@ -41,7 +41,7 @@ export default function Faq() {
           </div>
 
           {/* Right Side - Accordion */}
-          <div className="space-y-4 lg:px-4 ">
+          <div className="space-y-4 2xl:space-y-6 lg:px-4 ">
             {!loading && !error && faqData.length === 0 ? (
               <div className="flex flex-col items-center justify-center py-10 text-gray-500">
                 <h3 className="text-xl font-semibold mb-2">No FAQs Found</h3>

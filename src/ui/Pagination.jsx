@@ -58,11 +58,11 @@ function Pagination({ items, itemsPerPage, currentPage, onPageChange, onDataUpda
   const iconSize = "text-xl";
 
   return (
-    <div className="flex items-center justify-center gap-1.5 md:gap-3 py-6">
+    <div className="flex items-center justify-center gap-1.5 md:gap-2 py-6">
       <button
         onClick={() => onPageChange(currentPage - 1)}
         disabled={currentPage === 1}
-        className={`${baseBtn} bg-white text-gray-800 hover:bg-primary hover:text-white disabled:opacity-40 disabled:cursor-not-allowed`}
+        className={`${baseBtn} bg-white text-black hover:bg-primary hover:text-white disabled:opacity-40 disabled:cursor-not-allowed`}
       >
         <BiSolidArrowToLeft className={iconSize} />
       </button>
@@ -75,8 +75,8 @@ function Pagination({ items, itemsPerPage, currentPage, onPageChange, onDataUpda
             key={page}
             onClick={() => onPageChange(page)}
             className={`${baseBtn} ${currentPage === page
-                ? "bg-[#52cffc] text-white font-semibold"
-                : "bg-white text-gray-800 hover:bg-primary hover:text-white"
+                ? "bg-[#00A6E0] text-white font-semibold"
+                : "bg-white text-black hover:bg-[#00ACC1] hover:text-white"
               }`}
           >
             {page}
@@ -87,7 +87,7 @@ function Pagination({ items, itemsPerPage, currentPage, onPageChange, onDataUpda
       <button
         onClick={() => onPageChange(currentPage + 1)}
         disabled={currentPage === totalPages}
-        className={`${baseBtn} bg-white text-gray-800 hover:bg-primary hover:text-white disabled:opacity-40 disabled:cursor-not-allowed`}
+        className={`${baseBtn} bg-white text-black hover:bg-[#00ACC1] hover:text-white disabled:opacity-40 disabled:cursor-not-allowed`}
       >
         <BiArrowToRight className={iconSize} />
       </button>
