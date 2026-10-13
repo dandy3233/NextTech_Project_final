@@ -1,10 +1,11 @@
 import PropTypes from 'prop-types';
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect, useRef } from "react";
 import RightArrow from "/GalleryPageImage/RightArrow.png";
 import LeftArrow from "/GalleryPageImage/LeftArrow.png";
 
 export default function GalleryCard({ src, alt = "Gallery image", onClick }) {
   const [currentIndex, setCurrentIndex] = useState(0);
+  const thumbnailRef = useRef(null);
 
   // Extract images array directly from backend object
   const allImages = useMemo(() => {
@@ -22,7 +23,120 @@ export default function GalleryCard({ src, alt = "Gallery image", onClick }) {
     return combinedImages;
   }, [src]);
 
+  // Reset index when card data changes
+  useEffect(() => {
+    setCurrentIndex(0);
+  }, [src]);
+
   const hasMultipleImages = allImages.length > 1;
+
+  // Dynamic card title
+  const cardTitle = useMemo(() => {
+    if (src?.title && typeof src.title === 'string' && src.title.trim()) {
+      const trimmed = src.title.trim();
+      return trimmed.charAt(0).toUpperCase() + trimmed.slice(1);
+    }
+    return alt || "Gallery Item";
+  }, [src?.title, alt]);
+
+  // Dynamic alt text that changes when currentIndex changes:
+  const currentAlt = useMemo(() => {
+    if (hasMultipleImages) {
+      return `${cardTitle} - Image ${currentIndex + 1} of ${allImages.length}`;
+    }
+    return `${cardTitle} - Image 1`;
+  }, [cardTitle, currentIndex, hasMultipleImages, allImages.length]);
+
+  // Accurate Forward & Backward Scroll Handler (Portfolio method)
+  const scrollThumbnailIntoView = (index, behavior = "smooth") => {
+    const container = thumbnailRef.current;
+    if (!container) return;
+
+    const buttons = container.querySelectorAll("button");
+    const targetButton = buttons[index];
+    if (!targetButton) return;
+
+    const containerRect = container.getBoundingClientRect();
+    const buttonRect = targetButton.getBoundingClientRect();
+
+    const relativeLeft = buttonRect.left - containerRect.left + container.scrollLeft;
+    const targetScroll = relativeLeft - (container.clientWidth / 2) + (buttonRect.width / 2);
+
+    container.scrollTo({
+      left: Math.max(0, targetScroll),
+      behavior,
+    });
+  };
+
+  // Sync scroll on currentIndex change (Forward & Backward sync)
+  useEffect(() => {
+    scrollThumbnailIntoView(currentIndex);
+  }, [currentIndex]);
+
+  // Mouse Wheel & Drag-to-scroll support (Portfolio method)
+  useEffect(() => {
+    const el = thumbnailRef.current;
+    if (!el) return;
+
+    const onWheel = (e) => {
+      const delta = e.deltaY !== 0 ? e.deltaY : e.deltaX;
+      if (delta === 0) return;
+      e.preventDefault();
+      el.scrollBy({
+        left: delta * 2,
+        behavior: "auto",
+      });
+    };
+
+    let isDown = false;
+    let startX = 0;
+    let scrollStart = 0;
+
+    const onMouseDown = (e) => {
+      isDown = true;
+      startX = e.pageX - el.offsetLeft;
+      scrollStart = el.scrollLeft;
+    };
+
+    const onMouseLeave = () => {
+      isDown = false;
+    };
+
+    const onMouseUp = () => {
+      isDown = false;
+    };
+
+    const onMouseMove = (e) => {
+      if (!isDown) return;
+      const x = e.pageX - el.offsetLeft;
+      const walk = (x - startX) * 1.5;
+      if (Math.abs(walk) > 5) {
+        e.preventDefault();
+        el.scrollLeft = scrollStart - walk;
+      }
+    };
+
+    el.addEventListener("wheel", onWheel, { passive: false });
+    el.addEventListener("mousedown", onMouseDown);
+    el.addEventListener("mouseleave", onMouseLeave);
+    el.addEventListener("mouseup", onMouseUp);
+    el.addEventListener("mousemove", onMouseMove);
+
+    return () => {
+      el.removeEventListener("wheel", onWheel);
+      el.removeEventListener("mousedown", onMouseDown);
+      el.removeEventListener("mouseleave", onMouseLeave);
+      el.removeEventListener("mouseup", onMouseUp);
+      el.removeEventListener("mousemove", onMouseMove);
+    };
+  }, []);
+
+  const handleThumbnailClick = (e, index) => {
+    e.stopPropagation();
+    setCurrentIndex(index);
+    scrollThumbnailIntoView(index);
+  };
+
   const prev = (e) => {
     e.stopPropagation();
     setCurrentIndex((i) => (i === 0 ? allImages.length - 1 : i - 1));
@@ -68,7 +182,7 @@ export default function GalleryCard({ src, alt = "Gallery image", onClick }) {
       <div className="relative w-full h-[260px] sm:h-[280px] xl:h-[24rem] shrink-0">
         <img
           src={allImages[currentIndex]}
-          alt={alt}
+          alt={currentAlt}
           className="
           w-full  h-full object-cover object-top
           transition-transform duration-700"
@@ -107,24 +221,29 @@ export default function GalleryCard({ src, alt = "Gallery image", onClick }) {
             px-3 pb-5 pt-3 
           "
           >
-            <div className=" flex justify-start gap-2 overflow-x-auto flex-nowrap scrollbar-hide ">
+            <div
+              ref={thumbnailRef}
+              className="flex justify-start gap-3 overflow-x-auto flex-nowrap cursor-grab active:cursor-grabbing select-none scrollbar-hide pb-1"
+              style={{
+                scrollbarWidth: 'none',
+                msOverflowStyle: 'none',
+                WebkitOverflowScrolling: 'touch',
+              }}
+            >
               {allImages.map((img, index) => (
                 <button
                   key={index}
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    setCurrentIndex(index);
-                  }}
-                  className={`h-[10vh] w-[12vh] sm:h-[10vh] flex-shrink-0  rounded-sm overflow-hidden border
+                  onClick={(e) => handleThumbnailClick(e, index)}
+                  className={`h-[10vh] w-[13vh] sm:h-[10vh] flex-shrink-0 rounded-sm overflow-hidden border transition-all duration-300
                   ${index === currentIndex
                       ? "border-blue-500"
-                      : "border-white/30"
+                    : "border-white/30"
                     }`}
                 >
                   <img
                     src={img}
-                    className="h-[10vh] w-[12vh]  sm:h-[10vh]  object-cover"
-                    alt=""
+                    className="h-[10vh] w-[13vh] sm:h-[10vh] object-cover pointer-events-none"
+                    alt={`${cardTitle} thumbnail ${index + 1}`}
                   />
                 </button>
               ))}

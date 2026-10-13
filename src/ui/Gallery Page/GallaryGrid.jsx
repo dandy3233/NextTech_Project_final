@@ -10,9 +10,9 @@ export default function GalleryGrid({ items, onItemClick }) {
     ">
       {items.map((src, index) => (
         <GalleryCard
-          key={index}
+          key={src?._id || src?.id || index}
           src={src}
-          alt={`Gallery image ${index + 1}`}
+          alt={src?.title ? src.title : `Gallery item ${index + 1}`}
           onClick={() => onItemClick?.(src, index)}
         />
       ))}
