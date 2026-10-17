@@ -74,13 +74,13 @@ const Navbar = () => {
 
               {/* Right Side: Social Media Icons */}
               <div className="flex items-center gap-[1rem] text-white ml-auto mr-6">
-                <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
+                <a href="https://web.facebook.com/profile.php?id=61595294197455" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
                   <FaFacebookF className="cursor-pointer hover:text-primary transition-colors text-base" />
                 </a>
-                <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+                <a href="https://www.instagram.com/nexttech435/" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
                   <FaInstagram className="cursor-pointer hover:text-primary transition-colors text-base" />
                 </a>
-                <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" aria-label="Twitter">
+                <a href="https://x.com/nexttech22" target="_blank" rel="noopener noreferrer" aria-label="X (Twitter)">
                   <FaTwitter className="cursor-pointer hover:text-primary transition-colors text-base" />
                 </a>
                 <a href="https://nexttech.com" target="_blank" rel="noopener noreferrer" aria-label="Website">
@@ -197,6 +197,18 @@ United Arab Emirates</p>
                 <HiOutlineMailOpen size={20} />
               </div>
               <p className="text-base sm:text-lg text-gray-700 font-medium break-all">info@nextechgtfz.com</p>
+            </div>
+
+            <div className="flex justify-center items-center gap-4 pt-2">
+              <a href="https://web.facebook.com/profile.php?id=61595294197455" target="_blank" rel="noopener noreferrer" aria-label="Facebook" className="w-10 h-10 rounded-full bg-white border border-primary/20 flex items-center justify-center text-secondary hover:text-primary transition-colors">
+                <FaFacebookF size={16} />
+              </a>
+              <a href="https://www.instagram.com/nexttech435/" target="_blank" rel="noopener noreferrer" aria-label="Instagram" className="w-10 h-10 rounded-full bg-white border border-primary/20 flex items-center justify-center text-secondary hover:text-primary transition-colors">
+                <FaInstagram size={16} />
+              </a>
+              <a href="https://x.com/nexttech22" target="_blank" rel="noopener noreferrer" aria-label="X (Twitter)" className="w-10 h-10 rounded-full bg-white border border-primary/20 flex items-center justify-center text-secondary hover:text-primary transition-colors">
+                <FaTwitter size={16} />
+              </a>
             </div>
           </div>
 

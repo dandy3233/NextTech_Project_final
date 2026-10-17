@@ -7,19 +7,19 @@ export const footerData = {
     email: "info@nextechgtfz.com"
   },
   socials: [
-    { id: 1, icon: "FaFacebookF", link: "#" },
-    { id: 2, icon: "FaTwitter", link: "#" },
-    { id: 3, icon: "FaBehance", link: "#" },
-    { id: 4, icon: "FaInstagram", link: "#" },
+    { id: 1, name: "Facebook", icon: "FaFacebookF", link: "https://web.facebook.com/profile.php?id=61595294197455" },
+    { id: 2, name: "X (Twitter)", icon: "FaTwitter", link: "https://x.com/nexttech22" },
+    { id: 3, name: "Instagram", icon: "FaInstagram", link: "https://www.instagram.com/nexttech435/" },
+    { id: 4, icon: "FaBehance", link: "#" },
     { id: 5, icon: "FaGlobe", link: "#" }
   ],
-  categories: [
-    { id: 1, name: "Engineering Solutions", link: "#" },
-    { id: 2, name: "Technology Services", link: "#" },
-    { id: 3, name: "ERP Systems", link: "#" },
-    { id: 4, name: "Service 4", link: "#" },
-    { id: 5, name: "Service 5", link: "#" }
-  ],
+  // categories: [
+  //   { id: 1, name: "Engineering Solutions", link: "#" },
+  //   { id: 2, name: "Technology Services", link: "#" },
+  //   { id: 3, name: "ERP Systems", link: "#" },
+  //   { id: 4, name: "Service 4", link: "#" },
+  //   { id: 5, name: "Service 5", link: "#" }
+  // ],
   quickLinks: [
     { id: 1, name: "Home", link: "/" },
     { id: 2, name: "About Us", link: "/aboutus" },

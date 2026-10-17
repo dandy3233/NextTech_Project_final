@@ -1,6 +1,6 @@
 import { MdLocationOn, MdEmail } from "react-icons/md";
 import { FiPhone } from "react-icons/fi";
-import { FaFacebookF, FaLinkedinIn, FaTwitter, FaInstagram } from "react-icons/fa";
+import { FaFacebookF, FaTwitter, FaInstagram } from "react-icons/fa";
 
 export const contactInfo = {
   title: "Get In Touch",
@@ -26,10 +26,9 @@ export const contactInfo = {
     },
   ],
   socials: [
-    { id: 1, name: "Facebook", icon: FaFacebookF, link: "https://facebook.com" },
-    { id: 2, name: "LinkedIn", icon: FaLinkedinIn, link: "https://linkedin.com" },
-    { id: 3, name: "Twitter", icon: FaTwitter, link: "https://twitter.com" },
-    { id: 4, name: "Instagram", icon: FaInstagram, link: "https://instagram.com" },
+    { id: 1, name: "Facebook", icon: FaFacebookF, link: "https://web.facebook.com/profile.php?id=61595294197455" },
+    { id: 2, name: "X (Twitter)", icon: FaTwitter, link: "https://x.com/nexttech22" },
+    { id: 3, name: "Instagram", icon: FaInstagram, link: "https://www.instagram.com/nexttech435/" },
   ],
   mapUrl: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15762.671151608!2d38.775336!3d9.002447!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x164b850020000001%3A0x671391629863a890!2sBole%2C%20Addis%20Ababa!5e0!3m2!1sen!2set!4v1700000000000!5m2!1sen!2set", // Replace with your actual embed URL
 }; 

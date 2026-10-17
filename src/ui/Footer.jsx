@@ -67,6 +67,9 @@ const Footer = () => {
                   <a
                     key={social.id}
                     href={social.link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={social.name || "Social Media"}
                     className="text-tertiary hover:text-primary text-lg transition-all"
                   >
                     {iconMap[social.icon]}
